@@ -14,4 +14,13 @@
     <string name="timer_header">Timer</string>
     <string name="presets_header">Preset Timers</string>
     <string name="presets_text">Presets</string>
+    <string name="back_text">Back</string>
+
+    <!-- Custom Sounds-->
+    <string-array name="custom_sounds">
+        <item>Chime</item>
+        <item>Alarm</item>
+        <item>Radar</item>
+        <item>Signal</item>
+    </string-array>
 </resources>

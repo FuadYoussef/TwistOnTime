@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TwistOnTime">
         <activity
+            android:name=".PresetTimerScreen"
+            android:label="@string/title_activity_preset_timer_screen"
+            android:theme="@style/Theme.TwistOnTime.NoActionBar"></activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.TwistOnTime.NoActionBar">

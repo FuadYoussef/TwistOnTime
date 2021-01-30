@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TwistOnTime">
         <activity
+            android:name=".CustomizeNotificationScreen"
+            android:label="CustomizeNotificationScreen"
+            android:theme="@style/Theme.TwistOnTime.NoActionBar"></activity>
+        <activity
+            android:name=".CustomizeRepeatScreen"
+            android:label="CustomizeRepeatScreen"
+            android:theme="@style/Theme.TwistOnTime.NoActionBar"></activity>
+        <activity
             android:name=".CustomizeSoundsScreen"
             android:label="CustomizeSoundsScreen"
             android:theme="@style/Theme.TwistOnTime.NoActionBar"></activity>

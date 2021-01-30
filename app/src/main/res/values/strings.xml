@@ -14,6 +14,10 @@
     <string name="timer_header">Timer</string>
     <string name="presets_header">Preset Timers</string>
     <string name="presets_text">Presets</string>
+
+    <string name="sound_screen_text">Change Sound</string>
+    <string name="repeat_screen_text">Change Repeat</string>
+    <string name="notification_screen_text">Set Notifications</string>
     <string name="back_text">Back</string>
 
     <!-- Custom Sounds-->
@@ -22,5 +26,23 @@
         <item>Alarm</item>
         <item>Radar</item>
         <item>Signal</item>
+    </string-array>
+
+    <!-- Custom Repeats-->
+    <string-array name="custom_repeat_settings">
+        <item>Never</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Custom</item>
+    </string-array>
+
+    <!-- Custom Notifications-->
+    <string-array name="custom_notification_settings">
+        <item>Never</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Custom</item>
     </string-array>
 </resources>

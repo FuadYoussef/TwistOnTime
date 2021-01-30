@@ -69,6 +69,7 @@ public class CustomizeSoundsScreen extends AppCompatActivity {
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(sounds_array[i]);
             radioButton.setId(i);
+            radioButton.setTextSize((int) getResources().getDimension(R.dimen.boxes_text_font_size));
             rprms= new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             rgp.addView(radioButton, rprms);
             if (sounds_array[i].equals(defaultSelectedSound)) {

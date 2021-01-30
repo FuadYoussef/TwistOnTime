@@ -23,10 +23,24 @@ import android.widget.RadioGroup;
 
 public class CustomizeSoundsScreen extends AppCompatActivity {
 
+    /**
+     * onCreate expects an extra string in the intent that contains the sound that should be pre-selected
+     * but will default to the first sound option if nothing is passed in
+     * back button returns the selected sounds as a string
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customize_sounds_screen);
+
+        // get default sounds
+        String defaultSelectedSound;
+        if (getIntent().hasExtra("DEFAULT_SELECTED_SOUND")) {
+            defaultSelectedSound = getIntent().getStringExtra("DEFAULT_SELECTED_SOUND");
+        } else {
+            defaultSelectedSound = null;
+        }
 
         Button preset_button = (Button)findViewById(R.id.customizeSoundsBackButton);
         preset_button.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +71,10 @@ public class CustomizeSoundsScreen extends AppCompatActivity {
             radioButton.setId(i);
             rprms= new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             rgp.addView(radioButton, rprms);
-            if (i == 0) {
+            if (sounds_array[i].equals(defaultSelectedSound)) {
+                rgp.check(i);
+            }
+            if (defaultSelectedSound == null && i == 0) {
                 rgp.check(0);
             }
         }

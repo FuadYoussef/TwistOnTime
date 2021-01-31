@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup_border"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/customize_repeat_popup_text"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="@dimen/header_font_size" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="151dp"
+        android:orientation="horizontal">
+
+        <NumberPicker
+            android:id="@+id/repeat_num_picker"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/time_options_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/closePopupBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_repeat_button_text" />
+
+</LinearLayout>

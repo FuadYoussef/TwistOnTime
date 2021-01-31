@@ -19,6 +19,8 @@
     <string name="repeat_screen_text">Change Repeat</string>
     <string name="notification_screen_text">Set Notifications</string>
     <string name="back_text">Back</string>
+    <string name="customize_repeat_popup_text">Repeat Every</string>
+    <string name="set_repeat_button_text">Set Repeat</string>
 
     <!-- Custom Sounds-->
     <string-array name="custom_sounds">
@@ -45,5 +47,13 @@
         <item>30 Minutes Before</item>
         <item>1 Hour Before</item>
         <item>Custom</item>
+    </string-array>
+
+    <!-- Custom Repeat Options-->
+    <string-array name="custom_repeat_options">
+        <item>Day(s)</item>
+        <item>Week(s)</item>
+        <item>Month(s)</item>
+        <item>Year(s)</item>
     </string-array>
 </resources>

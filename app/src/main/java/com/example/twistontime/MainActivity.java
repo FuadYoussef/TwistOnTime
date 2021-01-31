@@ -29,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, PresetTimerScreen.class));
             }
         });
+        Button create_button = (Button)findViewById(R.id.createNewButton);
+        create_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CreateTimerScreen.class));
+            }
+        });
     }
 
     @Override

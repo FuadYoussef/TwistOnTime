@@ -90,6 +90,12 @@ public class CustomizeRepeatScreen extends AppCompatActivity {
             if (repeat_settings_array[i].equals(defaultSelectedRepeat)) {
                 rgp.check(i);
             }
+            if (defaultSelectedRepeat != null && defaultSelectedRepeat.contains("Custom") && repeat_settings_array[i].toString().contains("Custom")) {
+                String[] words = defaultSelectedRepeat.split(" ");
+                String newText = words[0] + "\n" + words[1] + " " + words[2] + "\n" + words[3];
+                radioButton.setText(newText);
+                radioButton.setChecked(true);
+            }
             if (defaultSelectedRepeat == null && i == 0) {
                 rgp.check(0);
             }
@@ -150,15 +156,13 @@ public class CustomizeRepeatScreen extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                int buttons = rgp.getChildCount();
-                                System.out.println(buttons);
-                                for (int i = 0; i < buttons; i++) {
+                                int numButtons = rgp.getChildCount();
+                                for (int i = 0; i < numButtons; i++) {
                                     View o = rgp.getChildAt(i);
                                     if (o instanceof RadioButton) {
                                         RadioButton rb = (RadioButton)o;
                                         if (rb.getText().toString().contains("Custom")) {
-                                            System.out.println(dropdown.getSelectedItem().toString());
-                                            String updatedText = "Every \n" + picker1.getValue() + " " + dropdown.getSelectedItem().toString() + "\n (Custom)";
+                                            String updatedText = "Every\n" + picker1.getValue() + " " + dropdown.getSelectedItem().toString() + "\n(Custom)";
                                             rb.setText(updatedText);
                                         }
                                     }

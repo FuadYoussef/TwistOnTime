@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CreateTimerScreen extends AppCompatActivity {
+public class EditTimerScreen extends AppCompatActivity {
 
     Timer timer = new Timer();
     class Timer {
@@ -24,7 +24,7 @@ public class CreateTimerScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_timer_screen);
+        setContentView(R.layout.activity_edit_timer_screen);
 
         CheckBox preset = (CheckBox) findViewById(R.id.checkBox);
         preset.setOnClickListener(new View.OnClickListener() {
@@ -38,35 +38,35 @@ public class CreateTimerScreen extends AppCompatActivity {
         repeat_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateTimerScreen.this, CustomizeRepeatScreen.class));
+                startActivity(new Intent(EditTimerScreen.this, CustomizeRepeatScreen.class));
             }
         });
         Button notification_button = (Button)findViewById(R.id.addNotificationButton);
         notification_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateTimerScreen.this, CustomizeNotificationScreen.class));
+                startActivity(new Intent(EditTimerScreen.this, CustomizeNotificationScreen.class));
             }
         });
         Button sound_button = (Button)findViewById(R.id.changeSoundButton);
         sound_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateTimerScreen.this, CustomizeSoundsScreen.class));
+                startActivity(new Intent(EditTimerScreen.this, CustomizeSoundsScreen.class));
             }
         });
         Button submit_button = (Button)findViewById(R.id.submit);
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateTimerScreen.this, MainActivity.class));
+                startActivity(new Intent(EditTimerScreen.this, MainActivity.class));
             }
         });
         Button back_button = (Button)findViewById(R.id.back);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateTimerScreen.this, MainActivity.class));
+                startActivity(new Intent(EditTimerScreen.this, MainActivity.class));
             }
         });
     }

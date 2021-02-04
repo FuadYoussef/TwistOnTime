@@ -30,6 +30,10 @@
             android:label="CreateTimerScreen"
             android:theme="@style/Theme.TwistOnTime.NoActionBar"></activity>
         <activity
+            android:name=".EditTimerScreen"
+            android:label="EditTimerScreen"
+            android:theme="@style/Theme.TwistOnTime.NoActionBar"></activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.TwistOnTime.NoActionBar">

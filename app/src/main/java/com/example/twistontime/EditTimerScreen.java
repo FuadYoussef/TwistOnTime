@@ -25,7 +25,7 @@ public class EditTimerScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_timer_screen);
-
+        timer.name = "Fake Timer Name";
         CheckBox preset = (CheckBox) findViewById(R.id.checkBox);
         preset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +34,7 @@ public class EditTimerScreen extends AppCompatActivity {
                 System.out.println(timer.preset);
             }});
         EditText name = (EditText) findViewById(R.id.timerName);
+        name.setText(timer.name);
         Button repeat_button = (Button)findViewById(R.id.changeRepeatButton);
         repeat_button.setOnClickListener(new View.OnClickListener() {
             @Override

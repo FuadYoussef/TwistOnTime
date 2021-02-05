@@ -63,4 +63,15 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/fakeTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fake Timer to Edit"
+        app:layout_constraintBottom_toTopOf="@+id/presetButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerHeader"
+        app:layout_constraintVertical_bias="0.108" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

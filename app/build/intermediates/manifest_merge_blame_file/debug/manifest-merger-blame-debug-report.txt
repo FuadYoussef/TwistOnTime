@@ -1,0 +1,100 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.twistontime"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml
+10
+11    <application
+11-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:5:5-46:19
+12        android:allowBackup="true"
+12-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.1.0] C:\Users\Peyton\.gradle\caches\transforms-2\files-2.1\ae31cc97a3f9383e0242537d69427d3a\core-1.1.0\AndroidManifest.xml:24:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:7:9-43
+16        android:label="@string/app_name"
+16-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:8:9-41
+17        android:roundIcon="@mipmap/ic_launcher_round"
+17-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:9:9-54
+18        android:supportsRtl="true"
+18-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:10:9-35
+19        android:testOnly="true"
+20        android:theme="@style/Theme.TwistOnTime" >
+20-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:11:9-49
+21        <activity
+21-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:12:9-15:77
+22            android:name="com.example.twistontime.CustomizeNotificationScreen"
+22-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:13:13-56
+23            android:label="CustomizeNotificationScreen"
+23-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:14:13-56
+24            android:theme="@style/Theme.TwistOnTime.NoActionBar" />
+24-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:15:13-65
+25        <activity
+25-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:16:9-19:77
+26            android:name="com.example.twistontime.CustomizeRepeatScreen"
+26-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:17:13-50
+27            android:label="CustomizeRepeatScreen"
+27-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:18:13-50
+28            android:theme="@style/Theme.TwistOnTime.NoActionBar" />
+28-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:19:13-65
+29        <activity
+29-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:20:9-23:77
+30            android:name="com.example.twistontime.CustomizeSoundsScreen"
+30-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:21:13-50
+31            android:label="CustomizeSoundsScreen"
+31-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:22:13-50
+32            android:theme="@style/Theme.TwistOnTime.NoActionBar" />
+32-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:23:13-65
+33        <activity
+33-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:24:9-27:77
+34            android:name="com.example.twistontime.PresetTimerScreen"
+34-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:25:13-46
+35            android:label="@string/title_activity_preset_timer_screen"
+35-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:26:13-71
+36            android:theme="@style/Theme.TwistOnTime.NoActionBar" />
+36-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:27:13-65
+37        <activity
+37-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:28:9-31:77
+38            android:name="com.example.twistontime.CreateTimerScreen"
+38-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:29:13-46
+39            android:label="CreateTimerScreen"
+39-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:30:13-46
+40            android:theme="@style/Theme.TwistOnTime.NoActionBar" />
+40-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:31:13-65
+41        <activity
+41-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:32:9-35:77
+42            android:name="com.example.twistontime.EditTimerScreen"
+42-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:33:13-44
+43            android:label="EditTimerScreen"
+43-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:34:13-44
+44            android:theme="@style/Theme.TwistOnTime.NoActionBar" />
+44-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:35:13-65
+45        <activity
+45-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:36:9-45:20
+46            android:name="com.example.twistontime.MainActivity"
+46-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:37:13-41
+47            android:label="@string/app_name"
+47-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:38:13-45
+48            android:theme="@style/Theme.TwistOnTime.NoActionBar" >
+48-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:39:13-65
+49            <intent-filter>
+49-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:40:13-44:29
+50                <action android:name="android.intent.action.MAIN" />
+50-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:41:17-69
+50-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:41:25-66
+51
+52                <category android:name="android.intent.category.LAUNCHER" />
+52-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:43:17-77
+52-->C:\Users\Peyton\Documents\TwistOnTime\app\src\main\AndroidManifest.xml:43:27-74
+53            </intent-filter>
+54        </activity>
+55    </application>
+56
+57</manifest>

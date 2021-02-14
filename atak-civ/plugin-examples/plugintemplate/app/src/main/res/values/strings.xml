@@ -5,6 +5,10 @@
     <!-- description -->
     <string name="app_desc">Timer Plugin by GaTech Junior Design</string>
 
+    <string name="home_header">Timers</string>
+
+    <string name="dummy_timer">Fake Timer</string>
+
 
 
 

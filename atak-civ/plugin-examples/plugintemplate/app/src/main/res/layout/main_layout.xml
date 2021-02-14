@@ -1,21 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fadeScrollbars="false"
     android:layout_marginLeft="3dp"
-    android:layout_marginRight="3dp">
+    android:layout_marginRight="3dp"
+    android:fadeScrollbars="false">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/main_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/home_header" />
+
+        <ScrollView
+            android:id="@+id/timer_frame"
+            android:layout_below="@+id/main_header"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="64dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+                <LinearLayout
+                    android:id="@+id/timer_zone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/fake_timer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dummy_timer" />
+                </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fuad Test" />
-    </LinearLayout>
-</ScrollView>
+            android:layout_below="@id/timer_frame"
+            android:layout_marginTop="-32dp"
+            android:layout_marginLeft="32dp"
+
+            android:text="Button" />
+
+</RelativeLayout>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginLeft="3dp"
     android:layout_marginRight="3dp"
     android:fadeScrollbars="false">
@@ -22,27 +22,29 @@
 
         <ScrollView
             android:id="@+id/timer_frame"
-            android:layout_below="@+id/main_header"
             android:layout_width="match_parent"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="64dp"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
+            android:layout_below="@+id/main_header"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="128dp"
+            android:background="#1EFFFFFF">
 
                 <LinearLayout
                     android:id="@+id/timer_zone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/fake_timer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textSize="32dp"
                             android:text="@string/dummy_timer" />
                 </LinearLayout>
         </ScrollView>
@@ -52,9 +54,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/timer_frame"
-            android:layout_marginTop="-32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginTop="-64dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="32dp"
 
-            android:text="Button" />
+            android:text="@string/preset_text" />
 
 </RelativeLayout>

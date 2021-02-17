@@ -16,6 +16,17 @@
     <string name="back_text">Return</string>
 
 
+    <string name="back_button_text">Back</string>
 
+    <string-array name="custom_sounds">
+        <item>Chime</item>
+        <item>Alarm</item>
+        <item>Radar</item>
+        <item>Signal</item>
+    </string-array>
+
+    <string name="change_sounds_header">Change Sounds</string>
+
+    <string name="set_notifications_header">Set Notifications</string>
 
 </resources>

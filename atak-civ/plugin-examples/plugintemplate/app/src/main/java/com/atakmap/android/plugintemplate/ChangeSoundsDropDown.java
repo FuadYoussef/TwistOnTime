@@ -21,15 +21,16 @@ import java.util.Arrays;
 /**
  * The intent used when calling ChangeSoundsDropDown must contain a extra string with the name
  * "PAGE_TO_RETURN_TO" with the name of the page that this page should return to. Otherwise this
- * will default to the homescreen
+ * will default to the homescreen. Code in this file also need to be updated to deal with returning to
+ * other screens
  *
  * If the intent has a extra string with the name "DEFAULT_SELECTED_SOUND" then that string will be the default
  * checked string otherwise the first element in the custom_sounds array in the strings.xml file
  * will be checked
  *
  * When the back button is clicked, the change sounds page returns to the home screen. This will
- * have to be changed to the customize sounds screen. When it does this, it creates a new intent to
- * go to the home screen with an extra string called "SELECTED_SOUND" that stores the name of the
+ * have to be changed to the screen that we actuall want to return to. When it does this, it creates a new intent to
+ * go to the desired screen with an extra string called "SELECTED_SOUND" that stores the name of the
  * sound that was selected.
  *
  */

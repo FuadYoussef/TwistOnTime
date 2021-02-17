@@ -22,6 +22,21 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The intent used when calling CustomizeNotificationsDropDown must contain a extra string with the name
+ * "PAGE_TO_RETURN_TO" with the name of the page that this page should return to. Otherwise this
+ * will default to the homescreen. Code in this file also need to be updated to deal with returning to other
+ * screens
+ *
+ * If the intent has a extra string arraylist with the name "DEFAULT_SELECTED_NOTIFICATIONS" then
+ * the notifications corresponding to those strings will be checked otherwise nothing will be checked
+ *
+ * When the back button is clicked, the customize notifications page returns to the home screen. This will
+ * have to be changed to the desired screen to return to. When it does this, it creates a new intent to
+ * go to the desired with an extra string arraylist called "SELECTED_NOTIFICATIONS" that stores the names of the
+ * notificaitons that were selected.
+ *
+ */
 public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         OnStateListener {
 

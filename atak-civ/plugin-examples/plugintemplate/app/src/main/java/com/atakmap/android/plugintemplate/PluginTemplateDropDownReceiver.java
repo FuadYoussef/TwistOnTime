@@ -1,9 +1,11 @@
 
+
 package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.maps.MapView;
@@ -34,6 +36,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         // In this case, using it is not necessary - but I am putting it here to remind
         // developers to look at this Inflator
         templateView = PluginLayoutInflater.inflate(context, R.layout.main_layout, null);
+
     }
 
     /**************************** PUBLIC METHODS *****************************/

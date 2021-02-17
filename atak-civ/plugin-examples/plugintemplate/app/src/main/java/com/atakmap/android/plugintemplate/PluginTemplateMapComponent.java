@@ -18,6 +18,7 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
     private Context pluginContext;
 
     private PluginTemplateDropDownReceiver ddr;
+    private ChangeSoundsDropDown csr;
 
     public void onCreate(final Context context, Intent intent,
             final MapView view) {
@@ -33,6 +34,10 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
         DocumentedIntentFilter ddFilter = new DocumentedIntentFilter();
         ddFilter.addAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
         registerDropDownReceiver(ddr, ddFilter);
+        DocumentedIntentFilter csFilter = new DocumentedIntentFilter();
+        csFilter.addAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
+        csr = new ChangeSoundsDropDown(view, context);
+        registerDropDownReceiver(csr, csFilter);
     }
 
     @Override

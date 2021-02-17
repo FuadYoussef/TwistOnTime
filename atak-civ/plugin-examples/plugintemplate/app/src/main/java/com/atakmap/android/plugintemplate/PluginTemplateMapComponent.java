@@ -34,6 +34,7 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
         DocumentedIntentFilter ddFilter = new DocumentedIntentFilter();
         ddFilter.addAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
         registerDropDownReceiver(ddr, ddFilter);
+        // basically registering the ChangeSoundsDropDown -> need to do this or broadcasting intent won't work
         DocumentedIntentFilter csFilter = new DocumentedIntentFilter();
         csFilter.addAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
         csr = new ChangeSoundsDropDown(view, context);

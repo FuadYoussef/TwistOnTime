@@ -40,20 +40,22 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         // developers to look at this Inflator
         templateView = PluginLayoutInflater.inflate(context, R.layout.main_layout, null);
 
+        // setting the home screen's add button so that when clicked it causes the ChangeSoundsDropDown
+        // to open this is done with the intent shown below and other changes to the PluginTemplateMapComponent
+        // and ChangeSoundsDropDown files
         changeSoundsView = new ChangeSoundsDropDown(getMapView(), pluginContext);
         templateView.findViewById(R.id.add_button)
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((Button)templateView.findViewById(R.id.button)).setText("213");
                         setRetain(true);
                         changeSoundsView.showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                                 HALF_HEIGHT, false);
                         //Intent i2 = new Intent(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
                         //AtakBroadcast.getInstance().sendBroadcast(i2);
-                        Intent i3 = new Intent();
-                        i3.setAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
-                        AtakBroadcast.getInstance().sendBroadcast(i3);
+                        Intent i = new Intent();
+                        i.setAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
+                        AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
     }

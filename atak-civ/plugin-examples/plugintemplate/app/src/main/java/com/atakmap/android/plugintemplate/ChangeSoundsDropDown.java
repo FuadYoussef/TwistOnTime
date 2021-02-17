@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDownReceiver;
+import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
 import com.atakmap.coremap.log.Log;
@@ -19,6 +20,7 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
     public static final String TAG = PluginTemplateDropDownReceiver.class
             .getSimpleName();
 
+    // set up the string so that when called the dropdown reciever knows what to open
     public static final String SHOW_CHANGE_SOUNDS = "com.atakmap.android.plugintemplate.SHOW_CHANGE_SOUNDS";
     private final View templateView;
     private final Context pluginContext;
@@ -57,8 +59,9 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Button b = (Button)templateView.findViewById(R.id.back_button);
-                    b.setText("10");
+                    Intent i = new Intent();
+                    i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                    AtakBroadcast.getInstance().sendBroadcast(i);
                     //TabViewDropDown tabView = new TabViewDropDown(getMapView(), pluginContext);
                     //tabView.showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH, HALF_HEIGHT, false);
 

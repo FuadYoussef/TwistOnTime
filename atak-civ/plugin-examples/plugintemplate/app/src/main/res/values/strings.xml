@@ -25,6 +25,16 @@
         <item>Signal</item>
     </string-array>
 
+    <!-- Custom Notifications-->
+    <string-array name="custom_notification_settings">
+        <item>At Time of Event</item>
+        <item>1 Minute Before</item>
+        <item>10 Minutes Before</item>
+        <item>30 Minutes Before</item>
+        <item>1 Hour Before</item>
+        <item>Custom</item>
+    </string-array>
+
     <string name="change_sounds_header">Change Sounds</string>
 
     <string name="set_notifications_header">Set Notifications</string>

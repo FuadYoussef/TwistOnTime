@@ -88,7 +88,6 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
                 @Override
                 public void onClick(View v) {
                     // find which radio button is checked and get sound
-                    String selectedSound = getChecked();
                     Intent i = getReturnIntent(intent);
                     AtakBroadcast.getInstance().sendBroadcast(i);
                 }
@@ -104,20 +103,17 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
         // if not specified return intent will be set to return to the home screen
         if (toReturn == null) {
             i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-            i.putExtra("SELECTED_SOUND", getChecked());
         } else {
             switch (toReturn) {
                 case "PluginTemplateDropDownReceiver":
                     i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-                    i.putExtra("SELECTED_SOUND", getChecked());
                     break;
                 default:
                     // in case bad input
                     i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-                    i.putExtra("SELECTED_SOUND", getChecked());
             }
         }
-
+        i.putExtra("SELECTED_SOUND", getChecked());
         return i;
     }
 

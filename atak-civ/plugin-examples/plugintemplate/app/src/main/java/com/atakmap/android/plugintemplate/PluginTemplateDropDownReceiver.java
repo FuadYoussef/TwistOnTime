@@ -1,4 +1,3 @@
-
 package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
@@ -31,7 +30,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     /**************************** CONSTRUCTOR *****************************/
 
     public PluginTemplateDropDownReceiver(final MapView mapView,
-            final Context context) {
+                                          final Context context) {
         super(mapView);
         this.pluginContext = context;
 
@@ -51,10 +50,10 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         setRetain(true);
                         changeSoundsView.showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                                 HALF_HEIGHT, false);
-                        //Intent i2 = new Intent(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
-                        //AtakBroadcast.getInstance().sendBroadcast(i2);
                         Intent i = new Intent();
                         i.setAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
+                        i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
+                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
@@ -79,23 +78,10 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, false);
-            /*
-            Button b = (Button)templateView.findViewById(R.id.add_button);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Button b = (Button)templateView.findViewById(R.id.add_button);
-                    b.setText("5");
-                    //TabViewDropDown tabView = new TabViewDropDown(getMapView(), pluginContext);
-                    //tabView.showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH, HALF_HEIGHT, false);
-
-                    Intent i2 = new Intent(
-                            ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
-                    AtakBroadcast.getInstance().sendBroadcast(i2);
-
-                }
-            });
-            */
+            if (intent.getStringExtra("SELECTED_SOUND") != null) {
+                Button b = (Button)templateView.findViewById(R.id.add_button);
+                b.setText(intent.getStringExtra("SELECTED_SOUND"));
+            }
         }
     }
 

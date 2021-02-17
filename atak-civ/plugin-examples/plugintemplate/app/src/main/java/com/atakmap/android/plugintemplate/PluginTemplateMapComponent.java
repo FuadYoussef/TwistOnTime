@@ -1,4 +1,3 @@
-
 package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
@@ -21,7 +20,7 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
     private ChangeSoundsDropDown csr;
 
     public void onCreate(final Context context, Intent intent,
-            final MapView view) {
+                         final MapView view) {
 
         context.setTheme(R.style.ATAKPluginTheme);
         super.onCreate(context, intent, view);

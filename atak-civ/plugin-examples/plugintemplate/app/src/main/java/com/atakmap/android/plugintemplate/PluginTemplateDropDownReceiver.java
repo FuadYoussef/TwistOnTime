@@ -66,6 +66,20 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
+
+        templateView.findViewById(R.id.button)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setRetain(true);
+                        // example intent for how to call change sounds
+                        Intent i = new Intent();
+                        i.setAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
+                        i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
+                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
+                        AtakBroadcast.getInstance().sendBroadcast(i);
+                    }
+                });
     }
 
     /**************************** PUBLIC METHODS *****************************/
@@ -87,11 +101,14 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, false);
+            /*
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
                 Button b = (Button)templateView.findViewById(R.id.add_button);
                 b.setText(intent.getStringExtra("SELECTED_SOUND"));
             }
+            */
+
             /*
             // how to process return value from calling CustomizeNotificationsDropDown
             if (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") != null) {

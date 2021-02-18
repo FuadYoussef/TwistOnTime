@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/customize_notification_popup_text"
+        android:textSize="@dimen/header_font_size" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="151dp"
+        android:orientation="horizontal">
+
+        <NumberPicker
+            android:id="@+id/notifications_num_picker"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content" />
+
+        <NumberPicker
+            android:id="@+id/notifications_string_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/setNotificationButton"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:text="@string/set_notification_button_text" />
+
+</LinearLayout>

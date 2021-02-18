@@ -18,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="@string/change_sounds_header" />
+        android:text="@string/change_sounds_header"
+        android:textSize="@dimen/header_font_size" />
 
     <ScrollView
         android:id="@+id/sounds_frame"

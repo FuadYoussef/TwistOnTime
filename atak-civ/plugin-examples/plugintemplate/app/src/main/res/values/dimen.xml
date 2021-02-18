@@ -7,6 +7,7 @@
     <!-- font size that can fit longer text strings, like lat-lon on the nineline screen, which can easily get up to ~26 characters 
          optimally, fields using this value should be auto-resizing text to fit, since it's important that it all show, but in general
          this value should suffice -->
+    <dimen name="header_font_size">24sp</dimen>
 
     <!-- Spinner right-side padding; the default value is too generous for some spinners (ie the location spinner on nineline),
          especially on normal-sized screens, this is a smaller value -->

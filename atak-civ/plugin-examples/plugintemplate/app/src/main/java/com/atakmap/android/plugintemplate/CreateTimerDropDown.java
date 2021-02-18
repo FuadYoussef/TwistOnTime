@@ -44,18 +44,17 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private final View templateView;
     private final Context pluginContext;
 
-    public ChangeSoundsDropDown(final MapView mapView,
+    public CreateTimerDropDown(final MapView mapView,
                                 final Context context) {
         super(mapView);
         this.pluginContext = context;
 
+
         // Remember to use the PluginLayoutInflator if you are actually inflating a custom view
         // In this case, using it is not necessary - but I am putting it here to remind
         // developers to look at this Inflator
-        templateView = PluginLayoutInflater.inflate(context, R.layout.change_sounds_layout, null);
+        templateView = PluginLayoutInflater.inflate(context, R.layout.create_timer_layout, null);
 
-
-        createRadioButtons();
     }
 
     /**************************** PUBLIC METHODS *****************************/
@@ -67,31 +66,28 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
 
     @Override
     public void onReceive(Context context, final Intent intent) {
+        Log.d(TAG, "here");
 
         final String action = intent.getAction();
         if (action == null)
             return;
 
-        if (action.equals(SHOW_CHANGE_SOUNDS)) {
+        if (action.equals(SHOW_CREATE)) {
 
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, false);
 
-            // ---- set up radio buttons ----
-            String defaultSelectedSound = getDefaultSound(intent);
-            checkButton(defaultSelectedSound);
-
             // set up back button
-            Button b = (Button)templateView.findViewById(R.id.back_button);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // find which radio button is checked and get sound
-                    Intent i = getReturnIntent(intent);
-                    AtakBroadcast.getInstance().sendBroadcast(i);
-                }
-            });
+//            Button b = (Button)templateView.findViewById(R.id.back_button);
+//            b.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // find which radio button is checked and get sound
+//                    Intent i = getReturnIntent(intent);
+//                    AtakBroadcast.getInstance().sendBroadcast(i);
+//                }
+//            });
         }
     }
 
@@ -113,55 +109,10 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                     i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
             }
         }
-        i.putExtra("SELECTED_SOUND", getChecked());
         return i;
     }
 
-    private String getChecked() {
-        RadioGroup rgp = (RadioGroup) templateView.findViewById(R.id.sounds_radio_group);
-        int selectedSoundsId = rgp.getCheckedRadioButtonId();
-        RadioButton selectedRadioButton = templateView.findViewById(selectedSoundsId);
-        String selectedRbText = selectedRadioButton.getText().toString();
-        return selectedRbText;
-    }
 
-    private void checkButton(String toCheck) {
-        String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);
-        int index = Arrays.asList(sounds_array).indexOf(toCheck);
-        RadioGroup rgp = (RadioGroup) templateView.findViewById(R.id.sounds_radio_group);
-        rgp.check(index);
-    }
-
-    private String getDefaultSound(Intent intent) {
-        String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);
-        String defaultSelectedSound;
-        if (intent.hasExtra("DEFAULT_SELECTED_SOUND")) {
-            defaultSelectedSound = intent.getStringExtra("DEFAULT_SELECTED_SOUND");
-            if (!Arrays.asList(sounds_array).contains(defaultSelectedSound)) {
-                defaultSelectedSound = sounds_array[0];
-            }
-        } else {
-            defaultSelectedSound = sounds_array[0];
-        }
-        return defaultSelectedSound;
-    }
-
-    private void createRadioButtons() {
-        String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);
-        RadioGroup rgp = (RadioGroup) templateView.findViewById(R.id.sounds_radio_group);
-        RadioGroup.LayoutParams rprms;
-
-        for(int i = 0; i < sounds_array.length; i++){
-            RadioButton radioButton = new RadioButton(pluginContext);
-            radioButton.setText(sounds_array[i]);
-            radioButton.setId(i);
-            rprms= new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            rgp.addView(radioButton, rprms);
-            if (i == 0) {
-                rgp.check(i);
-            }
-        }
-    }
 
     @Override
     public void onDropDownSelectionRemoved() {

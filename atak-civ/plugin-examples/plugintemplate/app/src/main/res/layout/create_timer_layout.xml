@@ -9,106 +9,172 @@
     android:fadeScrollbars="false">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/title"
         android:text="Create a New Timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:gravity="center"
         android:textSize="24sp"
         />
-
-    <TextView
-        android:id="@+id/textView3"
+    <LinearLayout
+        android:id="@+id/nameZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name: " />
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/title">
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="Name: " />
+        <EditText
+            android:id="@+id/timerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:alpha="1"
+            android:cursorVisible="true"
+            android:ems="10"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="15sp"
+            android:background="@drawable/edit_text_border"/>
+        />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView4"
+    <LinearLayout
+        android:id="@+id/durationZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Duration: " />
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/nameZone">
+        <TextView
+            android:id="@+id/durationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration: "
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp" />
+        <EditText
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="time"
+            android:singleLine="true"
+            android:alpha="1"
+            android:background="@drawable/edit_text_border"/>
+        />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView5"
+    <LinearLayout
+        android:id="@+id/repeatZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Repeat: " />
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/durationZone">
+        <TextView
+            android:id="@+id/repeatText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repeat: "
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp" />
+        <Button
+            android:id="@+id/changeRepeatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView6"
+    <LinearLayout
+        android:id="@+id/soundZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sound: " />
+        android:layout_below="@+id/repeatZone"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textView7"
+        <TextView
+            android:id="@+id/soundText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="Sound: " />
+
+        <Button
+            android:id="@+id/changeSoundButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Change" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/presetZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Preset: " />
-
-    <TextView
-        android:id="@+id/textView8"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/soundZone">
+        <TextView
+            android:id="@+id/presetText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preset: "
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"/>
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/notificationZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notification: " />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="" />
-
-    <Button
-        android:id="@+id/changeSoundButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change" />
-
-    <Button
-        android:id="@+id/addNotificationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add" />
-
-    <Button
-        android:id="@+id/changeRepeatButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add" />
-
-    <EditText
-        android:id="@+id/timerTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="time"
-        android:singleLine="true"
-        android:alpha="1" />
-
-    <EditText
-        android:id="@+id/timerName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        android:layout_marginEnd="16dp"
-        android:alpha="1"
-        android:cursorVisible="true"
-        android:ems="10"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textSize="15sp" />
-
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/presetZone">
+        <TextView
+            android:id="@+id/notificationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification: "
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp" />
+            <Button
+                android:id="@+id/addNotificationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add" />
+    </LinearLayout>
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:text="Submit"
+        android:layout_alignParentBottom="true"/>
 
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back" />
+        android:text="Back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

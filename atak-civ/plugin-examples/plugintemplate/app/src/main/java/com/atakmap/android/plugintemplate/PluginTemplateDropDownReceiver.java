@@ -57,15 +57,14 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                          */
                         // how to call customizeNotificaitonDropDown
                         Intent i = new Intent();
-//                        i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
-//                        ArrayList<String> notifications_to_select = new ArrayList<>();
-//                        notifications_to_select.add("2 Hours Before");
-//                        notifications_to_select.add("3 Hours Before");
-//                        i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", notifications_to_select);
-//                        //i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
-//                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
-//                        AtakBroadcast.getInstance().sendBroadcast(i);
-                        i.setAction
+                        i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
+                        ArrayList<String> notifications_to_select = new ArrayList<>();
+                        notifications_to_select.add("2 Hours Before");
+                        notifications_to_select.add("3 Hours Before");
+                        i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", notifications_to_select);
+                        //i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
+                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
+                        AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
     }

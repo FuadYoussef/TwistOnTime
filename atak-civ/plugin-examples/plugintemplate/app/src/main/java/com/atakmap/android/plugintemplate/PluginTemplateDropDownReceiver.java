@@ -4,7 +4,6 @@ package com.atakmap.android.plugintemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 import android.view.View.OnClickListener;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
@@ -16,7 +15,6 @@ import com.atakmap.android.dropdown.DropDownReceiver;
 
 import com.atakmap.coremap.log.Log;
 
-import java.util.ArrayList;
 
 public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         OnStateListener {

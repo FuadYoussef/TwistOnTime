@@ -9,7 +9,6 @@ import com.atakmap.android.dropdown.DropDownMapComponent;
 
 import com.atakmap.coremap.log.Log;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.ekito.simpleKML.model.Create;
 
 public class PluginTemplateMapComponent extends DropDownMapComponent {
 

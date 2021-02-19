@@ -2,14 +2,10 @@ package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDownReceiver;
@@ -20,7 +16,6 @@ import com.atakmap.coremap.log.Log;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The intent used when calling ChangeSoundsDropDown must contain a extra string with the name

@@ -144,10 +144,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 b.setText(intent.getStringExtra("SELECTED_SOUND"));
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
             }
-            if(intent.getStringArrayExtra("SELECTED_NOTIFICATIONS") !=null) {
-                String[] temp = (intent.getStringArrayExtra("SELECTED_NOTIFICATIONS"));
-                ArrayList<String> act = new ArrayList<>();
-                for (String s: temp) act.add(s);
+            if(intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") !=null) {
+                ArrayList<String> act = (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS"));
                 timer.setNotification(act);
             }
 

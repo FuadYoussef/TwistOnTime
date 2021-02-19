@@ -8,7 +8,6 @@ public class Timer implements Serializable {
     private String name;
     private String duration;
     private String sound;
-    private String repeat;
     private ArrayList<String> notification;
     private boolean preset;
 
@@ -42,14 +41,6 @@ public class Timer implements Serializable {
 
     public void setSound(String sound) {
         this.sound = sound;
-    }
-
-    public String getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(String repeat) {
-        this.repeat = repeat;
     }
 
     public ArrayList<String> getNotification() {

@@ -93,7 +93,12 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
-                Log.d(TAG, "Timer" + timer.getName());
+                Log.d(TAG, "Timer " + timer.getName());
+                Log.d(TAG, "Timer " + timer.getDuration());
+                Log.d(TAG, "Timer " + timer.getSound());
+                for(String s : timer.getNotification()) {
+                    Log.d(TAG, "Timer " + s);
+                }
 
             }
             /*

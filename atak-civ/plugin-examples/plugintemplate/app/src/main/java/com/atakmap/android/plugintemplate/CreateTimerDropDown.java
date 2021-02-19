@@ -17,22 +17,6 @@ import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
 import java.util.ArrayList;
 
-/**
- * The intent used when calling ChangeSoundsDropDown must contain a extra string with the name
- * "PAGE_TO_RETURN_TO" with the name of the page that this page should return to. Otherwise this
- * will default to the homescreen. Code in this file also need to be updated to deal with returning to
- * other screens
- *
- * If the intent has a extra string with the name "DEFAULT_SELECTED_SOUND" then that string will be the default
- * checked string otherwise the first element in the custom_sounds array in the strings.xml file
- * will be checked
- *
- * When the back button is clicked, the change sounds page returns to the home screen. This will
- * have to be changed to the screen that we actuall want to return to. When it does this, it creates a new intent to
- * go to the desired screen with an extra string called "SELECTED_SOUND" that stores the name of the
- * sound that was selected.
- *
- */
 public class CreateTimerDropDown extends DropDownReceiver implements OnStateListener {
 
     public static final String TAG = PluginTemplateDropDownReceiver.class
@@ -43,7 +27,12 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private final View templateView;
     private final Context pluginContext;
     private Timer timer;
-
+    private EditText name;
+    private EditText durationHours;
+    private EditText durationMinutes;
+    private EditText durationSeconds;
+    private CheckBox preset;
+    private Button changeSoundButton;
     public CreateTimerDropDown(final MapView mapView,
                                 final Context context) {
         super(mapView);
@@ -64,11 +53,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
 //                AtakBroadcast.getInstance().sendBroadcast(i);
 //            }
 //        });
-        final EditText name = templateView.findViewById(R.id.timerName);
-        final EditText time  = templateView.findViewById(R.id.duration);
-        final CheckBox preset = templateView.findViewById(R.id.checkBox);
+        this.name = templateView.findViewById(R.id.timerName);
+        this.durationHours  = templateView.findViewById(R.id.durationHours);
+        this.durationMinutes  = templateView.findViewById(R.id.durationMinutes);
+        this.durationSeconds  = templateView.findViewById(R.id.durationSeconds);
+        this.preset = templateView.findViewById(R.id.checkBox);
 
-        Button changeSoundButton = (Button)templateView.findViewById(R.id.changeSoundButton);
+        this.changeSoundButton = (Button)templateView.findViewById(R.id.changeSoundButton);
         changeSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,9 +85,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             public void onClick(View v) {
                 String nameStr = name.getText().toString();
                 timer.setName(nameStr);
-                String duration = time.getText().toString();
-                timer.setDuration(duration);
+                timer.setDuration(durationHours.getText().toString() + ":" +
+                        durationMinutes.getText().toString() + ":" +
+                        durationSeconds.getText().toString());
                 timer.setPreset(preset.isChecked());
+                timer.setMinutes(Integer.parseInt(durationMinutes.getText().toString()));
+                timer.setHours(Integer.parseInt(durationHours.getText().toString()));
+                timer.setSeconds(Integer.parseInt(durationSeconds.getText().toString()));
                 Intent i = new Intent();
                 i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
                 i.putExtra("TIMER", timer);
@@ -135,13 +130,17 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                     HALF_HEIGHT, false);
 
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
-                Button b = (Button)templateView.findViewById(R.id.changeSoundButton);
-                b.setText(intent.getStringExtra("SELECTED_SOUND"));
+                this.changeSoundButton.setText(intent.getStringExtra("SELECTED_SOUND"));
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
-            }
-            if(intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") !=null) {
+            } else if(intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") !=null) {
                 ArrayList<String> act = (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS"));
                 timer.setNotification(act);
+            } else {
+                this.changeSoundButton.setText("Change");
+                this.name.setText("");
+                this.durationHours.setText("");
+                this.durationMinutes.setText("");
+                this.durationSeconds.setText("");
             }
 
         }

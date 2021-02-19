@@ -59,20 +59,40 @@
             android:id="@+id/durationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Duration: "
+            android:layout_marginLeft="15dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp" />
+            android:text="Duration: " />
         <EditText
-            android:id="@+id/duration"
-            android:layout_width="wrap_content"
+            android:id="@+id/durationHours"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:ems="10"
             android:inputType="time"
             android:singleLine="true"
             android:alpha="1"
+            android:hint="hh"
             android:background="@drawable/edit_text_border"/>
         />
+        <EditText
+            android:id="@+id/durationMinutes"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time"
+            android:singleLine="true"
+            android:alpha="1"
+            android:hint="mm"
+            android:background="@drawable/edit_text_border"/>
+        <EditText
+            android:id="@+id/durationSeconds"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time"
+            android:singleLine="true"
+            android:alpha="1"
+            android:hint="ss"
+            android:background="@drawable/edit_text_border"/>
     </LinearLayout>
 
     <LinearLayout

@@ -91,9 +91,10 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, false);
             // how to process return intent value from calling ChangeSoundsScreen
-            if (intent.getStringExtra("SELECTED_SOUND") != null) {
-                Button b = (Button)templateView.findViewById(R.id.add_button);
-                b.setText(intent.getStringExtra("SELECTED_SOUND"));
+            if (intent.getSerializableExtra("TIMER") != null) {
+                Timer timer = (Timer) intent.getSerializableExtra("TIMER");
+                Log.d(TAG, "Timer" + timer.getName());
+
             }
             /*
             // how to process return value from calling CustomizeNotificationsDropDown

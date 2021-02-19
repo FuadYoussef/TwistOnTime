@@ -17,6 +17,7 @@ import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
 import com.atakmap.coremap.log.Log;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
+import com.ekito.simpleKML.model.Create;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -111,6 +112,9 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
             switch (toReturn) {
                 case "PluginTemplateDropDownReceiver":
                     i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                    break;
+                case "CreateTimerDropDown":
+                    i.setAction(CreateTimerDropDown.SHOW_CREATE);
                     break;
                 default:
                     // in case bad input

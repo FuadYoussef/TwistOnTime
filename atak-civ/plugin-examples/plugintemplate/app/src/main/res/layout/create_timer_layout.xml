@@ -76,31 +76,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/repeatZone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_below="@+id/durationZone">
-        <TextView
-            android:id="@+id/repeatText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Repeat: "
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp" />
-        <Button
-            android:id="@+id/changeRepeatButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/soundZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/repeatZone"
+        android:layout_below="@+id/durationZone"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="0dp"
         android:orientation="horizontal">
@@ -168,13 +147,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+    />
 
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

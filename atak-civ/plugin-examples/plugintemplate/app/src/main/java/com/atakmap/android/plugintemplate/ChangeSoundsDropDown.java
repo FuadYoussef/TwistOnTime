@@ -29,7 +29,7 @@ import java.util.Arrays;
  * will be checked
  *
  * When the back button is clicked, the change sounds page returns to the home screen. This will
- * have to be changed to the screen that we actuall want to return to. When it does this, it creates a new intent to
+ * have to be changed to the screen that we actually want to return to. When it does this, it creates a new intent to
  * go to the desired screen with an extra string called "SELECTED_SOUND" that stores the name of the
  * sound that was selected.
  *

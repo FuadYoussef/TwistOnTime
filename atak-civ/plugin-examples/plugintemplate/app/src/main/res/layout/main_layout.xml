@@ -42,11 +42,17 @@
 
                         <TextView
                             android:id="@+id/fake_timer"
-                            android:layout_width="match_parent"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:textSize="32sp"
+                            android:textSize="10sp"
                             android:text="@string/dummy_timer" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/startTimer"
+                            android:text="Start"/>
                 </LinearLayout>
         </ScrollView>
 

@@ -2,9 +2,14 @@ package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.ipc.AtakBroadcast;
@@ -66,6 +71,26 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
+        templateView.findViewById(R.id.startTimer)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final TextView mTextField = (TextView) templateView.findViewById(R.id.fake_timer);
+                        new CountDownTimer(30000, 1000) {
+
+                            public void onTick(long millisUntilFinished) {
+                                mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                            }
+
+                            public void onFinish() {
+                                mTextField.setText("done!");
+                                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                Ringtone r = RingtoneManager.getRingtone(context, notification);
+                                r.play();
+                            }
+                        }.start();
+                    }
+                });
     }
 
     /**************************** PUBLIC METHODS *****************************/
@@ -119,4 +144,8 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     public void onDropDownClose() {
     }
 
+    public void startTimer(View view) {
+
+
+    }
 }

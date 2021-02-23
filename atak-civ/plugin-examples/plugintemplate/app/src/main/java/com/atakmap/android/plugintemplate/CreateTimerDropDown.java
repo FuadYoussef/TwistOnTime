@@ -66,6 +66,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.putExtra("PAGE_TO_RETURN_TO", "CreateTimerDropDown");
+                i.putExtra("DEFAULT_SELECTED_SOUND", timer.getSound());
                 i.setAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
                 AtakBroadcast.getInstance().sendBroadcast(i);
             }

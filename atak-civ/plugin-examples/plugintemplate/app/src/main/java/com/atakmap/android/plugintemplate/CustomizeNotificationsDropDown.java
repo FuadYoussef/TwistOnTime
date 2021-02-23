@@ -86,7 +86,9 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
                     HALF_HEIGHT, false);
 
             // ---- set up radio buttons ----
+
             ArrayList<String> defaultSelectedNotifications = getDefaultNotifications();
+
             createAndCheckNotifications(defaultSelectedNotifications);
 
             // set up back button
@@ -116,6 +118,9 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
             switch (toReturn) {
                 case "PluginTemplateDropDownReceiver":
                     i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                    break;
+                case "CreateTimerDropDown":
+                    i.setAction(CreateTimerDropDown.SHOW_CREATE);
                     break;
                 default:
                     // in case bad input
@@ -193,8 +198,6 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         // clear screen and broadcast intent
         clearAll();
         AtakBroadcast.getInstance().sendBroadcast(i);
-
-
     }
 
     /*

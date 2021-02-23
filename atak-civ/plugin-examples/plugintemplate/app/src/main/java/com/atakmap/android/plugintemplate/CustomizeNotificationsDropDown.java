@@ -144,7 +144,7 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         for (int i = 0; i < notifications_array.length - 1; i++) {
             CheckBox checkBox = createCheckBox(numBoxes, notifications_array[i], false);
             if (notifications.contains(notifications_array[i])) {
-                notifications.remove(notifications_array[1]);
+                notifications.remove(notifications_array[i]);
                 checkBox.setChecked(true);
             }
         }

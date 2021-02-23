@@ -16,6 +16,7 @@ import com.atakmap.coremap.log.Log;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CreateTimerDropDown extends DropDownReceiver implements OnStateListener {
 
@@ -58,8 +59,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         this.durationMinutes  = templateView.findViewById(R.id.durationMinutes);
         this.durationSeconds  = templateView.findViewById(R.id.durationSeconds);
         this.preset = templateView.findViewById(R.id.checkBox);
-
         this.changeSoundButton = (Button)templateView.findViewById(R.id.changeSoundButton);
+
         changeSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +76,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.putExtra("PAGE_TO_RETURN_TO", "CreateTimerDropDown");
+                i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", timer.getNotification());
                 i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
                 AtakBroadcast.getInstance().sendBroadcast(i);
             }
@@ -84,18 +86,24 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             @Override
             public void onClick(View v) {
                 String nameStr = name.getText().toString();
-                timer.setName(nameStr);
-                timer.setDuration(durationHours.getText().toString() + ":" +
-                        durationMinutes.getText().toString() + ":" +
-                        durationSeconds.getText().toString());
-                timer.setPreset(preset.isChecked());
-                timer.setMinutes(Integer.parseInt(durationMinutes.getText().toString()));
-                timer.setHours(Integer.parseInt(durationHours.getText().toString()));
-                timer.setSeconds(Integer.parseInt(durationSeconds.getText().toString()));
-                Intent i = new Intent();
-                i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-                i.putExtra("TIMER", timer);
-                AtakBroadcast.getInstance().sendBroadcast(i);
+                String durationMinStr = durationMinutes.getText().toString();
+                String durationHrStr = durationHours.getText().toString();
+                String durationSecStr = durationSeconds.getText().toString();
+                if (!durationMinStr.matches("") && !nameStr.matches("") &&
+                        !durationHrStr.matches("") && !durationSecStr.matches("")) {
+                    timer.setName(nameStr);
+                    timer.setDuration(durationHours.getText().toString() + ":" +
+                            durationMinutes.getText().toString() + ":" +
+                            durationSeconds.getText().toString());
+                    timer.setPreset(preset.isChecked());
+                    timer.setMinutes(Integer.parseInt(durationMinStr));
+                    timer.setHours(Integer.parseInt(durationHrStr));
+                    timer.setSeconds(Integer.parseInt(durationSecStr));
+                    Intent i = new Intent();
+                    i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                    i.putExtra("TIMER", timer);
+                    AtakBroadcast.getInstance().sendBroadcast(i);
+                }
             }
         });
         Button back = (Button)templateView.findViewById(R.id.back);
@@ -141,6 +149,10 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.durationHours.setText("");
                 this.durationMinutes.setText("");
                 this.durationSeconds.setText("");
+                this.preset.setSelected(false);
+                this.timer.setSound("Chime");
+                this.changeSoundButton.setText("Chime");
+                this.timer.setNotification(new ArrayList(Arrays.asList("At Time of Event")));
             }
 
         }

@@ -98,6 +98,7 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
 
     private Intent getReturnIntent(Intent intent) {
         String toReturn = intent.getStringExtra("PAGE_TO_RETURN_TO");
+        Log.d(TAG, "return intent: " + toReturn);
 
         Intent i = new Intent();
 
@@ -108,6 +109,9 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
             switch (toReturn) {
                 case "PluginTemplateDropDownReceiver":
                     i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                    break;
+                case "CreateTimerDropDown":
+                    i.setAction(CreateTimerDropDown.SHOW_CREATE);
                     break;
                 default:
                     // in case bad input

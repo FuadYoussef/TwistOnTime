@@ -71,6 +71,16 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
+
+        templateView.findViewById(R.id.preset_button)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent();
+
+                    }
+                });
+
         templateView.findViewById(R.id.startTimer)
                 .setOnClickListener(new OnClickListener() {
                     @Override
@@ -145,7 +155,6 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     }
 
     public void startTimer(View view) {
-
-
     }
+
 }

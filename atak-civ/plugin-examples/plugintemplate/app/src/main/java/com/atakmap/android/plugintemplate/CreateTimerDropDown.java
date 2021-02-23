@@ -151,9 +151,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.durationMinutes.setText("");
                 this.durationSeconds.setText("");
                 this.preset.setSelected(false);
-                this.timer.setSound("Chime");
-                this.changeSoundButton.setText("Chime");
-                this.timer.setNotification(new ArrayList(Arrays.asList("At Time of Event")));
+                String defaultSound = pluginContext.getResources().getStringArray(R.array.custom_sounds)[0];
+                this.timer.setSound(defaultSound);
+                this.changeSoundButton.setText(defaultSound);
+                String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
+                this.timer.setNotification(new ArrayList(Arrays.asList(defaultNotification)));
+
+
             }
 
         }

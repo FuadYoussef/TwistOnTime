@@ -23,7 +23,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     public static final String TAG = PluginTemplateDropDownReceiver.class
             .getSimpleName();
 
-    // set up the string so that when called the dropdown reciever knows what to open
     public static final String SHOW_CREATE = "com.atakmap.android.plugintemplate.CreateTimerDropDown";
     private final View templateView;
     private final Context pluginContext;
@@ -40,20 +39,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         this.pluginContext = context;
         timer = new Timer();
 
-
-        // Remember to use the PluginLayoutInflator if you are actually inflating a custom view
-        // In this case, using it is not necessary - but I am putting it here to remind
-        // developers to look at this Inflator
         templateView = PluginLayoutInflater.inflate(context, R.layout.create_timer_layout, null);
-//        Button changeRepeatButton = (Button)templateView.findViewById(R.id.changeRepeatButton);
-//        changeRepeatButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent();
-//                i.setAction();
-//                AtakBroadcast.getInstance().sendBroadcast(i);
-//            }
-//        });
+
         this.name = templateView.findViewById(R.id.timerName);
         this.durationHours  = templateView.findViewById(R.id.durationHours);
         this.durationMinutes  = templateView.findViewById(R.id.durationMinutes);
@@ -116,7 +103,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 AtakBroadcast.getInstance().sendBroadcast(i);
             }
         });
-
     }
 
     /**************************** PUBLIC METHODS *****************************/
@@ -156,10 +142,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.changeSoundButton.setText(defaultSound);
                 String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
                 this.timer.setNotification(new ArrayList(Arrays.asList(defaultNotification)));
-
-
             }
-
         }
     }
 

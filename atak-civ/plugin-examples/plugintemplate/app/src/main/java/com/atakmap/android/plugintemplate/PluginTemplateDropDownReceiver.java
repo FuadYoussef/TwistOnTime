@@ -87,7 +87,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
-                    HALF_HEIGHT, false);
+                    HALF_HEIGHT, true);
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");

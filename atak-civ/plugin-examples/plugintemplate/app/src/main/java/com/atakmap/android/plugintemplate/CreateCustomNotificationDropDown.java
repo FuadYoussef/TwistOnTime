@@ -74,7 +74,7 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
 
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
-                    HALF_HEIGHT, false);
+                    HALF_HEIGHT, true);
 
             instantiateScreen();
         }

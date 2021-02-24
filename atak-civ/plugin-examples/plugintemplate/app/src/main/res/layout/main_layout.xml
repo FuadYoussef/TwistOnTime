@@ -45,18 +45,18 @@
                             android:background="@drawable/timer_container_layout"
                             android:layout_margin="1dp">
                                 <TextView
-                                    android:id="@+id/fake_timer"
+                                    android:id="@+id/first_timer_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:textSize="18sp"
                                     android:text="@string/dummy_timer"/>
                                 <TextView
-                                    android:id="@+id/fake_timer1"
+                                    android:id="@+id/first_timer_time"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
-                                    android:layout_toRightOf="@+id/fake_timer"
+                                    android:layout_toRightOf="@+id/first_timer_name"
                                     android:textSize="18sp"
                                     android:text="(time left here)"/>
                         </RelativeLayout>

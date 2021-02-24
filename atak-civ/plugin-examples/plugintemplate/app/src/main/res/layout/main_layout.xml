@@ -35,23 +35,117 @@
 
                 <LinearLayout
                     android:id="@+id/timer_zone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="left"
                     android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/fake_timer"
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:textSize="32sp"
-                            android:text="@string/dummy_timer" />
+                            android:background="@color/red">
+                                <TextView
+                                    android:id="@+id/fake_timer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:textSize="18sp"
+                                    android:text="@string/dummy_timer"/>
+                                <TextView
+                                    android:id="@+id/fake_timer1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_toRightOf="@+id/fake_timer"
+                                    android:textSize="18sp"
+                                    android:text="time_here"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/blue">
+                                <TextView
+                                    android:id="@+id/fake_timer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:textSize="18sp"
+                                    android:text="@string/dummy_timer"/>
+                                <TextView
+                                    android:id="@+id/fake_timer1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_toRightOf="@+id/fake_timer"
+                                    android:textSize="18sp"
+                                    android:text="time_here"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/red">
+                                <TextView
+                                    android:id="@+id/fake_timer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:textSize="18sp"
+                                    android:text="@string/dummy_timer"/>
+                                <TextView
+                                    android:id="@+id/fake_timer1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_toRightOf="@+id/fake_timer"
+                                    android:textSize="18sp"
+                                    android:text="time_here"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/blue">
+                                <TextView
+                                    android:id="@+id/fake_timer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:textSize="18sp"
+                                    android:text="@string/dummy_timer"/>
+                                <TextView
+                                    android:id="@+id/fake_timer1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_toRightOf="@+id/fake_timer"
+                                    android:textSize="18sp"
+                                    android:text="time_here"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/red">
+                                <TextView
+                                    android:id="@+id/fake_timer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:textSize="18sp"
+                                    android:text="@string/dummy_timer"/>
+                                <TextView
+                                    android:id="@+id/fake_timer1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_toRightOf="@+id/fake_timer"
+                                    android:textSize="18sp"
+                                    android:text="time_here"/>
+                        </RelativeLayout>
                 </LinearLayout>
+
+
         </ScrollView>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/presets_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/timer_frame"

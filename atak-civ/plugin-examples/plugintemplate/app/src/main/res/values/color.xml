@@ -4,6 +4,10 @@
     <!-- COMMON -->
     <color name="white">#ffffff</color>
     <color name="darker_gray">#121212</color>
+    <color name="red">#ffff0000</color>
+    <color name="blue">#0000ff</color>
+
+
 
     <!-- LED -->
 

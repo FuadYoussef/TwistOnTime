@@ -32,18 +32,20 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="128dp"
         android:background="#1EFFFFFF">
-
         <LinearLayout
             android:id="@+id/preset_zone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/red">
+                android:background="@drawable/timer_container_layout"
+                android:layout_margin="1dp">
                 <TextView
                     android:id="@+id/fake_timer"
                     android:layout_width="wrap_content"
@@ -66,12 +68,13 @@
                     android:layout_margin="10dp"
                     android:layout_toRightOf="@+id/fake_timer1"
                     android:textSize="18sp"
-                    android:text="USE"/>
+                    android:text="+"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue">
+                android:background="@drawable/timer_container_layout"
+                android:layout_margin="1dp">
                 <TextView
                     android:id="@+id/fake_timer"
                     android:layout_width="wrap_content"
@@ -94,7 +97,7 @@
                     android:layout_margin="10dp"
                     android:layout_toRightOf="@+id/fake_timer1"
                     android:textSize="18sp"
-                    android:text="USE"/>
+                    android:text="+"/>
             </RelativeLayout>
 
         </LinearLayout>

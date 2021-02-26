@@ -105,14 +105,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             }
         });
     }
-
-    /**************************** PUBLIC METHODS *****************************/
-
-    public void disposeImpl() {
-    }
-
-    /**************************** INHERITED METHODS *****************************/
-    public void setFields(Timer timer) {
+    private void setFields(Timer timer) {
         this.name.setText(timer.getName());
         this.preset.setChecked(timer.isPreset());
         this.changeSoundButton.setText(timer.getSound());
@@ -120,6 +113,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         this.durationMinutes.setText(String.valueOf(timer.getMinutes()));
         this.durationHours.setText(String.valueOf(timer.getHours()));
     }
+    /**************************** PUBLIC METHODS *****************************/
+
+    public void disposeImpl() {
+    }
+
+    /**************************** INHERITED METHODS *****************************/
+
 
     @Override
     public void onReceive(Context context, final Intent intent) {
@@ -128,8 +128,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             return;
 
         if (action.equals(SHOW_CREATE)) {
-
-            Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
 
@@ -142,7 +140,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             } else if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
                 this.timer = timer;
-                Log.d(TAG, "TIMER: "+timer.getSeconds());
                 setFields(timer);
                 TextView title = templateView.findViewById(R.id.title);
                 title.setText("Edit Timer");

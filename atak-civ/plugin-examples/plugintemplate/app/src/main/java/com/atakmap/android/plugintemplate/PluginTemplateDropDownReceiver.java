@@ -49,7 +49,17 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         // setting the home screen's add button so that when clicked it causes the ChangeSoundsDropDown
         // to open this is done with the intent shown below and other changes to the PluginTemplateMapComponent
         // and ChangeSoundsDropDown files
-
+        templateView.findViewById(R.id.firstTimer).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(globalTimer != null) {
+                    Intent i = new Intent();
+                    i.setAction(CreateTimerDropDown.SHOW_CREATE);
+                    i.putExtra("TIMER", globalTimer);
+                    AtakBroadcast.getInstance().sendBroadcast(i);
+                }
+            }
+        });
         templateView.findViewById(R.id.add_button)
                 .setOnClickListener(new OnClickListener() {
                     @Override

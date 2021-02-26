@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDownReceiver;
@@ -104,13 +105,21 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             }
         });
     }
-
+    private void setFields(Timer timer) {
+        this.name.setText(timer.getName());
+        this.preset.setChecked(timer.isPreset());
+        this.changeSoundButton.setText(timer.getSound());
+        this.durationSeconds.setText(String.valueOf(timer.getSeconds()));
+        this.durationMinutes.setText(String.valueOf(timer.getMinutes()));
+        this.durationHours.setText(String.valueOf(timer.getHours()));
+    }
     /**************************** PUBLIC METHODS *****************************/
 
     public void disposeImpl() {
     }
 
     /**************************** INHERITED METHODS *****************************/
+
 
     @Override
     public void onReceive(Context context, final Intent intent) {
@@ -119,8 +128,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             return;
 
         if (action.equals(SHOW_CREATE)) {
-
-            Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
 
@@ -130,13 +137,20 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             } else if(intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") !=null) {
                 ArrayList<String> act = (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS"));
                 timer.setNotification(act);
-            } else {
-                this.changeSoundButton.setText("Change");
+            } else if (intent.getSerializableExtra("TIMER") != null) {
+                Timer timer = (Timer) intent.getSerializableExtra("TIMER");
+                this.timer = timer;
+                setFields(timer);
+                TextView title = templateView.findViewById(R.id.title);
+                title.setText("Edit Timer");
+
+
+            }else {
                 this.name.setText("");
                 this.durationHours.setText("");
                 this.durationMinutes.setText("");
                 this.durationSeconds.setText("");
-                this.preset.setSelected(false);
+                this.preset.setChecked(false);
                 String defaultSound = pluginContext.getResources().getStringArray(R.array.custom_sounds)[0];
                 this.timer.setSound(defaultSound);
                 this.changeSoundButton.setText(defaultSound);

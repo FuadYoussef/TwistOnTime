@@ -2,6 +2,10 @@ package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -28,6 +32,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
     private final View templateView;
     private final Context pluginContext;
+    private Timer globalTimer;
 
 
     /**************************** CONSTRUCTOR *****************************/
@@ -80,6 +85,29 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
+        templateView.findViewById(R.id.start_timer_button)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final TextView firstTimerTimeTextView = (TextView)templateView.findViewById(R.id.first_timer_time);
+                        new CountDownTimer(globalTimer.getDurationMillis(), 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                int hours = (int)millisUntilFinished/(60*60*1000);
+                                int minutes = (int)(millisUntilFinished-(hours*60*60*1000))/(60*1000);
+                                int seconds = (int)(millisUntilFinished-(hours*60*60*1000)-(minutes*60*1000))/1000;
+                                String duration = hours +":"+ minutes +":"+ seconds;
+                                firstTimerTimeTextView.setText(duration);
+                            }
+
+                            public void onFinish() {
+                                firstTimerTimeTextView.setText("done!");
+                                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                Ringtone r = RingtoneManager.getRingtone(context, notification);
+                                r.play();
+                            }
+                        }.start();
+                    }
+                });
     }
 
     /**************************** PUBLIC METHODS *****************************/
@@ -105,6 +133,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
+                globalTimer = timer;
 
                 String toastMessage = "New timer '" + timer.getName() + "' set.";
                 Toast.makeText(context,toastMessage,Toast.LENGTH_SHORT).show();

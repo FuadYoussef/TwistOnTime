@@ -52,5 +52,6 @@
     <string name="set_notifications_header">Set Notifications</string>
     <string name="customize_notification_popup_text">Set Custom Notification</string>
     <string name="set_notification_button_text">Set Notification</string>
+    <string name="start_timer">Start Timer</string>
 
 </resources>

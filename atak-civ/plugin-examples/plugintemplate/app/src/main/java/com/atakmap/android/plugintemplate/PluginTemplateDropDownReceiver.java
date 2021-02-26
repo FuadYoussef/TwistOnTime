@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
@@ -118,6 +119,9 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         }.start();
                     }
                 });
+
+        LinearLayout ll = templateView.findViewById(R.id.timer_ll);
+        ll.setVisibility(View.GONE);
     }
 
     /**************************** PUBLIC METHODS *****************************/
@@ -161,6 +165,8 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 //                for(String s : timer.getNotification()) {
 //                    Log.d(TAG, "Timer " + s);
 //                }
+                LinearLayout ll = templateView.findViewById(R.id.timer_ll);
+                ll.setVisibility(View.VISIBLE);
 
             }
 

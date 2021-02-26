@@ -21,6 +21,7 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
     private CustomizeNotificationsDropDown cnr;
     private CreateCustomNotificationDropDown ccnr;
     private CreateTimerDropDown ctr;
+    private PresetComponent pcr;
 
 
     public void onCreate(final Context context, Intent intent,
@@ -60,6 +61,12 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
         createTimerFilter.addAction(CreateTimerDropDown.SHOW_CREATE);
         ctr = new CreateTimerDropDown(view, context);
         registerDropDownReceiver(ctr, createTimerFilter);
+
+        // same for PresetComponent
+        DocumentedIntentFilter pcFilter = new DocumentedIntentFilter();
+        pcFilter.addAction(PresetComponent.SHOW_PRESETS_PAGE);
+        pcr = new PresetComponent(view, context);
+        registerDropDownReceiver(pcr, pcFilter);
     }
 
     @Override

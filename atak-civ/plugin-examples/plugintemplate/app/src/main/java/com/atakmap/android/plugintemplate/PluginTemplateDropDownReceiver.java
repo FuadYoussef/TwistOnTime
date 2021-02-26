@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.ipc.AtakBroadcast;
@@ -13,7 +14,9 @@ import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
 
 import com.atakmap.coremap.log.Log;
-
+import android.app.AlertDialog;
+import android.app.AlertDialog;
+import android.widget.Toast;
 
 public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         OnStateListener {
@@ -67,6 +70,16 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
+        templateView.findViewById(R.id.presets_button)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setRetain(true);
+                        Intent i = new Intent();
+                        i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
+                        AtakBroadcast.getInstance().sendBroadcast(i);
+                    }
+                });
     }
 
     /**************************** PUBLIC METHODS *****************************/
@@ -87,18 +100,31 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
+
                     HALF_HEIGHT, true);
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
-                Log.d(TAG, "Timer " + timer.getName());
-                Log.d(TAG, "Timer " + timer.getDuration());
-                Log.d(TAG, "Timer " + timer.getSound());
-                for(String s : timer.getNotification()) {
-                    Log.d(TAG, "Timer " + s);
-                }
+
+                String toastMessage = "New timer '" + timer.getName() + "' set.";
+                Toast.makeText(context,toastMessage,Toast.LENGTH_SHORT).show();
+
+//                Log.d(TAG, "Timer " + timer.getName());
+                TextView firstTimerNameTextView = (TextView)templateView.findViewById(R.id.first_timer_name);
+                firstTimerNameTextView.setText(timer.getName());
+
+//                Log.d(TAG, "Timer " + timer.getDuration());
+                TextView firstTimerTimeTextView = (TextView)templateView.findViewById(R.id.first_timer_time);
+                firstTimerTimeTextView.setText(timer.getDuration());
+
+//                Log.d(TAG, "Timer " + timer.getSound());
+
+//                for(String s : timer.getNotification()) {
+//                    Log.d(TAG, "Timer " + s);
+//                }
 
             }
+
             /*
             // how to process return value from calling CustomizeNotificationsDropDown
             if (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") != null) {

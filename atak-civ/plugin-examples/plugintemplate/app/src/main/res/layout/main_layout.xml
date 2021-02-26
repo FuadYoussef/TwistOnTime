@@ -34,34 +34,59 @@
             android:background="#1EFFFFFF">
 
                 <LinearLayout
-                    android:id="@+id/timer_zone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/fake_timer"
+                    android:layout_gravity="left"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp">
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:textSize="32sp"
-                            android:text="@string/dummy_timer" />
+                            android:background="@drawable/timer_container_layout"
+                            android:layout_margin="1dp">
+                                <TextView
+                                    android:id="@+id/first_timer_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:textSize="18sp"
+                                    android:text="@string/dummy_timer"/>
+                                <TextView
+                                    android:id="@+id/first_timer_time"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_toRightOf="@+id/first_timer_name"
+                                    android:textSize="18sp"
+                                    android:text="(time left here)"/>
+                        </RelativeLayout>
                 </LinearLayout>
+
+
         </ScrollView>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/presets_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/timer_frame"
             android:layout_marginStart="32dp"
             android:layout_marginTop="-64dp"
             android:layout_marginBottom="32dp"
-
             android:text="@string/preset_text" />
 
-        <Button
+<!--        <Button-->
+<!--            android:id="@+id/add_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/timer_frame"-->
+<!--            android:layout_alignEnd="@id/timer_frame"-->
+<!--            android:layout_marginTop="-64dp"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginBottom="32dp"-->
+<!--            android:text="Add New"/>-->
+
+        <ImageButton
             android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +95,7 @@
             android:layout_marginTop="-64dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="32dp"
-            android:text="Add New"/>
+            android:src="@drawable/add_alarm_icon"/>
         <!--This text will be replaced with icon later-->
 
 </RelativeLayout>

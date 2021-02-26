@@ -1,4 +1,3 @@
-
 package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
@@ -56,6 +55,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                          */
                         // how to call customizeNotificaitonDropDown
                         Intent i = new Intent();
+
                         i.setAction(CreateTimerDropDown.SHOW_CREATE);
 //                        i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
 //                        ArrayList<String> notifications_to_select = new ArrayList<>();
@@ -87,7 +87,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
-                    HALF_HEIGHT, false);
+                    HALF_HEIGHT, true);
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");

@@ -35,8 +35,22 @@
         <item>Custom</item>
     </string-array>
 
+    <!-- Custom Notifications Options-->
+    <string-array name="custom_notifications_options_plural">
+        <item>Seconds Before</item>
+        <item>Minutes Before</item>
+        <item>Hours Before</item>
+    </string-array>
+    <string-array name="custom_notifications_options_singluar">
+        <item>Second Before</item>
+        <item>Minute Before</item>
+        <item>Hour Before</item>
+    </string-array>
+
     <string name="change_sounds_header">Change Sounds</string>
 
     <string name="set_notifications_header">Set Notifications</string>
+    <string name="customize_notification_popup_text">Set Custom Notification</string>
+    <string name="set_notification_button_text">Set Notification</string>
 
 </resources>

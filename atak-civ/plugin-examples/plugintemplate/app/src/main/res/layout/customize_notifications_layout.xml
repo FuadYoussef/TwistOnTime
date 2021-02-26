@@ -18,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="@string/set_notifications_header" />
+        android:text="@string/set_notifications_header"
+        android:textSize="@dimen/header_font_size" />
 
     <ScrollView
         android:id="@+id/notifications_frame"

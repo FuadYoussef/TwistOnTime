@@ -2,11 +2,14 @@ package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDownReceiver;
@@ -16,7 +19,9 @@ import com.atakmap.android.plugintemplate.plugin.R;
 import com.atakmap.coremap.log.Log;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The intent used when calling CustomizeNotificationsDropDown must contain a extra string with the name
@@ -44,6 +49,7 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
     private final View templateView;
     private final Context pluginContext;
     private int numBoxes = 0;
+    private Intent intitialIntent;
 
     public CustomizeNotificationsDropDown(final MapView mapView,
                                 final Context context) {
@@ -66,6 +72,8 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
     @Override
     public void onReceive(Context context, final Intent intent) {
 
+        this.intitialIntent = intent;
+
         final String action = intent.getAction();
         if (action == null)
             return;
@@ -73,11 +81,14 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         if (action.equals(SHOW_CHANGE_NOTIFICATIONS)) {
 
             Log.d(TAG, "showing plugin drop down");
+
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
-                    HALF_HEIGHT, false);
+                    HALF_HEIGHT, true);
 
             // ---- set up radio buttons ----
-            ArrayList<String> defaultSelectedNotifications = getDefaultNotifications(intent);
+
+            ArrayList<String> defaultSelectedNotifications = getDefaultNotifications();
+
             createAndCheckNotifications(defaultSelectedNotifications);
 
             // set up back button
@@ -87,7 +98,7 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
                 public void onClick(View v) {
                     // return to desired screen. The return intent also stores an arraylist of the
                     // selected notifications
-                    Intent i = getReturnIntent(intent);
+                    Intent i = getReturnIntent();
                     clearAll();
                     AtakBroadcast.getInstance().sendBroadcast(i);
                 }
@@ -95,8 +106,8 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         }
     }
 
-    private Intent getReturnIntent(Intent intent) {
-        String toReturn = intent.getStringExtra("PAGE_TO_RETURN_TO");
+    private Intent getReturnIntent() {
+        String toReturn = intitialIntent.getStringExtra("PAGE_TO_RETURN_TO");
 
         Intent i = new Intent();
 
@@ -121,14 +132,16 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
     }
 
     /*
-    Gets all checked notifications
+    Gets all checked notifications (except custom)
      */
     private ArrayList<String> getAllChecked() {
         ArrayList<String> currentSelectedNotifications = new ArrayList<>();
         for (int i = 0; i < numBoxes; i++) {
             CheckBox notificationCheckBox = (CheckBox) templateView.findViewById(i);
             if (notificationCheckBox.isChecked()) {
-                currentSelectedNotifications.add(notificationCheckBox.getText().toString());
+                if (!notificationCheckBox.getText().toString().contains("Custom")) {
+                    currentSelectedNotifications.add(notificationCheckBox.getText().toString());
+                }
             }
         }
         return currentSelectedNotifications;
@@ -140,19 +153,51 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
      */
     private void createAndCheckNotifications(ArrayList<String> notifications) {
         String[] notifications_array = pluginContext.getResources().getStringArray(R.array.custom_notification_settings);
+        // keep track of all the strings that have already been used to create notifications (to deal with duplicates)
+        ArrayList<String> usedNotificationStrings = new ArrayList<>();
         // go through all of the notifications in the strings.xml file except the one whose text is "custom"
         for (int i = 0; i < notifications_array.length - 1; i++) {
-            CheckBox checkBox = createCheckBox(numBoxes, notifications_array[i], false);
-            if (notifications.contains(notifications_array[i])) {
-                notifications.remove(notifications_array[i]);
-                checkBox.setChecked(true);
+            if (!usedNotificationStrings.contains(notifications_array[i])) {
+                CheckBox checkBox = createCheckBox(numBoxes, notifications_array[i], false);
+                usedNotificationStrings.add(notifications_array[i]);
+                if (notifications.contains(notifications_array[i])) {
+                    notifications.remove(notifications_array[i]);
+                    checkBox.setChecked(true);
+                }
             }
         }
         for (int i = 0; i < notifications.size(); i++) {
-            createCheckBox(numBoxes, notifications.get(i), true);
+            if (!usedNotificationStrings.contains(notifications.get(i))) {
+                createCheckBox(numBoxes, notifications.get(i), true);
+                usedNotificationStrings.add(notifications.get(i));
+            }
         }
         // create custom checkbox
-        CheckBox customCheckBox = createCheckBox(numBoxes, notifications_array[notifications_array.length - 1], false);
+        final CheckBox customCheckBox = createCheckBox(numBoxes, notifications_array[notifications_array.length - 1], false);
+        // set custom onclick to create a popup that can be used to create a custom notification
+        customCheckBox.setMaxLines(3);
+        customCheckBox.setOnClickListener(new View.OnClickListener()  {
+            @Override
+            public void onClick(View v){
+                if (!customCheckBox.isChecked()) {
+                    return;
+                }
+                // sends intent to popup screen and creates and sends intent to go to that screen
+                goToCreateCustomNotificationScreen();
+            }
+        });
+    }
+
+    private void goToCreateCustomNotificationScreen() {
+        // create a new intent to go to the createCustomNotificationScreen, this intent will mirror the
+        // intent sent to this dropdown so that this downdown returns to the correct location
+        Intent i = new Intent();
+        i.setAction(CreateCustomNotificationDropDown.SHOW_CREATE_CUSTOM_NOTIFICATION_SCREEN);
+        i.putExtra("PAGE_TO_RETURN_TO", intitialIntent.getStringExtra("PAGE_TO_RETURN_TO"));
+        i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", getAllChecked());
+        // clear screen and broadcast intent
+        clearAll();
+        AtakBroadcast.getInstance().sendBroadcast(i);
     }
 
     /*
@@ -174,8 +219,8 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
     /*
     Gets the list of default notificaitons from the intent
      */
-    private ArrayList<String> getDefaultNotifications(Intent intent) {
-        ArrayList<String> defaultSelectedNotifications = intent.getStringArrayListExtra("DEFAULT_SELECTED_NOTIFICATIONS");
+    private ArrayList<String> getDefaultNotifications() {
+        ArrayList<String> defaultSelectedNotifications = intitialIntent.getStringArrayListExtra("DEFAULT_SELECTED_NOTIFICATIONS");
         if (defaultSelectedNotifications == null) {
             defaultSelectedNotifications = new ArrayList<>();
         }

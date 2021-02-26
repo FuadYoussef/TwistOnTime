@@ -122,7 +122,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
 
             Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
-                    HALF_HEIGHT, false);
+                    HALF_HEIGHT, true);
 
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
                 this.changeSoundButton.setText(intent.getStringExtra("SELECTED_SOUND"));

@@ -8,7 +8,7 @@ public class Timer implements Serializable {
     private String name;
     private String duration;
     private String sound;
-    private ArrayList<String> notification;
+    private ArrayList<String> notifications;
     private boolean preset;
     private int hours;
     private int minutes;
@@ -74,12 +74,13 @@ public class Timer implements Serializable {
         this.sound = sound;
     }
 
-    public ArrayList<String> getNotification() {
-        return notification;
+    public ArrayList<String> getNotifications() {
+        return notifications;
     }
 
-    public void setNotification(ArrayList<String> notification) {
-        this.notification = notification;
+    public void setNotifications(ArrayList<String> notifications) {
+        this.notifications = notifications;
     }
+
 }
 

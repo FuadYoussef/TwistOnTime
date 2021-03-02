@@ -3,9 +3,6 @@ package com.atakmap.android.plugintemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,7 +14,6 @@ import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.coremap.log.Log;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
 import java.util.Arrays;
@@ -99,7 +95,6 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
 
         if (action.equals(SHOW_CHANGE_SOUNDS)) {
 
-            Log.d(TAG, "showing plugin drop down");
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
 
@@ -127,7 +122,6 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
      */
     private Intent getReturnIntent(Intent intent) {
         String toReturn = intent.getStringExtra("PAGE_TO_RETURN_TO");
-        Log.d(TAG, "return intent: " + toReturn);
 
 
         Intent i = new Intent();

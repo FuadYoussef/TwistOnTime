@@ -42,7 +42,11 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
 
 
     /**************************** CONSTRUCTOR *****************************/
-
+    /**
+     * Constructor for the dropdown
+     * @param mapView mapview needed for constructor
+     * @param context context needed for constructor
+     */
     public CreateCustomNotificationDropDown(final MapView mapView,
                                           final Context context) {
         super(mapView);
@@ -62,6 +66,15 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
 
     /**************************** INHERITED METHODS *****************************/
 
+    /**
+     * This method sets up the createCustomNotificationsDropDown based on the passed in intent
+     * @param context the context for the screen
+     * @param intent The intent used to call this screen. This intent contains a string extra "PAGE_TO_RETURN_TO" that
+     * is used so that when the CreateCustomNotificationDropDown returns to the CustomizeNotificationsDropDown,
+     * the CustomizeNotificationsDropDown know what page it should return to when it is closed.
+     * It also contains a extra string arraylist of the notifications that are checked. This page adds one
+     * notification to the list and then the list is also passed back to the CustomizeNotificationsDropDown
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -80,8 +93,9 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
         }
     }
 
-    /*
-    Sets up the create custom notification screen
+    /**
+     * This method sets up the create custom notification screen. It sets up the two number pickers
+     * corresponding to the number and units (seconds, minutes, hours) of the notification
      */
     private void instantiateScreen() {
         // set number picker
@@ -136,9 +150,11 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
 
     }
 
-    /*
-    sets up the num picker that corresponds to the units of the notification (seconds, minutes, etc)
-    Takes in boolean plural to determine if values in num picker should be plural or not
+    /**
+     * This method sets up the num picker that corresponds to the units of the notification
+     * (seconds, minutes, etc). It takes in boolean plural to determine if values in num picker
+     * should be plural or not
+     * @param plural boolean used to determine if the units should be plural or singular
      */
     private void setupTimeStringPicker(boolean plural) {
         String[] items;

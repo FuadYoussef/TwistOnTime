@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * The CustomizeNotificationsDropDown should be called when the user is trying to change the notifications
+ * a timer should make. it allows the user to select from a list of possible notifications or create their own
+ *
  * The intent used when calling CustomizeNotificationsDropDown must contain a extra string with the name
  * "PAGE_TO_RETURN_TO" with the name of the page that this page should return to. Otherwise this
  * will default to the homescreen. Code in this file also need to be updated to deal with returning to other
@@ -35,7 +38,7 @@ import java.util.Arrays;
  * When the back button is clicked, the customize notifications page returns to the home screen. This will
  * have to be changed to the desired screen to return to. When it does this, it creates a new intent to
  * go to the desired with an extra string arraylist called "SELECTED_NOTIFICATIONS" that stores the names of the
- * notificaitons that were selected.
+ * notifications that were selected.
  *
  */
 public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
@@ -51,6 +54,11 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
     private int numBoxes = 0;
     private Intent intitialIntent;
 
+    /**
+     * Constructor for the dropdown
+     * @param mapView mapview needed for constructor
+     * @param context context needed for constructor
+     */
     public CustomizeNotificationsDropDown(final MapView mapView,
                                 final Context context) {
         super(mapView);
@@ -69,6 +77,18 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
 
     /**************************** INHERITED METHODS *****************************/
 
+    /**
+     * This method sets up the dropdown when it is opened. It clears whatever setting were previously
+     * on the dropdown and adds the list of possible notifications, adds and checks any notifications
+     * that were passed in with the intent, and sets the back button onclick
+     * @param context the context for the screen
+     * @param intent the intent used to call this screen. The intent used when calling
+     * CustomizeNotificationsDropDown must contain a extra string with the name "PAGE_TO_RETURN_TO"
+     * with the name of the page that this page should return to. Otherwise this
+     * will default to the homescreen. If the intent has a extra string arraylist with the name
+     * "DEFAULT_SELECTED_NOTIFICATIONS" then the notifications corresponding to those strings will
+     * be checked otherwise nothing will be checked
+     */
     @Override
     public void onReceive(Context context, final Intent intent) {
 
@@ -106,6 +126,12 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         }
     }
 
+    /**
+     * This method generate the intent used to exit this dropdown.
+     * @return an intent used to return to a different screen and exit the dropdown. The intent
+     * contains an extra string arraylist called "SELECTED_NOTIFICATIONS" that stores the names
+     * of the notifications that were selected.
+     */
     private Intent getReturnIntent() {
         String toReturn = intitialIntent.getStringExtra("PAGE_TO_RETURN_TO");
 
@@ -131,8 +157,10 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         return i;
     }
 
-    /*
-    Gets all checked notifications (except custom)
+    /**
+     * This method gets a list of all the notifications there were check (except the custom button,
+     * though that should never be checked)
+     * @return a string arraylist of all checked notifications (except custom)
      */
     private ArrayList<String> getAllChecked() {
         ArrayList<String> currentSelectedNotifications = new ArrayList<>();
@@ -147,9 +175,10 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         return currentSelectedNotifications;
     }
 
-    /*
-    given a string of notifications that should be checked this creates the entire list of notifications
-    and checks whichever ones should be checked
+    /**
+     * This method takes in a list of notifications that should be checked and adds them to the screen
+     * and checks them. It also makes sure to not add duplicates
+     * @param notifications String arraylist of notifications to check
      */
     private void createAndCheckNotifications(ArrayList<String> notifications) {
         String[] notifications_array = pluginContext.getResources().getStringArray(R.array.custom_notification_settings);
@@ -188,6 +217,14 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         });
     }
 
+    /**
+     * This method is called when the custom button is click. It creates a new intent to open the
+     * CreateCustomNotificationDropDown. This intent contains a string extra "PAGE_TO_RETURN_TO" that
+     * is used so that when the CreateCustomNotificationDropDown returns this dropdown know what page
+     * it should return to when closed. It also contains a extra string arraylist of the notifications
+     * that are checked. This is also passed back with the extra notification added when the
+     * CreateCustomNotificationDropDown returns.
+     */
     private void goToCreateCustomNotificationScreen() {
         // create a new intent to go to the createCustomNotificationScreen, this intent will mirror the
         // intent sent to this dropdown so that this downdown returns to the correct location
@@ -200,9 +237,12 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         AtakBroadcast.getInstance().sendBroadcast(i);
     }
 
-    /*
-    creates a checkbox with the given id, text, and checked values and adds the checkbox to the view
-    also increments numBoxes
+    /**
+     * This creates a checkbox for a notification
+     * @param id the id for the checkbox
+     * @param text the text for the checkbox (this is the notification text)
+     * @param checked if the checkbox should be checked
+     * @return the created checkbox
      */
     private CheckBox createCheckBox(int id, String text, boolean checked) {
         CheckBox checkBox = new CheckBox(pluginContext);
@@ -216,8 +256,10 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         return checkBox;
     }
 
-    /*
-    Gets the list of default notificaitons from the intent
+    /**
+     * This method is used to get the DEFAULT_SELECTED_NOTIFICATIONS arraylist from the intent
+     * used to open this dropdown. If that string doesn't exist it returns an empty arraylist
+     * @return a string arraylist of notifications that should be checked when creating this screen
      */
     private ArrayList<String> getDefaultNotifications() {
         ArrayList<String> defaultSelectedNotifications = intitialIntent.getStringArrayListExtra("DEFAULT_SELECTED_NOTIFICATIONS");
@@ -227,8 +269,8 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         return defaultSelectedNotifications;
     }
 
-    /*
-    removes all the checkboxes from the linearlayout and resets the numBoxes counter
+    /**
+     * This method removes all the checkboxes from the linearlayout and resets the numBoxes counter
      */
     private void clearAll() {
         LinearLayout linearLayout = templateView.findViewById(R.id.notification_options_zone);

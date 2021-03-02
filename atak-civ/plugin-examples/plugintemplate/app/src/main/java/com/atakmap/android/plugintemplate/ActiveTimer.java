@@ -1,10 +1,13 @@
 package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
+
+import com.atakmap.android.plugintemplate.plugin.R;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -132,6 +135,33 @@ public class ActiveTimer implements Serializable {
      * @param context the context is needed to make a sound
      */
     public void makeSound(Context context) {
+        final MediaPlayer mp;
+        switch (timer.getSound().toLowerCase()) {
+            case "chime":
+                mp = MediaPlayer.create(context, R.raw.chime);
+                break;
+            case "alarm":
+                mp = MediaPlayer.create(context, R.raw.alarm);
+                break;
+            case "radar":
+                mp = MediaPlayer.create(context, R.raw.radar);
+                break;
+            case "signal":
+                mp = MediaPlayer.create(context, R.raw.signal);
+                break;
+            default:
+                mp = MediaPlayer.create(context, R.raw.chime);
+        }
+        mp.start();
+    }
+
+    /**
+     * This method makes the notification sound the active timer should make
+     * I am not sure if this is necessary. If possible it would be better to just call makeSound
+     * but I'm not sure if that will work when the plugin is not open
+     * @param context the context is needed to make a sound
+     */
+    public void makeNotificationSound(Context context) {
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(context, notification);
         r.play();

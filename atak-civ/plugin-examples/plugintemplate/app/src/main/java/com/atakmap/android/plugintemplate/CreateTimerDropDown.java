@@ -143,8 +143,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 TextView title = templateView.findViewById(R.id.title);
                 title.setText("Edit Timer");
 
-
             }else {
+                this.timer = new Timer();
                 this.name.setText("");
                 this.durationHours.setText("");
                 this.durationMinutes.setText("");

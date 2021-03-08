@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
@@ -37,7 +38,8 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     private final View templateView;
     private final Context pluginContext;
     private RecyclerView mainScreenTimerList;
-    private ArrayList<ActiveTimer> timers = new ArrayList<>();
+    public static ArrayList<ActiveTimer> timers = new ArrayList<>();
+    private TimerListAdapter adapter;
 
 
     /**************************** CONSTRUCTOR *****************************/
@@ -65,11 +67,13 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                 }
             }
         });*/
+
+        //sets up the list adapter and layout manager for multiple timers
         mainScreenTimerList = templateView.findViewById(R.id.timer_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(context);
         mainScreenTimerList.setLayoutManager(manager);
 
-        final TimerListAdapter adapter = new TimerListAdapter(timers);
+        adapter = new TimerListAdapter(timers);
         mainScreenTimerList.setAdapter(adapter);
 
 
@@ -86,7 +90,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                          */
                         // how to call customizeNotificaitonDropDown
                         Intent i = new Intent();
-
+                        i.putExtra("TIMERS", timers);
                         i.setAction(CreateTimerDropDown.SHOW_CREATE);
 //                        i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
 //                        ArrayList<String> notifications_to_select = new ArrayList<>();
@@ -112,24 +116,8 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       /* final TextView firstTimerTimeTextView = (TextView)templateView.findViewById(R.id.first_timer_time);
-                        new CountDownTimer(timers.get(0).getTimer().getDurationMillis(), 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                int hours = (int)millisUntilFinished/(60*60*1000);
-                                int minutes = (int)(millisUntilFinished-(hours*60*60*1000))/(60*1000);
-                                int seconds = (int)(millisUntilFinished-(hours*60*60*1000)-(minutes*60*1000))/1000;
-                                String duration = hours +":"+ minutes +":"+ seconds;
-                                firstTimerTimeTextView.setText(duration);
-                            }
-
-                            public void onFinish() {
-                                firstTimerTimeTextView.setText("done!");
-                                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                Ringtone r = RingtoneManager.getRingtone(context, notification);
-                                r.play();
-                            }
-                        }.start();*/
                         timers.get(0).start();
+                        System.out.println(timers);
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -158,7 +146,11 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
-                timers.add(new ActiveTimer(timer));
+                //we pass the adapter we use for our recycler view to each ActiveTimer so that as it counts down it forces the adapter to update
+                //we pass the plugin context to the ActiveTimer so that it knows the context to make a sound
+                timers.add(new ActiveTimer(timer, adapter, pluginContext));
+                timers.get(timers.size()-1).start();
+                adapter.notifyDataSetChanged();
             }
         }
     }

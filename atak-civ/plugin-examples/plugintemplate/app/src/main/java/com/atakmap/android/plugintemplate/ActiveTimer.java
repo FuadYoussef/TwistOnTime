@@ -27,16 +27,20 @@ public class ActiveTimer implements Serializable {
     private long remainingDurationMillis;
     private CountDownTimer countDown;
     private ActiveTimerState state;
+    public TimerListAdapter containingAdapter;
+    public Context context;
 
     /**
      * The constructor for an active timer, takes in a timer. An active timer starts in the
      * paused state which can be changed with various functions in the class
      * @param timer timer object to based ActiveTimer off of
      */
-    public ActiveTimer(Timer timer) {
+    public ActiveTimer(Timer timer, TimerListAdapter containingAdapter, Context context) {
         this.timer = timer;
         this.remainingDurationMillis = timer.getDurationMillis();
         this.state = ActiveTimerState.PAUSED;
+        this.containingAdapter = containingAdapter;
+        this.context = context;
     }
 
     /**
@@ -64,16 +68,18 @@ public class ActiveTimer implements Serializable {
                 int seconds = (int)(l-(hours*60*60*1000)-(minutes*60*1000))/1000;
                 String duration = hours +":"+ minutes +":"+ seconds;*/
                 remainingDurationMillis = l;
+                containingAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onFinish() {
                 // set state to finished
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
-                /*
+
                 Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Ringtone r = RingtoneManager.getRingtone(, notification);
-                r.play();*/
+                Ringtone r = RingtoneManager.getRingtone(context, notification);
+                r.play();
                 System.out.println("timer finished");
 
             }

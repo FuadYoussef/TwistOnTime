@@ -9,18 +9,21 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
+import com.atakmap.android.dropdown.DropDown.OnStateListener;
+import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.android.dropdown.DropDown.OnStateListener;
-import com.atakmap.android.dropdown.DropDownReceiver;
-
 import com.atakmap.coremap.log.Log;
-import android.app.AlertDialog;
-import android.app.AlertDialog;
-import android.widget.Toast;
+
+//TODO: Class desc
+
+/**
+ * This class handles the creation and display of the home screen of the Twist on Time Plugin.
+ */
 
 public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         OnStateListener {
@@ -65,23 +68,10 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                     @Override
                     public void onClick(View v) {
                         setRetain(true);
-                        /* example intent for how to call change sounds
-                        Intent i = new Intent();
-                        i.setAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
-                        i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
-                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
-                         */
                         // how to call customizeNotificaitonDropDown
                         Intent i = new Intent();
 
                         i.setAction(CreateTimerDropDown.SHOW_CREATE);
-//                        i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
-//                        ArrayList<String> notifications_to_select = new ArrayList<>();
-//                        notifications_to_select.add("2 Hours Before");
-//                        notifications_to_select.add("3 Hours Before");
-//                        i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", notifications_to_select);
-//                        //i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
-//                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
@@ -127,6 +117,11 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
     /**************************** INHERITED METHODS *****************************/
 
+    /**
+     * Receives context information from the main application when the plugin is launched
+     * @param context context received from the main application
+     * @param intent intent received from the main application
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -148,30 +143,14 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                 String toastMessage = "New timer '" + timer.getName() + "' set.";
                 Toast.makeText(context,toastMessage,Toast.LENGTH_SHORT).show();
 
-//                Log.d(TAG, "Timer " + timer.getName());
                 TextView firstTimerNameTextView = (TextView)templateView.findViewById(R.id.first_timer_name);
                 firstTimerNameTextView.setText(timer.getName());
 
-//                Log.d(TAG, "Timer " + timer.getDuration());
                 TextView firstTimerTimeTextView = (TextView)templateView.findViewById(R.id.first_timer_time);
                 firstTimerTimeTextView.setText(timer.getDuration());
 
-//                Log.d(TAG, "Timer " + timer.getSound());
-
-//                for(String s : timer.getNotification()) {
-//                    Log.d(TAG, "Timer " + s);
-//                }
 
             }
-
-            /*
-            // how to process return value from calling CustomizeNotificationsDropDown
-            if (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") != null) {
-                Button b = (Button)templateView.findViewById(R.id.add_button);
-                int i = intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS").size();
-                b.setText("" + i);
-            }
-             */
         }
     }
 

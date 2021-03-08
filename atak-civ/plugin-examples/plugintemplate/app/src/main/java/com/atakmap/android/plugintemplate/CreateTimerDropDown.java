@@ -9,15 +9,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
+import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.coremap.log.Log;
-import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+// TODO: Add detailed description of class
+
+/**
+ * This class is used for the setup and creation of the Create Timer screen.
+ */
 
 public class CreateTimerDropDown extends DropDownReceiver implements OnStateListener {
 
@@ -27,13 +32,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     public static final String SHOW_CREATE = "com.atakmap.android.plugintemplate.CreateTimerDropDown";
     private final View templateView;
     private final Context pluginContext;
-    private Timer timer;
-    private EditText name;
-    private EditText durationHours;
-    private EditText durationMinutes;
-    private EditText durationSeconds;
-    private CheckBox preset;
-    private Button changeSoundButton;
+    private Timer timer;                    // Timer object used
+    private EditText name;                  // Name of timer
+    private EditText durationHours;         // Duration of timer (hour)
+    private EditText durationMinutes;       // Duration of timer (minute)
+    private EditText durationSeconds;       // Duration of timer (second)
+    private CheckBox preset;                // Whether or not timer is marked as preset
+    private Button changeSoundButton;       // Button on UI to change the sound
     public CreateTimerDropDown(final MapView mapView,
                                 final Context context) {
         super(mapView);
@@ -105,6 +110,12 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             }
         });
     }
+
+    /**
+     * This method reads the string values from the Timer object and populates the fields on the
+     * Create Timer screen
+     * @param timer The timer object that is to be read
+     */
     private void setFields(Timer timer) {
         this.name.setText(timer.getName());
         this.preset.setChecked(timer.isPreset());
@@ -120,7 +131,12 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
 
     /**************************** INHERITED METHODS *****************************/
 
-
+    /**
+     * Determines what screen the intent is coming from to set the data appropriately for editing
+     * an existing timer or for creating a new timer.
+     * @param context context of the previous screen
+     * @param intent intent of the previous screen
+     */
     @Override
     public void onReceive(Context context, final Intent intent) {
         final String action = intent.getAction();

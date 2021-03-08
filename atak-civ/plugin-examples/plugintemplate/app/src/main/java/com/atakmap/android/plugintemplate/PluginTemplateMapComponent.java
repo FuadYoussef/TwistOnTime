@@ -10,6 +10,13 @@ import com.atakmap.android.dropdown.DropDownMapComponent;
 import com.atakmap.coremap.log.Log;
 import com.atakmap.android.plugintemplate.plugin.R;
 
+
+//TODO: In-Depth class desc
+
+/**
+ * This class handles the Map component of the plugin
+ */
+
 public class PluginTemplateMapComponent extends DropDownMapComponent {
 
     private static final String TAG = "PluginTemplateMapComponent";
@@ -56,7 +63,7 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
         ccnr = new CreateCustomNotificationDropDown(view, context);
         registerDropDownReceiver(ccnr, ccnFilter);
 
-        //create timer dropwon
+        //create timer dropdown
         DocumentedIntentFilter createTimerFilter = new DocumentedIntentFilter();
         createTimerFilter.addAction(CreateTimerDropDown.SHOW_CREATE);
         ctr = new CreateTimerDropDown(view, context);

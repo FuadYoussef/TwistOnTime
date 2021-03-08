@@ -96,6 +96,16 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
         }
     }
 
+    //TODO: Set documentation
+
+    /**
+     * the function determines what screen traversed to the custom notification screen, so the user
+     * can be returned to the correct screen after finishing editing notifications.  If for some
+     * reason the previous intent cannot be resolved, the user is returned to the main screen.
+     * @param intent the current intent
+     * @return the intent to return to
+     */
+
     private Intent getReturnIntent(Intent intent) {
         String toReturn = intent.getStringExtra("PAGE_TO_RETURN_TO");
         Log.d(TAG, "return intent: " + toReturn);
@@ -123,6 +133,10 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
         return i;
     }
 
+    /**
+     * This method gets the string value of the radio button that is selected
+     * @return the text of the checked radio button
+     */
     private String getChecked() {
         RadioGroup rgp = (RadioGroup) templateView.findViewById(R.id.sounds_radio_group);
         int selectedSoundsId = rgp.getCheckedRadioButtonId();
@@ -131,6 +145,10 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
         return selectedRbText;
     }
 
+    /**
+     * Sets the selection to the radio button that is passed into the method
+     * @param toCheck The radio button that is to be selected
+     */
     private void checkButton(String toCheck) {
         String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);
         int index = Arrays.asList(sounds_array).indexOf(toCheck);
@@ -138,6 +156,11 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
         rgp.check(index);
     }
 
+    /**
+     * This method finds which sound should be selected by default when displaying the radio buttons
+     * @param intent the current screen's intent
+     * @return the string value of the radio button that should be selected by default
+     */
     private String getDefaultSound(Intent intent) {
         String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);
         String defaultSelectedSound;
@@ -152,6 +175,9 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
         return defaultSelectedSound;
     }
 
+    /**
+     * Creates the radio buttons necessary for the Change Sounds screen
+     */
     private void createRadioButtons() {
         String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);
         RadioGroup rgp = (RadioGroup) templateView.findViewById(R.id.sounds_radio_group);

@@ -3,20 +3,15 @@ package com.atakmap.android.plugintemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
-import com.atakmap.android.ipc.AtakBroadcast;
-import com.atakmap.android.maps.MapView;
-import com.atakmap.android.plugintemplate.CustomizeNotificationsDropDown;
-import com.atakmap.android.plugintemplate.plugin.R;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
-
+import com.atakmap.android.ipc.AtakBroadcast;
+import com.atakmap.android.maps.MapView;
+import com.atakmap.android.plugintemplate.plugin.R;
 import com.atakmap.coremap.log.Log;
 
 import java.util.ArrayList;
@@ -62,6 +57,12 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
 
     /**************************** INHERITED METHODS *****************************/
 
+    /**
+     * Receives the context and intent from the previous screen to set up and create
+     * the Custom Notification screen
+     * @param context Context received from the previous screen
+     * @param intent Intent received from the previous screen
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -80,8 +81,8 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
         }
     }
 
-    /*
-    Sets up the create custom notification screen
+    /**
+     * Sets up the create notification screen
      */
     private void instantiateScreen() {
         // set number picker
@@ -136,9 +137,11 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
 
     }
 
-    /*
-    sets up the num picker that corresponds to the units of the notification (seconds, minutes, etc)
-    Takes in boolean plural to determine if values in num picker should be plural or not
+
+    /**
+     * sets up the num picker that corresponds to the units of the notification (seconds, minutes,
+     * etc).
+     * @param plural boolean flag that determines if the values in num picker should be plural
      */
     private void setupTimeStringPicker(boolean plural) {
         String[] items;

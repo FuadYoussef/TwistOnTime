@@ -12,7 +12,7 @@ public class Timer implements Serializable {
     private boolean preset;                 // flag that determines if timer is a preset or not
     private int hours;                      // the amount of hours remaining in the timer
     private int minutes;                    // the amount of minutes remaining in the timer
-    private int seconds;                    // the amount of seconds remaining in the timer
+    private int seconds;  
 
     public int getSeconds() {
         return seconds;
@@ -74,12 +74,13 @@ public class Timer implements Serializable {
         this.sound = sound;
     }
 
-    public ArrayList<String> getNotification() {
-        return notification;
+    public ArrayList<String> getNotifications() {
+        return notifications;
     }
 
-    public void setNotification(ArrayList<String> notification) {
-        this.notification = notification;
+    public void setNotifications(ArrayList<String> notifications) {
+        this.notifications = notifications;
     }
+
 }
 

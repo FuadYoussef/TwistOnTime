@@ -14,6 +14,8 @@ import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
+import com.atakmap.android.dropdown.DropDown.OnStateListener;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,7 +72,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.putExtra("PAGE_TO_RETURN_TO", "CreateTimerDropDown");
-                i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", timer.getNotification());
+                i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", timer.getNotifications());
                 i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
                 AtakBroadcast.getInstance().sendBroadcast(i);
             }
@@ -152,7 +154,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
             } else if(intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") !=null) {
                 ArrayList<String> act = (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS"));
-                timer.setNotification(act);
+                timer.setNotifications(act);
             } else if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
                 this.timer = timer;
@@ -171,7 +173,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.timer.setSound(defaultSound);
                 this.changeSoundButton.setText(defaultSound);
                 String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
-                this.timer.setNotification(new ArrayList(Arrays.asList(defaultNotification)));
+                this.timer.setNotifications(new ArrayList(Arrays.asList(defaultNotification)));
             }
         }
     }

@@ -7,11 +7,15 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
+import com.atakmap.android.dropdown.DropDown.OnStateListener;
+import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
+
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
+
 
 
 import java.util.ArrayList;
@@ -69,6 +73,7 @@ public class CreateCustomNotificationDropDown extends DropDownReceiver implement
      * the CustomizeNotificationsDropDown know what page it should return to when it is closed.
      * It also contains a extra string arraylist of the notifications that are checked. This page adds one
      * notification to the list and then the list is also passed back to the CustomizeNotificationsDropDown
+
      */
     @Override
     public void onReceive(Context context, Intent intent) {

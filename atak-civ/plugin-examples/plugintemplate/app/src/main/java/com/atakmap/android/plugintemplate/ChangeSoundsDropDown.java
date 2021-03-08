@@ -115,11 +115,13 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
         }
     }
 
+
     /**
      * This method constructs the intent when this page is returning to another page
      * @param intent the initial intent passed to create this file
      * @return returns the intent to use to return to whatever screen called this dropdown
      */
+
     private Intent getReturnIntent(Intent intent) {
         String toReturn = intent.getStringExtra("PAGE_TO_RETURN_TO");
 
@@ -159,9 +161,11 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
     }
 
     /**
+
      * This method checks the radio button corresponding to a string toCheck
      * It is used to select the default sound if it is passed in with the intent used to open this dropdown
      * @param toCheck name of sound to check
+
      */
     private void checkButton(String toCheck) {
         String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);
@@ -171,11 +175,13 @@ public class ChangeSoundsDropDown extends DropDownReceiver implements
     }
 
     /**
+
      * This method checks if the intent used to open the dropdown has a default selected sound string.
      * If it does and the string is an acceptable option it returns that string. Otherwise it returns the
      * first string in the sounds_array in strings.xml
      * @param intent the intent used to open this dropdown
      * @return a string corresponding to the default sound that should be checked
+
      */
     private String getDefaultSound(Intent intent) {
         String[] sounds_array = pluginContext.getResources().getStringArray(R.array.custom_sounds);

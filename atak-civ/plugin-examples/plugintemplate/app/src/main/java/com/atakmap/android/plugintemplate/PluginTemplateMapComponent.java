@@ -10,6 +10,18 @@ import com.atakmap.android.dropdown.DropDownMapComponent;
 import com.atakmap.coremap.log.Log;
 import com.atakmap.android.plugintemplate.plugin.R;
 
+
+/**
+ * This class handles the Map component of the plugin. This is used to declare and instantiate
+ * all the DropDownReceivers used by the plugin.
+ *
+ * When creating a new DropDownReceiver, you need to declare the DropDownReceiver as a class
+ * variable. Then in the onCreate method, a filter for the new DropDownReceiver must be created.
+ * This filter must contain all the string actions that the new DropDownReceiver is
+ * designed to handle. Then the registerDropDownReceiver method must be called with the new
+ * DropDownReceiver class variable as well as the filter. This sets up the DropDownReceiver.
+ */
+
 public class PluginTemplateMapComponent extends DropDownMapComponent {
 
     private static final String TAG = "PluginTemplateMapComponent";
@@ -56,7 +68,7 @@ public class PluginTemplateMapComponent extends DropDownMapComponent {
         ccnr = new CreateCustomNotificationDropDown(view, context);
         registerDropDownReceiver(ccnr, ccnFilter);
 
-        //create timer dropwon
+        //create timer dropdown
         DocumentedIntentFilter createTimerFilter = new DocumentedIntentFilter();
         createTimerFilter.addAction(CreateTimerDropDown.SHOW_CREATE);
         ctr = new CreateTimerDropDown(view, context);

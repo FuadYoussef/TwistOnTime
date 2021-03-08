@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
+import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
@@ -41,7 +42,7 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
     public static final String TAG = PluginTemplateDropDownReceiver.class
             .getSimpleName();
 
-    // set up the string so that when called the dropdown reciever knows what to open
+    // set up the string so that when called the dropdown receiver knows what to open
     public static final String SHOW_CHANGE_NOTIFICATIONS = "com.atakmap.android.plugintemplate.SHOW_CHANGE_NOTIFICATIONS";
     private final View templateView;
     private final Context pluginContext;
@@ -218,8 +219,6 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
      * CreateCustomNotificationDropDown returns.
      */
     private void goToCreateCustomNotificationScreen() {
-        // create a new intent to go to the createCustomNotificationScreen, this intent will mirror the
-        // intent sent to this dropdown so that this downdown returns to the correct location
         Intent i = new Intent();
         i.setAction(CreateCustomNotificationDropDown.SHOW_CREATE_CUSTOM_NOTIFICATION_SCREEN);
         i.putExtra("PAGE_TO_RETURN_TO", intitialIntent.getStringExtra("PAGE_TO_RETURN_TO"));

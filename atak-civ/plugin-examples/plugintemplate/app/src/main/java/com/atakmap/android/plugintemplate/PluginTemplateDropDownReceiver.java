@@ -12,18 +12,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
+import com.atakmap.android.dropdown.DropDown.OnStateListener;
+import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.android.dropdown.DropDown.OnStateListener;
-import com.atakmap.android.dropdown.DropDownReceiver;
-
 import com.atakmap.coremap.log.Log;
-import android.app.AlertDialog;
-import android.app.AlertDialog;
-import android.widget.Toast;
+
+//TODO: Class desc
+
+/**
+ * This class handles the creation and display of the home screen of the Twist on Time Plugin.
+ */
 
 import java.util.ArrayList;
 
@@ -82,23 +85,10 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                     @Override
                     public void onClick(View v) {
                         setRetain(true);
-                        /* example intent for how to call change sounds
-                        Intent i = new Intent();
-                        i.setAction(ChangeSoundsDropDown.SHOW_CHANGE_SOUNDS);
-                        i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
-                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
-                         */
                         // how to call customizeNotificaitonDropDown
                         Intent i = new Intent();
                         i.putExtra("TIMERS", timers);
                         i.setAction(CreateTimerDropDown.SHOW_CREATE);
-//                        i.setAction(CustomizeNotificationsDropDown.SHOW_CHANGE_NOTIFICATIONS);
-//                        ArrayList<String> notifications_to_select = new ArrayList<>();
-//                        notifications_to_select.add("2 Hours Before");
-//                        notifications_to_select.add("3 Hours Before");
-//                        i.putExtra("DEFAULT_SELECTED_NOTIFICATIONS", notifications_to_select);
-//                        //i.putExtra("DEFAULT_SELECTED_SOUND", "Radar");
-//                        i.putExtra("PAGE_TO_RETURN_TO", "PluginTemplateDropDownReceiver");
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
                 });
@@ -130,6 +120,11 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
     /**************************** INHERITED METHODS *****************************/
 
+    /**
+     * Receives context information from the main application when the plugin is launched
+     * @param context context received from the main application
+     * @param intent intent received from the main application
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 

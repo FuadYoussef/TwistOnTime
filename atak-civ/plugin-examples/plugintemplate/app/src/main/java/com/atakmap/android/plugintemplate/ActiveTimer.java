@@ -24,7 +24,7 @@ public class ActiveTimer implements Serializable {
     public enum ActiveTimerState { RUNNING, PAUSED, FINISHED, DISMISSED}
 
     private Timer timer;
-    private int remainingDurationMillis;
+    private long remainingDurationMillis;
     private CountDownTimer countDown;
     private ActiveTimerState state;
 
@@ -58,13 +58,24 @@ public class ActiveTimer implements Serializable {
         countDown = new CountDownTimer(remainingDurationMillis, 1000) {
             @Override
             public void onTick(long l) {
-                ActiveTimer.this.tick();
+                // ActiveTimer.this.tick();
+                /*int hours = (int)l/(60*60*1000);
+                int minutes = (int)(l-(hours*60*60*1000))/(60*1000);
+                int seconds = (int)(l-(hours*60*60*1000)-(minutes*60*1000))/1000;
+                String duration = hours +":"+ minutes +":"+ seconds;*/
+                remainingDurationMillis = l;
             }
 
             @Override
             public void onFinish() {
                 // set state to finished
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
+                /*
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(, notification);
+                r.play();*/
+                System.out.println("timer finished");
+
             }
         };
         countDown.start();
@@ -216,5 +227,19 @@ public class ActiveTimer implements Serializable {
             remainingDurationMillis -= 1000;
         }
 
+    }
+
+    /**
+     * This method returns the name of the timer
+     */
+    public String getName() {
+        return timer.getName();
+    }
+
+    /**
+     * This method returns the timer linked to the active timer
+     */
+    public Timer getTimer() {
+        return timer;
     }
 }

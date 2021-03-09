@@ -8,7 +8,7 @@ public class Timer implements Serializable {
     private String name;                    // the name of the timer
     private String duration;                // the overall duration of the timer
     private String sound;                   // the sound the timer will make once time is up
-    private ArrayList<String> notification; // the type of notification associated with the timer
+    private ArrayList<String> notifications; // list of notifications associated with the timer
     private boolean preset;                 // flag that determines if timer is a preset or not
     private int hours;                      // the amount of hours remaining in the timer
     private int minutes;                    // the amount of minutes remaining in the timer

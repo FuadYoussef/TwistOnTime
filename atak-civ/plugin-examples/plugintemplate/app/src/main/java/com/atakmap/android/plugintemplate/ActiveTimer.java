@@ -31,9 +31,14 @@ public class ActiveTimer implements Serializable {
     public Context context;
 
     /**
-     * The constructor for an active timer, takes in a timer. An active timer starts in the
-     * paused state which can be changed with various functions in the class
+     * The constructor for an active timer takes in a timer, the adapter that will display the active
+     * timer, and a context. An active timer starts in the paused state which can be changed with
+     * various functions in the class
      * @param timer timer object to based ActiveTimer off of
+     * @param containingAdapter the adapter that will display the timer. This is used so that the
+     * activeTimer can notify the containingAdapter to update as the
+     * activeTimer ticks
+     * @param context the relevant context. This is used by the active timer when creating a sound
      */
     public ActiveTimer(Timer timer, TimerListAdapter containingAdapter, Context context) {
         this.timer = timer;

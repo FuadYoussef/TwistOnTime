@@ -13,11 +13,18 @@ import com.atakmap.android.plugintemplate.plugin.R;
 
 import java.util.ArrayList;
 
+/**
+ * The TimerListAdapter is what allows us to take our timer_cell.xml file and place multiple
+ * instances of it in a RecyclerView. It also populates each of these cells with the relevant data.
+ * Please see the Android API docs for more details as to how RecyclerView, ViewHolder and ListAdapters work.
+ */
 public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.ViewHolder> {
 
     private ArrayList<ActiveTimer> timers;
 
-
+    /**
+     * modified version of RecyclerView.ViewHolder that contains the relevant UI elements for a timer_cell
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView timerName;
         TextView timerDuration;

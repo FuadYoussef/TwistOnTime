@@ -62,11 +62,6 @@ public class ActiveTimer implements Serializable {
         countDown = new CountDownTimer(remainingDurationMillis, 1000) {
             @Override
             public void onTick(long l) {
-                // ActiveTimer.this.tick();
-                /*int hours = (int)l/(60*60*1000);
-                int minutes = (int)(l-(hours*60*60*1000))/(60*1000);
-                int seconds = (int)(l-(hours*60*60*1000)-(minutes*60*1000))/1000;
-                String duration = hours +":"+ minutes +":"+ seconds;*/
                 remainingDurationMillis = l;
                 containingAdapter.notifyDataSetChanged();
 
@@ -76,12 +71,7 @@ public class ActiveTimer implements Serializable {
             public void onFinish() {
                 // set state to finished
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
-
-                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Ringtone r = RingtoneManager.getRingtone(context, notification);
-                r.play();
-                System.out.println("timer finished");
-
+                ActiveTimer.this.makeSound();
             }
         };
         countDown.start();
@@ -149,9 +139,8 @@ public class ActiveTimer implements Serializable {
 
     /**
      * This method makes the sound the active timer should make
-     * @param context the context is needed to make a sound
      */
-    public void makeSound(Context context) {
+    public void makeSound() {
         final MediaPlayer mp;
         switch (timer.getSound().toLowerCase()) {
             case "chime":
@@ -176,9 +165,8 @@ public class ActiveTimer implements Serializable {
      * This method makes the notification sound the active timer should make
      * I am not sure if this is necessary. If possible it would be better to just call makeSound
      * but I'm not sure if that will work when the plugin is not open
-     * @param context the context is needed to make a sound
      */
-    public void makeNotificationSound(Context context) {
+    public void makeNotificationSound() {
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(context, notification);
         r.play();
@@ -223,16 +211,6 @@ public class ActiveTimer implements Serializable {
             millis = Integer.parseInt(val) * 1000 * 60 * 60;
         }
         return millis;
-    }
-
-    /**
-     * This method updates the currentDurationMillis attribute of the ActiveTimer
-     */
-    private void tick() {
-        if (state == ActiveTimerState.RUNNING) {
-            remainingDurationMillis -= 1000;
-        }
-
     }
 
     /**

@@ -39,28 +39,10 @@
                     android:layout_gravity="left"
                     android:orientation="vertical"
                     android:layout_margin="10dp">
-                        <RelativeLayout
-                            android:id="@+id/firstTimer"
+                        <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/timer_container_layout"
-                            android:layout_margin="1dp">
-                                <TextView
-                                    android:id="@+id/first_timer_name"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
-                                    android:textSize="18sp"
-                                    android:text="@string/dummy_timer"/>
-                                <TextView
-                                    android:id="@+id/first_timer_time"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="10dp"
-                                    android:layout_toRightOf="@+id/first_timer_name"
-                                    android:textSize="18sp"
-                                    android:text="(time left here)"/>
-                        </RelativeLayout>
+                            android:layout_height="match_parent"
+                            android:id="@+id/timer_recycler"/>
                 </LinearLayout>
 
 
@@ -75,28 +57,6 @@
             android:layout_marginTop="-64dp"
             android:layout_marginBottom="32dp"
             android:text="@string/preset_text" />
-
-        <Button
-            android:id="@+id/start_timer_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/timer_frame"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="-64dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="32dp"
-            android:text="@string/start_timer" />
-
-<!--        <Button-->
-<!--            android:id="@+id/add_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/timer_frame"-->
-<!--            android:layout_alignEnd="@id/timer_frame"-->
-<!--            android:layout_marginTop="-64dp"-->
-<!--            android:layout_marginStart="32dp"-->
-<!--            android:layout_marginBottom="32dp"-->
-<!--            android:text="Add New"/>-->
 
         <ImageButton
             android:id="@+id/add_button"

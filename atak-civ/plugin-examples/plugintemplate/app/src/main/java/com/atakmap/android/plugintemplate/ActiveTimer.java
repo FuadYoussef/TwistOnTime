@@ -24,19 +24,28 @@ public class ActiveTimer implements Serializable {
     public enum ActiveTimerState { RUNNING, PAUSED, FINISHED, DISMISSED}
 
     private Timer timer;
-    private int remainingDurationMillis;
+    private long remainingDurationMillis;
     private CountDownTimer countDown;
     private ActiveTimerState state;
+    public TimerListAdapter containingAdapter;
+    public Context context;
 
     /**
-     * The constructor for an active timer, takes in a timer. An active timer starts in the
-     * paused state which can be changed with various functions in the class
+     * The constructor for an active timer takes in a timer, the adapter that will display the active
+     * timer, and a context. An active timer starts in the paused state which can be changed with
+     * various functions in the class
      * @param timer timer object to based ActiveTimer off of
+     * @param containingAdapter the adapter that will display the timer. This is used so that the
+     * activeTimer can notify the containingAdapter to update as the
+     * activeTimer ticks
+     * @param context the relevant context. This is used by the active timer when creating a sound
      */
-    public ActiveTimer(Timer timer) {
+    public ActiveTimer(Timer timer, TimerListAdapter containingAdapter, Context context) {
         this.timer = timer;
         this.remainingDurationMillis = timer.getDurationMillis();
         this.state = ActiveTimerState.PAUSED;
+        this.containingAdapter = containingAdapter;
+        this.context = context;
     }
 
     /**
@@ -58,13 +67,16 @@ public class ActiveTimer implements Serializable {
         countDown = new CountDownTimer(remainingDurationMillis, 1000) {
             @Override
             public void onTick(long l) {
-                ActiveTimer.this.tick();
+                remainingDurationMillis = l;
+                containingAdapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onFinish() {
                 // set state to finished
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
+                ActiveTimer.this.makeSound();
             }
         };
         countDown.start();
@@ -132,9 +144,8 @@ public class ActiveTimer implements Serializable {
 
     /**
      * This method makes the sound the active timer should make
-     * @param context the context is needed to make a sound
      */
-    public void makeSound(Context context) {
+    public void makeSound() {
         final MediaPlayer mp;
         switch (timer.getSound().toLowerCase()) {
             case "chime":
@@ -159,9 +170,8 @@ public class ActiveTimer implements Serializable {
      * This method makes the notification sound the active timer should make
      * I am not sure if this is necessary. If possible it would be better to just call makeSound
      * but I'm not sure if that will work when the plugin is not open
-     * @param context the context is needed to make a sound
      */
-    public void makeNotificationSound(Context context) {
+    public void makeNotificationSound() {
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(context, notification);
         r.play();
@@ -209,12 +219,16 @@ public class ActiveTimer implements Serializable {
     }
 
     /**
-     * This method updates the currentDurationMillis attribute of the ActiveTimer
+     * This method returns the name of the timer
      */
-    private void tick() {
-        if (state == ActiveTimerState.RUNNING) {
-            remainingDurationMillis -= 1000;
-        }
+    public String getName() {
+        return timer.getName();
+    }
 
+    /**
+     * This method returns the timer linked to the active timer
+     */
+    public Timer getTimer() {
+        return timer;
     }
 }

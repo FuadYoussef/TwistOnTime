@@ -6,12 +6,15 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.util.Log;
 
 import com.atakmap.android.plugintemplate.plugin.R;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The ActiveTimer class is used to represent a timer that is running or will be run soon
@@ -64,19 +67,29 @@ public class ActiveTimer implements Serializable {
      */
     public void start() {
         state = ActiveTimerState.RUNNING;
+        final Set<Integer> notificationSet = new HashSet<>();
+        for(String notification: timer.getNotifications()) {
+            int cur = notificationToMillis(notification)/1000;
+            notificationSet.add(cur);
+            Log.d("TAG", "cur" + cur);
+        }
         countDown = new CountDownTimer(remainingDurationMillis, 1000) {
             @Override
             public void onTick(long l) {
                 remainingDurationMillis = l;
                 containingAdapter.notifyDataSetChanged();
-
+                int cur = (int)l/1000;
+                if (notificationSet.contains(cur)) {
+                    makeSound();
+                    Log.d("TAG", "NOTIIFCATION");
+                }
             }
-
+            // No longer necessary because will make notification sound in onTick
             @Override
             public void onFinish() {
                 // set state to finished
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
-                ActiveTimer.this.makeSound();
+//                ActiveTimer.this.makeSound();
             }
         };
         countDown.start();
@@ -177,23 +190,7 @@ public class ActiveTimer implements Serializable {
         r.play();
     }
 
-    /**
-     * This method checks if the active timer should make a notification
-     * If the timer is running, this method checks each of the timer's notification to see if it
-     * matches with the currentDurationMillis
-     * @return boolean indicating if a notification corresponding to this active timer should be displayed
-     */
-    public boolean shouldMakeNotification() {
-        if (state == ActiveTimerState.RUNNING) {
-            ArrayList<String> notifications = timer.getNotifications();
-            for (String notification : notifications) {
-                if (notificationToMillis(notification) == remainingDurationMillis) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 
     /**
      * This method converts a string notification to the corresponding millis value

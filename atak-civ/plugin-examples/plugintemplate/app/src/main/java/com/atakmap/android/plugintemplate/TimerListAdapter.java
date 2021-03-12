@@ -65,7 +65,7 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
     }
 
     /**
-     * Constructer for the TimerListAdapter
+     * Constructor for the TimerListAdapter
      * @param timers the arraylist of ActiveTimers we want to display in our recyclerview
      */
     TimerListAdapter(ArrayList<ActiveTimer> timers) {
@@ -96,10 +96,8 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
 
-        // TODO: connect the logic so it's for every individual timer
-        // Currently, it just does operations on the last timer in the
-        // timers list.
-        final ActiveTimer currentTimer = timers.get(timers.size()-1);
+        // get corresponding timer
+        final ActiveTimer currentTimer = timers.get(position);
 
         // fill in the timer name and duration in the specific timer cell
         viewHolder.timerName.setText(timers.get(position).getName());
@@ -134,8 +132,13 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             viewHolder.dismissTimerButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                      // TODO: call a method here to effectively delete the timer
-                      //  permanently and remove it from the home screen
+                        currentTimer.dismiss();
+                        viewHolder.startTimerButton.setVisibility(View.GONE);
+                        viewHolder.resetTimerButton.setVisibility(View.GONE);
+                        viewHolder.pauseTimerButton.setVisibility(View.GONE);
+                        viewHolder.dismissTimerButton.setVisibility(View.GONE);
+                        timers.remove(currentTimer);
+                        notifyDataSetChanged();
                     }
                 });
         } else if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.RUNNING)) {

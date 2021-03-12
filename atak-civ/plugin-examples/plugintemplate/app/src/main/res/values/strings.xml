@@ -10,6 +10,7 @@
 
     <string name="dummy_timer">Fake Timer</string>
     <string name="dummy_preset">Fake Preset</string>
+    <string name="none">None</string>
 
     <string name="preset_text">Presets</string>
 

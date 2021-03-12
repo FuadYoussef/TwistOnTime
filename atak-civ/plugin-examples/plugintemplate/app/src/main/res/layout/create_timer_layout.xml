@@ -21,29 +21,29 @@
         />
     <LinearLayout
         android:id="@+id/nameZone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
         android:layout_below="@+id/title">
         <TextView
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="10dp"
+            android:textSize="20sp"
             android:text="Name: " />
         <EditText
             android:id="@+id/timerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:gravity="center"
             android:alpha="1"
             android:cursorVisible="true"
             android:ems="10"
             android:inputType="text"
             android:singleLine="true"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:background="@drawable/edit_text_border"/>
         />
     </LinearLayout>
@@ -59,39 +59,62 @@
             android:id="@+id/durationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
             android:text="Duration: " />
         <EditText
             android:id="@+id/durationHours"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:ems="10"
             android:inputType="time"
             android:singleLine="true"
             android:alpha="1"
             android:hint="hh"
+            android:maxLength="2"
             android:background="@drawable/edit_text_border"/>
         />
+        <TextView
+            android:id="@+id/hrtomn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="2.5dp"
+            android:layout_marginEnd="2.5dp"
+            android:text=":"/>
         <EditText
             android:id="@+id/durationMinutes"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:ems="10"
             android:inputType="time"
             android:singleLine="true"
             android:alpha="1"
             android:hint="mm"
+            android:maxLength="2"
             android:background="@drawable/edit_text_border"/>
+        <TextView
+            android:id="@+id/mntosec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="2.5dp"
+            android:layout_marginEnd="2.5dp"
+            android:text=":"/>
         <EditText
             android:id="@+id/durationSeconds"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:ems="10"
             android:inputType="time"
             android:singleLine="true"
             android:alpha="1"
             android:hint="ss"
+            android:maxLength="2"
             android:background="@drawable/edit_text_border"/>
     </LinearLayout>
 
@@ -101,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/durationZone"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -109,15 +132,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_vertical"
             android:text="Sound: " />
+
+        <TextView
+            android:id="@+id/changeSoundText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/none"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_gravity="center_vertical"/>
 
         <Button
             android:id="@+id/changeSoundButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Change" />
+            android:background="@drawable/sound_icon"
+            android:backgroundTint="@color/white"
+            android:layout_centerHorizontal="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -126,20 +159,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/soundZone">
         <TextView
             android:id="@+id/presetText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Preset: "
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"/>
             <CheckBox
                 android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp" />
     </LinearLayout>
     <LinearLayout
@@ -160,7 +193,8 @@
                 android:id="@+id/addNotificationButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add" />
+                android:background="@drawable/add_alert_icon"
+                android:backgroundTint="@color/white"/>
     </LinearLayout>
     <Button
         android:id="@+id/submit"

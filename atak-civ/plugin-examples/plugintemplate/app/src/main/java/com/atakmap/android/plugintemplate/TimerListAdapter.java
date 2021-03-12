@@ -94,7 +94,7 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
      * @param position  The position of the item within the recyclerview
      */
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
 
         // get corresponding timer
         final ActiveTimer currentTimer = timers.get(position);
@@ -143,7 +143,13 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
                     public void onClick(View v) {
                         currentTimer.dismiss();
                         timers.remove(currentTimer);
-                        notifyDataSetChanged();
+                        viewHolder.startTimerButton.setVisibility(View.GONE);
+                        viewHolder.resetTimerButton.setVisibility(View.GONE);
+                        viewHolder.pauseTimerButton.setVisibility(View.GONE);
+                        viewHolder.dismissTimerButton.setVisibility(View.GONE);
+                        int pos = timers.indexOf(currentTimer);
+                        timers.remove(currentTimer);
+                        notifyItemRemoved(pos);
                     }
                 });
         } else if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.RUNNING)) {

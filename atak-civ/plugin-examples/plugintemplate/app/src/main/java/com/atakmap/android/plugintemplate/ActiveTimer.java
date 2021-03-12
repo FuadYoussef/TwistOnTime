@@ -231,4 +231,7 @@ public class ActiveTimer implements Serializable {
     public Timer getTimer() {
         return timer;
     }
+
+    public long getRemainingDurationMillis() { return remainingDurationMillis; }
 }
+

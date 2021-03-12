@@ -46,6 +46,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/timer_reset_button"
-        android:text="D"
+        android:text="DISMISS"
         android:visibility="gone"/>
 </RelativeLayout>

@@ -108,24 +108,33 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
         // NOTE: only allow users to mess around with the timer (e.g. dismiss,
         // reset) when the timer is paused.
         if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.PAUSED)) {
-            viewHolder.startTimerButton.setVisibility(View.VISIBLE);
+
+            // add logic here to say START or RESUME depending on context
+            if (currentTimer.getTimer().getDurationMillis() > currentTimer.getRemainingDurationMillis()) {
+                viewHolder.startTimerButton.setVisibility(View.VISIBLE);
+                viewHolder.startTimerButton.setText("RESUME");
+            } else {
+                viewHolder.startTimerButton.setVisibility(View.VISIBLE);
+                viewHolder.startTimerButton.setText("START");
+            }
+
             viewHolder.startTimerButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        currentTimer.start();
                         viewHolder.startTimerButton.setVisibility(View.GONE);
                         viewHolder.resetTimerButton.setVisibility(View.GONE);
                         viewHolder.dismissTimerButton.setVisibility(View.GONE);
+                        currentTimer.start();
                         notifyDataSetChanged();
                     }
                 });
             viewHolder.resetTimerButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        currentTimer.reset();
                         viewHolder.resetTimerButton.setVisibility(View.GONE);
                         viewHolder.pauseTimerButton.setVisibility(View.GONE);
                         viewHolder.dismissTimerButton.setVisibility(View.GONE);
+                        currentTimer.reset();
                         notifyDataSetChanged();
                     }
                 });
@@ -133,10 +142,6 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
                     @Override
                     public void onClick(View v) {
                         currentTimer.dismiss();
-                        viewHolder.startTimerButton.setVisibility(View.GONE);
-                        viewHolder.resetTimerButton.setVisibility(View.GONE);
-                        viewHolder.pauseTimerButton.setVisibility(View.GONE);
-                        viewHolder.dismissTimerButton.setVisibility(View.GONE);
                         timers.remove(currentTimer);
                         notifyDataSetChanged();
                     }
@@ -146,10 +151,10 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             viewHolder.pauseTimerButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        currentTimer.pause();
                         viewHolder.pauseTimerButton.setVisibility(View.GONE);
                         viewHolder.resetTimerButton.setVisibility(View.VISIBLE);
                         viewHolder.dismissTimerButton.setVisibility(View.VISIBLE);
+                        currentTimer.pause();
                         notifyDataSetChanged();
                     }
                 });

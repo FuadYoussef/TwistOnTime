@@ -20,4 +20,32 @@
         android:layout_toRightOf="@+id/timer_name"
         android:textSize="18sp"
         android:text=""/>
+    <Button
+        android:id="@+id/timer_start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/timer_time"
+        android:text="START"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/timer_pause_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/timer_start_button"
+        android:text="PAUSE"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/timer_reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/timer_pause_button"
+        android:text="RESET"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/timer_dismiss_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/timer_reset_button"
+        android:text="D"
+        android:visibility="gone"/>
 </RelativeLayout>

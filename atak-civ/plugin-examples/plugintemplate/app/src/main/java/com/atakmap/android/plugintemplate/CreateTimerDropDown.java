@@ -20,10 +20,12 @@ import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-// TODO: Add detailed description of class
 
 /**
- * This class is used for the setup and creation of the Create Timer screen.
+ * This class is used to create and edit timers. In the case of creating a timer,
+ * it will create a Timer.class object and pass this serializable object back to the home screen.
+ * If a serializable Timer object is passed into it through the Intent, then this will class
+ * functions to edit that timer, and the details of that timer will be displayed
  */
 
 public class CreateTimerDropDown extends DropDownReceiver implements OnStateListener {
@@ -41,6 +43,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private EditText durationSeconds;       // Duration of timer (second)
     private CheckBox preset;                // Whether or not timer is marked as preset
     private Button changeSoundButton;       // Button on UI to change the sound
+
+    /**
+     * Constructor for the dropdown
+     * Initializes buttons and texts so that they may be changed later
+     * @param mapView mapview needed for constructor
+     * @param context context needed for constructor
+     */
     public CreateTimerDropDown(final MapView mapView,
                                 final Context context) {
         super(mapView);
@@ -135,7 +144,12 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
 
     /**
      * Determines what screen the intent is coming from to set the data appropriately for editing
-     * an existing timer or for creating a new timer.
+     * an existing timer or for creating a new timer.. The action from the intent is used to
+     * determine whether this screen should be used at all,. If the action is SHOW_CREATE, then
+     * the plugin determines what screen the plugin is coming from based on the extras within
+     * the intent. For example, if there is a extra string "SELECTED_SOUND" then it is coming
+     * from the ChangeSoundsDropDown screen and the timer object details will be updated
+     * appropriately.
      * @param context context of the previous screen
      * @param intent intent of the previous screen
      */

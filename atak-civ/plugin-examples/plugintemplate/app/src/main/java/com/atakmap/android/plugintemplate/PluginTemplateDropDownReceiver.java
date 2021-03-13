@@ -37,6 +37,8 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     private RecyclerView mainScreenTimerList;
     private static ArrayList<ActiveTimer> timers = new ArrayList<>();
     private TimerListAdapter adapter;
+    private final MapView mapView;
+    private int notificationCount = 0;
 
 
     /**************************** CONSTRUCTOR *****************************/
@@ -45,6 +47,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                                           final Context context) {
         super(mapView);
         this.pluginContext = context;
+        this.mapView = mapView;
         // Remember to use the PluginLayoutInflator if you are actually inflating a custom view
         // In this case, using it is not necessary - but I am putting it here to remind
         // developers to look at this Inflator
@@ -112,7 +115,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
                 //we pass the adapter we use for our recycler view to each ActiveTimer so that as it counts down it forces the adapter to update
                 //we pass the plugin context to the ActiveTimer so that it knows the context to make a sound
-                timers.add(new ActiveTimer(timer, adapter, pluginContext));
+                timers.add(new ActiveTimer(timer,  notificationCount++, adapter, pluginContext, mapView));
                 timers.get(timers.size()-1).start();
                 adapter.notifyDataSetChanged();
             }

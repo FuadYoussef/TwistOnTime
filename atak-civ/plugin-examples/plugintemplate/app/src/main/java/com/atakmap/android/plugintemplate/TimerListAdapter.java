@@ -142,7 +142,6 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
                     @Override
                     public void onClick(View v) {
                         currentTimer.dismiss();
-                        timers.remove(currentTimer);
                         viewHolder.startTimerButton.setVisibility(View.GONE);
                         viewHolder.resetTimerButton.setVisibility(View.GONE);
                         viewHolder.pauseTimerButton.setVisibility(View.GONE);

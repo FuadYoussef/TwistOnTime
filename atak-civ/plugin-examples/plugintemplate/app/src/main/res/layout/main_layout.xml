@@ -2,7 +2,6 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,91 +22,79 @@
 
         <ScrollView
             android:id="@+id/timer_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="331dp"
+            android:layout_height="546dp"
             android:layout_below="@+id/main_header"
             android:layout_centerInParent="true"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="64dp"
             android:layout_marginRight="32dp"
-            android:layout_marginBottom="128dp"
+            android:layout_marginBottom="64dp"
+            android:layout_alignParentTop="true"
             android:background="#1EFFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:orientation="vertical"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
                         <RelativeLayout
                             android:id="@+id/firstTimer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/timer_container_layout"
-                            android:layout_margin="1dp">
+                            android:layout_margin="1dp"
+                            android:background="@drawable/timer_container_layout">
+
                                 <TextView
                                     android:id="@+id/first_timer_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
-                                    android:textSize="18sp"
-                                    android:text="@string/dummy_timer"/>
+                                    android:text="@string/dummy_timer"
+                                    android:textSize="18sp" />
+
                                 <TextView
                                     android:id="@+id/first_timer_time"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:layout_toRightOf="@+id/first_timer_name"
-                                    android:textSize="18sp"
-                                    android:text="(time left here)"/>
+                                    android:text="(time left here)"
+                                    android:textSize="18sp" />
                         </RelativeLayout>
                 </LinearLayout>
 
 
         </ScrollView>
 
-        <Button
-            android:id="@+id/presets_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/timer_frame"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="-64dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/preset_text" />
+                <Button
+                    android:id="@+id/presets_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/timer_frame"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/preset_text" />
 
-        <Button
-            android:id="@+id/start_timer_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/timer_frame"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="-64dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="32dp"
-            android:text="@string/start_timer" />
+                <Button
+                    android:id="@+id/start_timer_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/start_timer" />
 
-<!--        <Button-->
-<!--            android:id="@+id/add_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/timer_frame"-->
-<!--            android:layout_alignEnd="@id/timer_frame"-->
-<!--            android:layout_marginTop="-64dp"-->
-<!--            android:layout_marginStart="32dp"-->
-<!--            android:layout_marginBottom="32dp"-->
-<!--            android:text="Add New"/>-->
 
-        <ImageButton
-            android:id="@+id/add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/timer_frame"
-            android:layout_alignEnd="@id/timer_frame"
-            android:layout_marginTop="-64dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
-            android:src="@drawable/add_alarm_icon"/>
-        <!--This text will be replaced with icon later-->
+                <ImageButton
+                    android:id="@+id/add_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignEnd="@id/timer_frame"
+                    android:src="@drawable/add_alarm_icon" />
 
 </RelativeLayout>

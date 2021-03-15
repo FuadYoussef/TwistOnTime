@@ -24,8 +24,8 @@ import java.util.Arrays;
 /**
  * This class is used to create and edit timers. In the case of creating a timer,
  * it will create a Timer.class object and pass this serializable object back to the home screen.
- * If a serializable Timer object is passed into it through the Intent, then this will class
- * functions to edit that timer, and the details of that timer will be displayed
+ * If a serializable Timer object is passed into it through the Intent, then this class will
+ * function to edit that timer, and the details of that timer will be displayed
  */
 
 public class CreateTimerDropDown extends DropDownReceiver implements OnStateListener {
@@ -144,8 +144,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
 
     /**
      * Determines what screen the intent is coming from to set the data appropriately for editing
-     * an existing timer or for creating a new timer.. The action from the intent is used to
-     * determine whether this screen should be used at all,. If the action is SHOW_CREATE, then
+     * an existing timer or for creating a new timer. The action from the intent is used to
+     * determine whether this screen should be used at all. If the action is SHOW_CREATE, then
      * the plugin determines what screen the plugin is coming from based on the extras within
      * the intent. For example, if there is a extra string "SELECTED_SOUND" then it is coming
      * from the ChangeSoundsDropDown screen and the timer object details will be updated

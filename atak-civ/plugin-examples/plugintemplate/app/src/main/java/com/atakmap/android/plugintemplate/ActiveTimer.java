@@ -96,6 +96,7 @@ public class ActiveTimer extends Activity implements Serializable {
      * currentDurationMillis seconds, calling the ActiveTimer tick() method with each tick of the
      * CountDownTimer. When the CountDownTimer is finished. It changes the ActiveTimer state to
      * finished.
+     * Also, updates notification at each onTick when it should
      */
     boolean initialNotif = false;
     public void start() {
@@ -129,13 +130,12 @@ public class ActiveTimer extends Activity implements Serializable {
         };
         countDown.start();
     }
+
+    /**
+     * Creates a notification channel for each timer
+     */
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         Context actualContext = mapView.getContext();
-        TimerNotificationActionReceiver timerNotificationActionReceiver = new TimerNotificationActionReceiver();
-        IntentFilter filter = new IntentFilter();
-        actualContext.getApplicationContext().registerReceiver(timerNotificationActionReceiver,filter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Timer Notification";
             String description = "Notification for a timer";
@@ -143,13 +143,16 @@ public class ActiveTimer extends Activity implements Serializable {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             channel.setShowBadge(false);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = actualContext.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
 
+    /**
+     * Creates (and updates a notification)
+     * Allows for user to pause or resume a timer using TimerNotificationActionReceiver
+     *
+     */
     private void createNotification() {
         Context actualContext = mapView.getContext();
 

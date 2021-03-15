@@ -6,13 +6,22 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * This class interfaces with notifications to process actions like pause or resume
+ */
 public class TimerNotificationActionReceiver extends BroadcastReceiver {
-
+    /**
+     * Override the onreceive function of broadcast receiver
+     * @param context application context
+     * @param intent passed in when creating the notification
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
-
         int notifyId = intent.getIntExtra("activeTimer", -1);
-        Log.d("MYTAG", "" + notifyId);
+        //break if notifyId is messed up
+        if(notifyId == -1) {
+            return;
+        }
         ActiveTimer cur = PluginTemplateDropDownReceiver.timers.get(notifyId);
         String action = intent.getAction();
         if(action.equals("PAUSE")){

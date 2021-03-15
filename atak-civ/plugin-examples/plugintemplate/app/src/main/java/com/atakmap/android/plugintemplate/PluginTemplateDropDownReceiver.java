@@ -35,7 +35,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     private final View templateView;
     private final Context pluginContext;
     private RecyclerView mainScreenTimerList;
-    private static ArrayList<ActiveTimer> timers = new ArrayList<>();
+    public static ArrayList<ActiveTimer> timers = new ArrayList<>();
     private TimerListAdapter adapter;
     private final MapView mapView;
     private int notificationCount = 0;

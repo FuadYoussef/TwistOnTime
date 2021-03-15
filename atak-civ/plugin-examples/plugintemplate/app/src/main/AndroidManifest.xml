@@ -13,6 +13,9 @@
         <meta-data android:name="plugin-api" android:value="${atakApiVersion}"/>
         <meta-data android:name="app_desc" android:value="@string/app_desc"/>
 
-        <receiver android:name="com.atakmap.android.plugintemplate.TimerNotificationActionReceiver" />
+        <receiver android:name="com.atakmap.android.plugintemplate.TimerNotificationActionReceiver"
+            android:enabled="true"/>
+        <receiver android:name=".TimerNotificationActionReceiver" />
+
     </application>
 </manifest>

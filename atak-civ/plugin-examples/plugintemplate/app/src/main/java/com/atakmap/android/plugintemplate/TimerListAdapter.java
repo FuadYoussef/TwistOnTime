@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.atakmap.android.plugintemplate.plugin.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  * instances of it in a RecyclerView. It also populates each of these cells with the relevant data.
  * Please see the Android API docs for more details as to how RecyclerView, ViewHolder and ListAdapters work.
  */
-public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.ViewHolder> {
+public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.ViewHolder>  {
 
     private ArrayList<ActiveTimer> timers;
 

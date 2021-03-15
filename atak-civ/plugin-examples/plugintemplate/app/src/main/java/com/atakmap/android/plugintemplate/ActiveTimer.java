@@ -1,11 +1,14 @@
 package com.atakmap.android.plugintemplate;
 
+import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -14,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -28,6 +32,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static android.app.Notification.EXTRA_NOTIFICATION_ID;
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 /**
  * The ActiveTimer class is used to represent a timer that is running or will be run soon
@@ -36,7 +41,7 @@ import static android.app.Notification.EXTRA_NOTIFICATION_ID;
  * paused (when the timer is paused, newly created, or reset), running (when the timer is running)
  * finished (when the timer is finished), dismissed (when the timer is dismissed)
  */
-public class ActiveTimer implements Serializable {
+public class ActiveTimer extends Activity implements Serializable {
     public enum ActiveTimerState { RUNNING, PAUSED, FINISHED, DISMISSED}
 
     private Timer timer;
@@ -48,6 +53,7 @@ public class ActiveTimer implements Serializable {
     private final String CHANNEL_ID = "TIMER";
     private final MapView mapView;
     private final int notifyID;
+    private TimerNotificationActionReceiver timerNotificationActionReceiver;
 
 
     /**
@@ -71,6 +77,10 @@ public class ActiveTimer implements Serializable {
         this.mapView = mapView;
         this.notifyID = notificationID;
         createNotificationChannel();
+        this.timerNotificationActionReceiver = new TimerNotificationActionReceiver();
+
+        mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("PAUSE"));
+        mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("RESUME"));
     }
 
     /**
@@ -87,7 +97,7 @@ public class ActiveTimer implements Serializable {
      * CountDownTimer. When the CountDownTimer is finished. It changes the ActiveTimer state to
      * finished.
      */
-
+    boolean initialNotif = false;
     public void start() {
         state = ActiveTimerState.RUNNING;
         final Set<Integer> notificationSet = new HashSet<>();
@@ -101,17 +111,20 @@ public class ActiveTimer implements Serializable {
                 remainingDurationMillis = l;
                 containingAdapter.notifyDataSetChanged();
                 int cur = (int)l/1000;
+                timer.setDuration(getDurationRemainingString());
                 if (notificationSet.contains(cur)) {
                     makeSound();
+                    initialNotif = true;
                     createNotification();
                 }
+                if(initialNotif) createNotification();
             }
             // No longer necessary because will make notification sound in onTick
             @Override
             public void onFinish() {
-                // set state to finished
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
-//                ActiveTimer.this.makeSound();
+                timer.setDuration("Finished");
+                createNotification();
             }
         };
         countDown.start();
@@ -120,6 +133,9 @@ public class ActiveTimer implements Serializable {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         Context actualContext = mapView.getContext();
+        TimerNotificationActionReceiver timerNotificationActionReceiver = new TimerNotificationActionReceiver();
+        IntentFilter filter = new IntentFilter();
+        actualContext.getApplicationContext().registerReceiver(timerNotificationActionReceiver,filter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Timer Notification";
             String description = "Notification for a timer";
@@ -133,23 +149,36 @@ public class ActiveTimer implements Serializable {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
     private void createNotification() {
         Context actualContext = mapView.getContext();
-        Intent pauseIntent = new Intent(actualContext, TimerNotificationActionReceiver.class);
-        pauseIntent.putExtra("action", "pause");
+
+        Intent pauseIntent = new Intent("PAUSE");
+        pauseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        pauseIntent.putExtra("activeTimer", notifyID);
         PendingIntent pausePendingIntent =
-                PendingIntent.getBroadcast(actualContext, 0, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getBroadcast(actualContext, 0, pauseIntent, FLAG_UPDATE_CURRENT);
+        Intent resumeIntent = new Intent("RESUME");
+        pauseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        resumeIntent.putExtra("activeTimer", notifyID);
+        PendingIntent resumePendingIntent =
+                PendingIntent.getBroadcast(actualContext, 0, resumeIntent, FLAG_UPDATE_CURRENT);
         timer.setDuration(getDurationRemainingString());
+        NotificationCompat.Action pauseAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_pause, "Pause", pausePendingIntent).build();
+        NotificationCompat.Action resumeAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_play, "Resume", resumePendingIntent).build();
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.alert_light_frame)
                 .setContentTitle(timer.getName())
                 .setContentText(timer.getDuration())
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setColor(Color.blue(1))
-                .addAction(android.R.drawable.ic_media_pause, "Pause", pausePendingIntent);
+                .setOnlyAlertOnce(true)
+                .setSound(null)
+                .addAction(resumeAction)
+                .addAction(pauseAction)
+                .setOngoing(true);;
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
-
         notificationManager.notify(notifyID, builder.build());
     }
     /**

@@ -163,17 +163,30 @@ public class ActiveTimer extends Activity implements Serializable {
         NotificationCompat.Action pauseAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_pause, "Pause", pausePendingIntent).build();
         NotificationCompat.Action resumeAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_play, "Resume", resumePendingIntent).build();
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.alert_light_frame)
-                .setContentTitle(timer.getName())
-                .setContentText(timer.getDuration())
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setColor(Color.blue(1))
-                .setOnlyAlertOnce(true)
-                .setSound(null)
-                .addAction(resumeAction)
-                .addAction(pauseAction)
-                .setOngoing(true);;
+        NotificationCompat.Builder builder;
+        if(state == ActiveTimerState.PAUSED) {
+            builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
+                    .setSmallIcon(android.R.drawable.alert_light_frame)
+                    .setContentTitle(timer.getName())
+                    .setContentText(timer.getDuration())
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .setColor(Color.blue(1))
+                    .setOnlyAlertOnce(true)
+                    .setSound(null)
+                    .addAction(resumeAction)
+                    .setOngoing(true);
+        } else {
+            builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
+                    .setSmallIcon(android.R.drawable.alert_light_frame)
+                    .setContentTitle(timer.getName())
+                    .setContentText(timer.getDuration())
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .setColor(Color.blue(1))
+                    .setOnlyAlertOnce(true)
+                    .setSound(null)
+                    .addAction(pauseAction)
+                    .setOngoing(true);
+        }
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
         notificationManager.notify(notifyID, builder.build());
     }
@@ -186,6 +199,7 @@ public class ActiveTimer extends Activity implements Serializable {
             countDown.cancel();
         }
         state = ActiveTimerState.PAUSED;
+        createNotification();
     }
 
     /**

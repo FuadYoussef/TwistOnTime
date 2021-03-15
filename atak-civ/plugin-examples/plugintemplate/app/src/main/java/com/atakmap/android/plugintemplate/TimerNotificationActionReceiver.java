@@ -27,11 +27,13 @@ public class TimerNotificationActionReceiver extends BroadcastReceiver {
             Toast.makeText(context,"Paused", Toast.LENGTH_SHORT).show();
             cur.pause();
 
-        }
-        else if(action.equals("RESUME")){
+        } else if(action.equals("RESUME")){
             Toast.makeText(context,"Resumed", Toast.LENGTH_SHORT).show();
             cur.start();
 
+        } else if(action.equals("CANCEL")) {
+            Toast.makeText(context,"Cancelled", Toast.LENGTH_SHORT).show();
+            cur.dismiss();
         }
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         context.sendBroadcast(it);

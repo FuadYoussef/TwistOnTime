@@ -17,6 +17,7 @@ import android.os.CountDownTimer;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.atakmap.android.maps.MapComponent;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
 
@@ -76,6 +77,8 @@ public class ActiveTimer extends Activity implements Serializable {
 
         mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("PAUSE"));
         mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("RESUME"));
+        mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("CANCEL"));
+
     }
 
     /**
@@ -155,13 +158,18 @@ public class ActiveTimer extends Activity implements Serializable {
         PendingIntent pausePendingIntent =
                 PendingIntent.getBroadcast(actualContext, 0, pauseIntent, FLAG_UPDATE_CURRENT);
         Intent resumeIntent = new Intent("RESUME");
-        pauseIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         resumeIntent.putExtra("activeTimer", notifyID);
         PendingIntent resumePendingIntent =
                 PendingIntent.getBroadcast(actualContext, 0, resumeIntent, FLAG_UPDATE_CURRENT);
+        Intent cancelIntent = new Intent("CANCEL");
+        cancelIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        cancelIntent.putExtra("activeTimer", notifyID);
+        PendingIntent cancelPendingIntent =
+                PendingIntent.getBroadcast(actualContext, 0, cancelIntent, FLAG_UPDATE_CURRENT);
         notificationStr = getDurationRemainingString();
         NotificationCompat.Action pauseAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_pause, "Pause", pausePendingIntent).build();
         NotificationCompat.Action resumeAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_play, "Resume", resumePendingIntent).build();
+        NotificationCompat.Action cancelAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_play, "Cancel", cancelPendingIntent).build();
 
         NotificationCompat.Builder builder;
         if(state == ActiveTimerState.PAUSED) {
@@ -174,6 +182,7 @@ public class ActiveTimer extends Activity implements Serializable {
                     .setOnlyAlertOnce(true)
                     .setSound(null)
                     .addAction(resumeAction)
+                    .addAction(cancelAction)
                     .setOngoing(true);
         } else {
             builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
@@ -185,6 +194,7 @@ public class ActiveTimer extends Activity implements Serializable {
                     .setOnlyAlertOnce(true)
                     .setSound(null)
                     .addAction(pauseAction)
+                    .addAction(cancelAction)
                     .setOngoing(true);
         }
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
@@ -238,6 +248,9 @@ public class ActiveTimer extends Activity implements Serializable {
             countDown.cancel();
         }
         state = ActiveTimerState.PAUSED;
+        Context actualContext = mapView.getContext();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
+        notificationManager.cancel(notifyID);
     }
 
     /**
@@ -249,6 +262,9 @@ public class ActiveTimer extends Activity implements Serializable {
             countDown.cancel();
         }
         state = ActiveTimerState.DISMISSED;
+        Context actualContext = mapView.getContext();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
+        notificationManager.cancel(notifyID);
     }
 
     /**
@@ -323,5 +339,11 @@ public class ActiveTimer extends Activity implements Serializable {
      */
     public Timer getTimer() {
         return timer;
+    }
+    @Override
+    public void onDestroy() {
+        Context actualContext = mapView.getContext();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
+        notificationManager.cancel(notifyID);
     }
 }

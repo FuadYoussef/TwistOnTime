@@ -113,22 +113,6 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                 //we pass the adapter we use for our recycler view to each ActiveTimer so that as it counts down it forces the adapter to update
                 //we pass the plugin context to the ActiveTimer so that it knows the context to make a sound
                 timers.add(new ActiveTimer(timer, adapter, pluginContext));
-
-
-//                templateView.findViewById(R.id.timer_start_button).setVisibility(0);
-//                templateView.findViewById(R.id.timer_start_button)
-//                        .setOnClickListener(new OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                setRetain(true);
-//                                timers.get(timers.size()-1).start();
-//                                adapter.notifyDataSetChanged();
-//                            }
-//                        });
-
-
-
-//                timers.get(timers.size()-1).start();
                 adapter.notifyDataSetChanged();
             }
         }

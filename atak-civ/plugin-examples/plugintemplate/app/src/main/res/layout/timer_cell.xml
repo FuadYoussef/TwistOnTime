@@ -20,32 +20,32 @@
         android:layout_toRightOf="@+id/timer_name"
         android:textSize="18sp"
         android:text=""/>
-    <Button
+    <ImageButton
         android:id="@+id/timer_start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_toRightOf="@+id/timer_time"
-        android:text="START"
+        android:src="@drawable/round_play_arrow_black_48"
         android:visibility="gone"/>
-    <Button
+    <ImageButton
         android:id="@+id/timer_pause_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_toRightOf="@+id/timer_start_button"
-        android:text="PAUSE"
+        android:src="@drawable/round_pause_black_48"
         android:visibility="gone"/>
-    <Button
+    <ImageButton
         android:id="@+id/timer_reset_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_toRightOf="@+id/timer_pause_button"
-        android:text="RESET"
+        android:src="@drawable/round_replay_black_48"
         android:visibility="gone"/>
-    <Button
+    <ImageButton
         android:id="@+id/timer_dismiss_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_toRightOf="@+id/timer_reset_button"
-        android:text="DISMISS"
+        android:src="@drawable/round_delete_black_48"
         android:visibility="gone"/>
 </RelativeLayout>

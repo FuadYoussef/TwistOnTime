@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,10 +33,10 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
         TextView timerName;
         TextView timerDuration;
         RelativeLayout parentLayout;
-        Button startTimerButton;
-        Button pauseTimerButton;
-        Button dismissTimerButton;
-        Button resetTimerButton;
+        ImageButton startTimerButton;
+        ImageButton pauseTimerButton;
+        ImageButton dismissTimerButton;
+        ImageButton resetTimerButton;
 
         /**
          * Binds xml elements in the view we are putting into the recyclerview to Java variables
@@ -124,9 +125,6 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
         viewHolder.resetTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.resetTimerButton.setVisibility(View.GONE);
-                viewHolder.pauseTimerButton.setVisibility(View.GONE);
-                viewHolder.dismissTimerButton.setVisibility(View.GONE);
                 currentTimer.reset();
                 notifyDataSetChanged();
             }
@@ -136,10 +134,6 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             @Override
             public void onClick(View v) {
                 currentTimer.dismiss();
-                viewHolder.startTimerButton.setVisibility(View.GONE);
-                viewHolder.resetTimerButton.setVisibility(View.GONE);
-                viewHolder.pauseTimerButton.setVisibility(View.GONE);
-                viewHolder.dismissTimerButton.setVisibility(View.GONE);
                 int pos = timers.indexOf(currentTimer);
                 timers.remove(currentTimer);
                 notifyItemRemoved(pos);
@@ -155,12 +149,12 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             viewHolder.startTimerButton.setVisibility(View.VISIBLE);
             viewHolder.resetTimerButton.setVisibility(View.VISIBLE);
             viewHolder.dismissTimerButton.setVisibility(View.VISIBLE);
-            // change text to "START" or "RESUME" based on context
-            if (currentTimer.getTimer().getDurationMillis() > currentTimer.getRemainingDurationMillis()) {
-                viewHolder.startTimerButton.setText("RESUME");
-            } else {
-                viewHolder.startTimerButton.setText("START");
-            }
+//            // change text to "START" or "RESUME" based on context
+//            if (currentTimer.getTimer().getDurationMillis() > currentTimer.getRemainingDurationMillis()) {
+//                viewHolder.startTimerButton.setText("RESUME");
+//            } else {
+//                viewHolder.startTimerButton.setText("START");
+//            }
         } else if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.RUNNING)) {
             viewHolder.pauseTimerButton.setVisibility(View.VISIBLE);
             viewHolder.startTimerButton.setVisibility(View.GONE);

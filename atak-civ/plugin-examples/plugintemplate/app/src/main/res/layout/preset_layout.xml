@@ -41,64 +41,10 @@
             android:layout_margin="10dp"
             >
 
-            <RelativeLayout
+            <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/timer_container_layout"
-                android:layout_margin="1dp">
-                <TextView
-                    android:id="@+id/fake_timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:text="@string/dummy_timer"/>
-                <TextView
-                    android:id="@+id/fake_timer1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/fake_timer"
-                    android:textSize="18sp"
-                    android:text="(time_here)"/>
-                <TextView
-                    android:id="@+id/fake_timer2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/fake_timer1"
-                    android:textSize="18sp"
-                    android:text="+"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/timer_container_layout"
-                android:layout_margin="1dp">
-                <TextView
-                    android:id="@+id/fake_timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:text="@string/dummy_timer"/>
-                <TextView
-                    android:id="@+id/fake_timer1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/fake_timer"
-                    android:textSize="18sp"
-                    android:text="(time_here)"/>
-                <TextView
-                    android:id="@+id/fake_timer2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/fake_timer1"
-                    android:textSize="18sp"
-                    android:text="+"/>
-            </RelativeLayout>
+                android:layout_height="match_parent"
+                android:id="@+id/preset_recycler"/>
 
         </LinearLayout>
     </ScrollView>

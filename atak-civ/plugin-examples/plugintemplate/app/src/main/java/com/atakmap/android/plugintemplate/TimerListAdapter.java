@@ -103,68 +103,70 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
         viewHolder.timerName.setText(timers.get(position).getName());
         viewHolder.timerDuration.setText(timers.get(position).getDurationRemainingString());
 
-        // Here, we will display the appropriate control buttons to the user
+        // set respective timer cell button actions here
+        // START button
+        viewHolder.startTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTimer.start();
+                notifyDataSetChanged();
+            }
+        });
+        // PAUSE button
+        viewHolder.pauseTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTimer.pause();
+                notifyDataSetChanged();
+            }
+        });
+        // RESET button
+        viewHolder.resetTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.resetTimerButton.setVisibility(View.GONE);
+                viewHolder.pauseTimerButton.setVisibility(View.GONE);
+                viewHolder.dismissTimerButton.setVisibility(View.GONE);
+                currentTimer.reset();
+                notifyDataSetChanged();
+            }
+        });
+        // DISMISS button
+        viewHolder.dismissTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTimer.dismiss();
+                viewHolder.startTimerButton.setVisibility(View.GONE);
+                viewHolder.resetTimerButton.setVisibility(View.GONE);
+                viewHolder.pauseTimerButton.setVisibility(View.GONE);
+                viewHolder.dismissTimerButton.setVisibility(View.GONE);
+                int pos = timers.indexOf(currentTimer);
+                timers.remove(currentTimer);
+                notifyItemRemoved(pos);
+            }
+        });
+
+        // Display the appropriate control buttons to the user
         // based on the timer state.
         // NOTE: only allow users to mess around with the timer (e.g. dismiss,
         // reset) when the timer is paused.
         if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.PAUSED)) {
-
-            // add logic here to say START or RESUME depending on context
+            viewHolder.pauseTimerButton.setVisibility(View.GONE);
+            viewHolder.startTimerButton.setVisibility(View.VISIBLE);
+            viewHolder.resetTimerButton.setVisibility(View.VISIBLE);
+            viewHolder.dismissTimerButton.setVisibility(View.VISIBLE);
+            // change text to "START" or "RESUME" based on context
             if (currentTimer.getTimer().getDurationMillis() > currentTimer.getRemainingDurationMillis()) {
-                viewHolder.startTimerButton.setVisibility(View.VISIBLE);
                 viewHolder.startTimerButton.setText("RESUME");
             } else {
-                viewHolder.startTimerButton.setVisibility(View.VISIBLE);
                 viewHolder.startTimerButton.setText("START");
             }
-
-            viewHolder.startTimerButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        viewHolder.startTimerButton.setVisibility(View.GONE);
-                        viewHolder.resetTimerButton.setVisibility(View.GONE);
-                        viewHolder.dismissTimerButton.setVisibility(View.GONE);
-                        currentTimer.start();
-                        notifyDataSetChanged();
-                    }
-                });
-            viewHolder.resetTimerButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        viewHolder.resetTimerButton.setVisibility(View.GONE);
-                        viewHolder.pauseTimerButton.setVisibility(View.GONE);
-                        viewHolder.dismissTimerButton.setVisibility(View.GONE);
-                        currentTimer.reset();
-                        notifyDataSetChanged();
-                    }
-                });
-            viewHolder.dismissTimerButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        currentTimer.dismiss();
-                        viewHolder.startTimerButton.setVisibility(View.GONE);
-                        viewHolder.resetTimerButton.setVisibility(View.GONE);
-                        viewHolder.pauseTimerButton.setVisibility(View.GONE);
-                        viewHolder.dismissTimerButton.setVisibility(View.GONE);
-                        int pos = timers.indexOf(currentTimer);
-                        timers.remove(currentTimer);
-                        notifyItemRemoved(pos);
-                    }
-                });
         } else if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.RUNNING)) {
             viewHolder.pauseTimerButton.setVisibility(View.VISIBLE);
-            viewHolder.pauseTimerButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        viewHolder.pauseTimerButton.setVisibility(View.GONE);
-                        viewHolder.resetTimerButton.setVisibility(View.VISIBLE);
-                        viewHolder.dismissTimerButton.setVisibility(View.VISIBLE);
-                        currentTimer.pause();
-                        notifyDataSetChanged();
-                    }
-                });
+            viewHolder.startTimerButton.setVisibility(View.GONE);
+            viewHolder.resetTimerButton.setVisibility(View.GONE);
+            viewHolder.dismissTimerButton.setVisibility(View.GONE);
         }
-
     }
 
     /**

@@ -160,6 +160,11 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             viewHolder.startTimerButton.setVisibility(View.GONE);
             viewHolder.resetTimerButton.setVisibility(View.GONE);
             viewHolder.dismissTimerButton.setVisibility(View.GONE);
+        } else if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.FINISHED)) {
+            viewHolder.pauseTimerButton.setVisibility(View.GONE);
+            viewHolder.startTimerButton.setVisibility(View.GONE);
+            viewHolder.resetTimerButton.setVisibility(View.VISIBLE);
+            viewHolder.dismissTimerButton.setVisibility(View.VISIBLE);
         }
     }
 

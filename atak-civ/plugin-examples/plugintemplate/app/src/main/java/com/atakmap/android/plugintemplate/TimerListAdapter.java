@@ -1,14 +1,18 @@
 package com.atakmap.android.plugintemplate;
 
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.plugintemplate.plugin.R;
 
 import java.util.ArrayList;
@@ -29,6 +33,10 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
         TextView timerName;
         TextView timerDuration;
         RelativeLayout parentLayout;
+        ImageButton startTimerButton;
+        ImageButton pauseTimerButton;
+        ImageButton dismissTimerButton;
+        ImageButton resetTimerButton;
 
         /**
          * Binds xml elements in the view we are putting into the recyclerview to Java variables
@@ -39,6 +47,10 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             timerName = itemView.findViewById(R.id.timer_name);
             timerDuration = itemView.findViewById(R.id.timer_time);
             parentLayout = itemView.findViewById(R.id.timer_cell);
+            startTimerButton = itemView.findViewById(R.id.timer_start_button);
+            pauseTimerButton = itemView.findViewById(R.id.timer_pause_button);
+            dismissTimerButton = itemView.findViewById(R.id.timer_dismiss_button);
+            resetTimerButton = itemView.findViewById(R.id.timer_reset_button);
 
             itemView.setOnClickListener(this);
         }
@@ -54,7 +66,7 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
     }
 
     /**
-     * Constructer for the TimerListAdapter
+     * Constructor for the TimerListAdapter
      * @param timers the arraylist of ActiveTimers we want to display in our recyclerview
      */
     TimerListAdapter(ArrayList<ActiveTimer> timers) {
@@ -83,9 +95,77 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
      * @param position  The position of the item within the recyclerview
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.timerDuration.setText(timers.get(position).getDurationRemainingString());
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
+
+        // get corresponding timer
+        final ActiveTimer currentTimer = timers.get(position);
+
+        // fill in the timer name and duration in the specific timer cell
         viewHolder.timerName.setText(timers.get(position).getName());
+        viewHolder.timerDuration.setText(timers.get(position).getDurationRemainingString());
+
+        // set respective timer cell button actions here
+        // START button
+        viewHolder.startTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTimer.start();
+                notifyDataSetChanged();
+            }
+        });
+        // PAUSE button
+        viewHolder.pauseTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTimer.pause();
+                notifyDataSetChanged();
+            }
+        });
+        // RESET button
+        viewHolder.resetTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTimer.reset();
+                notifyDataSetChanged();
+            }
+        });
+        // DISMISS button
+        viewHolder.dismissTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTimer.dismiss();
+                int pos = timers.indexOf(currentTimer);
+                timers.remove(currentTimer);
+                notifyItemRemoved(pos);
+            }
+        });
+
+        // Display the appropriate control buttons to the user
+        // based on the timer state.
+        // NOTE: only allow users to mess around with the timer (e.g. dismiss,
+        // reset) when the timer is paused.
+        if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.PAUSED)) {
+            viewHolder.pauseTimerButton.setVisibility(View.GONE);
+            viewHolder.startTimerButton.setVisibility(View.VISIBLE);
+            viewHolder.resetTimerButton.setVisibility(View.VISIBLE);
+            viewHolder.dismissTimerButton.setVisibility(View.VISIBLE);
+//            // change text to "START" or "RESUME" based on context
+//            if (currentTimer.getTimer().getDurationMillis() > currentTimer.getRemainingDurationMillis()) {
+//                viewHolder.startTimerButton.setText("RESUME");
+//            } else {
+//                viewHolder.startTimerButton.setText("START");
+//            }
+        } else if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.RUNNING)) {
+            viewHolder.pauseTimerButton.setVisibility(View.VISIBLE);
+            viewHolder.startTimerButton.setVisibility(View.GONE);
+            viewHolder.resetTimerButton.setVisibility(View.GONE);
+            viewHolder.dismissTimerButton.setVisibility(View.GONE);
+        } else if (currentTimer.getState().equals(ActiveTimer.ActiveTimerState.FINISHED)) {
+            viewHolder.pauseTimerButton.setVisibility(View.GONE);
+            viewHolder.startTimerButton.setVisibility(View.GONE);
+            viewHolder.resetTimerButton.setVisibility(View.VISIBLE);
+            viewHolder.dismissTimerButton.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

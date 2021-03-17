@@ -120,6 +120,8 @@ public class ActiveTimer extends Activity implements Serializable {
             @Override
             public void onFinish() {
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
+                containingAdapter.notifyDataSetChanged();
+                ActiveTimer.this.makeSound();
                 notificationStr = "Finished";
                 createNotification();
             }
@@ -340,6 +342,8 @@ public class ActiveTimer extends Activity implements Serializable {
     public Timer getTimer() {
         return timer;
     }
+
+    public long getRemainingDurationMillis() { return remainingDurationMillis; }
     @Override
     public void onDestroy() {
         Context actualContext = mapView.getContext();

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
@@ -36,6 +37,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     private final Context pluginContext;
     private RecyclerView mainScreenTimerList;
     public static ArrayList<ActiveTimer> timers = new ArrayList<>();
+    public static HashMap<Integer, ActiveTimer> timerNotifMap = new HashMap<>();
     private TimerListAdapter adapter;
     private final MapView mapView;
     private int notificationCount = 0;
@@ -117,6 +119,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                 //we pass the plugin context to the ActiveTimer so that it knows the context to make a sound
                 timers.add(new ActiveTimer(timer,  notificationCount++, adapter, pluginContext, mapView));
                 timers.get(timers.size()-1).start();
+                timerNotifMap.put(notificationCount-1, timers.get(timers.size()-1));
                 adapter.notifyDataSetChanged();
             }
         }

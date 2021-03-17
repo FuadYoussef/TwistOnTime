@@ -21,7 +21,7 @@ public class TimerNotificationActionReceiver extends BroadcastReceiver {
         if(notifyId == -1) {
             return;
         }
-        ActiveTimer cur = PluginTemplateDropDownReceiver.timers.get(notifyId);
+        ActiveTimer cur = PluginTemplateDropDownReceiver.timerNotifMap.get(notifyId);
         String action = intent.getAction();
         if(action.equals("PAUSE")){
             Toast.makeText(context,"Paused", Toast.LENGTH_SHORT).show();

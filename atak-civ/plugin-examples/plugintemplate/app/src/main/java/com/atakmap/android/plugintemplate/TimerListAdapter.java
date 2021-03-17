@@ -87,13 +87,18 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.timer_cell, parent, false);
         return  new ViewHolder(view);
     }
-
+    public void dismiss(ActiveTimer currentTimer) {
+        int pos = timers.indexOf(currentTimer);
+        timers.remove(currentTimer);
+        notifyItemRemoved(pos);
+    }
     /** From Android API Website (https://developer.android.com/guide/topics/ui/layout/recyclerview)
      * RecyclerView calls this method to associate a ViewHolder with data.
      * The method fetches the appropriate data and uses the data to fill in the view holder's layout.
      * @param viewHolder the viewholder we created by inflating the timer_cell that we want to fill with data
      * @param position  The position of the item within the recyclerview
      */
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
 
@@ -110,7 +115,6 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             @Override
             public void onClick(View v) {
                 currentTimer.start();
-                notifyDataSetChanged();
             }
         });
         // PAUSE button
@@ -118,7 +122,6 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             @Override
             public void onClick(View v) {
                 currentTimer.pause();
-                notifyDataSetChanged();
             }
         });
         // RESET button
@@ -126,7 +129,6 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             @Override
             public void onClick(View v) {
                 currentTimer.reset();
-                notifyDataSetChanged();
             }
         });
         // DISMISS button
@@ -134,9 +136,7 @@ public class TimerListAdapter extends RecyclerView.Adapter<TimerListAdapter.View
             @Override
             public void onClick(View v) {
                 currentTimer.dismiss();
-                int pos = timers.indexOf(currentTimer);
-                timers.remove(currentTimer);
-                notifyItemRemoved(pos);
+                dismiss(currentTimer);
             }
         });
 

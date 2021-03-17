@@ -79,17 +79,10 @@ public class Timer implements Serializable {
      * @return a string with the duration of the timer formatted nicely
      */
     public String getDuration() {
-        if (hours != 0) {
-            String minutes_string = new DecimalFormat("00").format(minutes);
-            String seconds_string = new DecimalFormat("00").format(seconds);
-            return (hours +":"+ minutes_string +":"+ seconds_string);
-        }
-        if (minutes != 0) {
-            String seconds_string = new DecimalFormat("00").format(seconds);
-            return (minutes +":"+ seconds_string);
-        } else {
-            return ("" + seconds);
-        }
+        String hours_string = new DecimalFormat("00").format(hours);
+        String minutes_string = new DecimalFormat("00").format(minutes);
+        String seconds_string = new DecimalFormat("00").format(seconds);
+        return (hours_string +":"+ minutes_string +":"+ seconds_string);
     }
 
 }

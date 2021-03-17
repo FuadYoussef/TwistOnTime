@@ -76,6 +76,7 @@ public class ActiveTimer implements Serializable {
             public void onFinish() {
                 // set state to finished
                 ActiveTimer.this.state = ActiveTimerState.FINISHED;
+                containingAdapter.notifyDataSetChanged();
                 ActiveTimer.this.makeSound();
             }
         };
@@ -231,4 +232,7 @@ public class ActiveTimer implements Serializable {
     public Timer getTimer() {
         return timer;
     }
+
+    public long getRemainingDurationMillis() { return remainingDurationMillis; }
 }
+

@@ -20,4 +20,32 @@
         android:layout_toRightOf="@+id/timer_name"
         android:textSize="18sp"
         android:text=""/>
+    <ImageButton
+        android:id="@+id/timer_start_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/timer_time"
+        android:src="@drawable/round_play_arrow_black_48"
+        android:visibility="gone"/>
+    <ImageButton
+        android:id="@+id/timer_pause_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/timer_start_button"
+        android:src="@drawable/round_pause_black_48"
+        android:visibility="gone"/>
+    <ImageButton
+        android:id="@+id/timer_reset_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/timer_pause_button"
+        android:src="@drawable/round_replay_black_48"
+        android:visibility="gone"/>
+    <ImageButton
+        android:id="@+id/timer_dismiss_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/timer_reset_button"
+        android:src="@drawable/round_delete_black_48"
+        android:visibility="gone"/>
 </RelativeLayout>

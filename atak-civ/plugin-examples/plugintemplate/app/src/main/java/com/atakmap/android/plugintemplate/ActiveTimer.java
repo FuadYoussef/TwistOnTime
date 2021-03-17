@@ -106,17 +106,10 @@ public class ActiveTimer implements Serializable {
         int hours = (int) remainingDurationMillis /(60*60*1000);
         int minutes = (int)(remainingDurationMillis -(hours*60*60*1000))/(60*1000);
         int seconds = (int)(remainingDurationMillis -(hours*60*60*1000)-(minutes*60*1000))/1000;
-        if (hours != 0) {
-            String minutes_string = new DecimalFormat("00").format(minutes);
-            String seconds_string = new DecimalFormat("00").format(seconds);
-            return (hours +":"+ minutes_string +":"+ seconds_string);
-        }
-        if (minutes != 0) {
-            String seconds_string = new DecimalFormat("00").format(seconds);
-            return (minutes +":"+ seconds_string);
-        } else {
-            return ("" + seconds);
-        }
+        String hours_string = new DecimalFormat("00").format(hours);
+        String minutes_string = new DecimalFormat("00").format(minutes);
+        String seconds_string = new DecimalFormat("00").format(seconds);
+        return (hours_string +":"+ minutes_string +":"+ seconds_string);
     }
 
     /**

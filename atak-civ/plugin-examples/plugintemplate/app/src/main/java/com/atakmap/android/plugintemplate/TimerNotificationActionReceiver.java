@@ -3,6 +3,7 @@ package com.atakmap.android.plugintemplate;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -23,17 +24,24 @@ public class TimerNotificationActionReceiver extends BroadcastReceiver {
         }
         ActiveTimer cur = PluginTemplateDropDownReceiver.timerNotifMap.get(notifyId);
         String action = intent.getAction();
+        Log.d("TAG", action);
         if(action.equals("PAUSE")){
-            Toast.makeText(context,"Paused", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,cur.getName() + " Paused", Toast.LENGTH_SHORT).show();
             cur.pause();
 
         } else if(action.equals("RESUME")){
-            Toast.makeText(context,"Resumed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,cur.getName() + " Resumed", Toast.LENGTH_SHORT).show();
             cur.start();
 
         } else if(action.equals("CANCEL")) {
-            Toast.makeText(context,"Cancelled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,cur.getName() + " Cancelled", Toast.LENGTH_SHORT).show();
             cur.dismiss();
+        } else if(action.equals("RESTART")) {
+            Toast.makeText(context,cur.getName() + " Restarted", Toast.LENGTH_SHORT).show();
+            cur.reset();
+        } else if (action.equals("DELETE")) {
+            cur.updateNotification = false;
+            Log.d("TAG", "here");
         }
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         context.sendBroadcast(it);

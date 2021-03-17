@@ -14,6 +14,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.util.Log;
+
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -48,7 +50,7 @@ public class ActiveTimer extends Activity implements Serializable {
     private final MapView mapView;
     private final int notifyID;
     private TimerNotificationActionReceiver timerNotificationActionReceiver;
-    private boolean updateNotification = false;
+    public boolean updateNotification = false;
     private String notificationStr = getDurationRemainingString();
 
 
@@ -78,6 +80,8 @@ public class ActiveTimer extends Activity implements Serializable {
         mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("PAUSE"));
         mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("RESUME"));
         mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("CANCEL"));
+        mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("RESTART"));
+        mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("DELETE"));
 
     }
 
@@ -172,31 +176,38 @@ public class ActiveTimer extends Activity implements Serializable {
         PendingIntent cancelPendingIntent =
                 PendingIntent.getBroadcast(actualContext, 0, cancelIntent, FLAG_UPDATE_CURRENT);
 
-        Intent deleteIntent = new Intent("NOTIF");
-        cancelIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        cancelIntent.putExtra("activeTimer", notifyID);
-        PendingIntent pendingDeleteIntent =
-                PendingIntent.getBroadcast(actualContext, 0, deleteIntent, FLAG_UPDATE_CURRENT);
+        Intent restartIntent = new Intent("RESTART");
+        restartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        restartIntent.putExtra("activeTimer", notifyID);
+        PendingIntent pendingRestartIntent =
+                PendingIntent.getBroadcast(actualContext, 0, restartIntent, FLAG_UPDATE_CURRENT);
+
+        Intent deleteNotif = new Intent("DELETE");
+        deleteNotif.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        deleteNotif.putExtra("activeTimer", notifyID);
+        PendingIntent deleteNotifPending =
+                PendingIntent.getBroadcast(actualContext, 0, deleteNotif, FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Action pauseAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_pause, "Pause", pausePendingIntent).build();
         NotificationCompat.Action resumeAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_play, "Resume", resumePendingIntent).build();
         NotificationCompat.Action cancelAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_play, "Cancel", cancelPendingIntent).build();
+        NotificationCompat.Action restartAction = new NotificationCompat.Action.Builder(android.R.drawable.ic_media_play, "Restart", pendingRestartIntent).build();
 
         NotificationCompat.Builder builder;
         if(state == ActiveTimerState.PAUSED) {
             notificationStr = getDurationRemainingString();
             builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
                     .setSmallIcon(android.R.drawable.alert_light_frame)
-                    .setContentTitle(timer.getName())
+                    .setContentTitle(timer.getName() + " Paused")
                     .setContentText(notificationStr)
                     .setPriority(NotificationCompat.PRIORITY_LOW)
                     .setColor(Color.blue(1))
                     .setOnlyAlertOnce(true)
-                    .setOngoing(true)
                     .setSound(null)
+                    .setDeleteIntent(deleteNotifPending)
                     .addAction(resumeAction)
                     .addAction(cancelAction)
-                    .setDeleteIntent(pendingDeleteIntent);
+                    .addAction(restartAction);
         } else if (state == ActiveTimerState.RUNNING){
             notificationStr = getDurationRemainingString();
             builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
@@ -206,11 +217,9 @@ public class ActiveTimer extends Activity implements Serializable {
                     .setPriority(NotificationCompat.PRIORITY_LOW)
                     .setColor(Color.blue(1))
                     .setOnlyAlertOnce(true)
-                    .setOngoing(true)
+                    .setDeleteIntent(deleteNotifPending)
                     .setSound(null)
-                    .addAction(pauseAction)
-                    .addAction(cancelAction)
-                    .setDeleteIntent(pendingDeleteIntent);
+                    .addAction(pauseAction);
         } else {
             notificationStr = "Finished";
             builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
@@ -220,10 +229,10 @@ public class ActiveTimer extends Activity implements Serializable {
                     .setPriority(NotificationCompat.PRIORITY_LOW)
                     .setColor(Color.blue(1))
                     .setOnlyAlertOnce(true)
-                    .setOngoing(true)
+                    .setDeleteIntent(deleteNotifPending)
                     .setSound(null)
                     .addAction(cancelAction)
-                    .setDeleteIntent(pendingDeleteIntent);
+                    .addAction(restartAction);
         }
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
         notificationManager.notify(notifyID, builder.build());
@@ -272,8 +281,8 @@ public class ActiveTimer extends Activity implements Serializable {
      * the state of the timer to paused.
      */
     public void reset() {
+        Log.d("TAG", "in reset");
         remainingDurationMillis = timer.getDurationMillis();
-        containingAdapter.notifyDataSetChanged();
         if (countDown != null) {
             countDown.cancel();
         }
@@ -281,6 +290,7 @@ public class ActiveTimer extends Activity implements Serializable {
         Context actualContext = mapView.getContext();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
         notificationManager.cancel(notifyID);
+        containingAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -375,6 +385,7 @@ public class ActiveTimer extends Activity implements Serializable {
     public long getRemainingDurationMillis() { return remainingDurationMillis; }
     @Override
     public void onDestroy() {
+        super.onDestroy();
         Context actualContext = mapView.getContext();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
         notificationManager.cancel(notifyID);

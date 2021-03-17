@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/timer_cell"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/timer_container_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/preset_timer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/preset_name_text"
+        android:textSize="18sp"
+        android:onClick="onClick"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/preset_timer_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/preset_timer_name"
+        android:text="@string/preset_duration_text"
+        android:textSize="18sp"
+        android:onClick="onClick"
+        android:clickable="true"/>
+
+    <Button
+        android:id="@+id/preset_timer_set_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/preset_timer_time"
+        android:text="@string/preset_set_button_text"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/preset_timer_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/preset_timer_set_button"
+        android:text="@string/preset_delete_button_text"
+        android:visibility="visible" />
+</RelativeLayout>

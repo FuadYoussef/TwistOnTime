@@ -2,14 +2,11 @@ package com.atakmap.android.plugintemplate;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.CountDownTimer;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
@@ -25,6 +22,8 @@ import com.atakmap.coremap.log.Log;
  * This class handles the creation and display of the home screen of the Twist on Time Plugin.
  */
 
+
+
 public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         OnStateListener {
 
@@ -35,7 +34,9 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
     private final View templateView;
     private final Context pluginContext;
-    private Timer globalTimer;
+    private RecyclerView mainScreenTimerList;
+    private static ArrayList<ActiveTimer> timers = new ArrayList<>();
+    private TimerListAdapter adapter;
 
 
     /**************************** CONSTRUCTOR *****************************/
@@ -49,20 +50,15 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         // developers to look at this Inflator
         templateView = PluginLayoutInflater.inflate(context, R.layout.main_layout, null);
 
-        // setting the home screen's add button so that when clicked it causes the ChangeSoundsDropDown
-        // to open this is done with the intent shown below and other changes to the PluginTemplateMapComponent
-        // and ChangeSoundsDropDown files
-        templateView.findViewById(R.id.firstTimer).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(globalTimer != null) {
-                    Intent i = new Intent();
-                    i.setAction(CreateTimerDropDown.SHOW_CREATE);
-                    i.putExtra("TIMER", globalTimer);
-                    AtakBroadcast.getInstance().sendBroadcast(i);
-                }
-            }
-        });
+        //sets up the list adapter and layout manager for multiple timers
+        mainScreenTimerList = templateView.findViewById(R.id.timer_recycler);
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        mainScreenTimerList.setLayoutManager(manager);
+
+        adapter = new TimerListAdapter(timers);
+        mainScreenTimerList.setAdapter(adapter);
+
+
         templateView.findViewById(R.id.add_button)
                 .setOnClickListener(new OnClickListener() {
                     @Override
@@ -70,7 +66,6 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         setRetain(true);
                         // how to call customizeNotificaitonDropDown
                         Intent i = new Intent();
-
                         i.setAction(CreateTimerDropDown.SHOW_CREATE);
                         AtakBroadcast.getInstance().sendBroadcast(i);
                     }
@@ -83,29 +78,6 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                         Intent i = new Intent();
                         i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
                         AtakBroadcast.getInstance().sendBroadcast(i);
-                    }
-                });
-        templateView.findViewById(R.id.start_timer_button)
-                .setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final TextView firstTimerTimeTextView = (TextView)templateView.findViewById(R.id.first_timer_time);
-                        new CountDownTimer(globalTimer.getDurationMillis(), 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                int hours = (int)millisUntilFinished/(60*60*1000);
-                                int minutes = (int)(millisUntilFinished-(hours*60*60*1000))/(60*1000);
-                                int seconds = (int)(millisUntilFinished-(hours*60*60*1000)-(minutes*60*1000))/1000;
-                                String duration = hours +":"+ minutes +":"+ seconds;
-                                firstTimerTimeTextView.setText(duration);
-                            }
-
-                            public void onFinish() {
-                                firstTimerTimeTextView.setText("done!");
-                                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                Ringtone r = RingtoneManager.getRingtone(context, notification);
-                                r.play();
-                            }
-                        }.start();
                     }
                 });
     }
@@ -138,18 +110,10 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
             // how to process return intent value from calling ChangeSoundsScreen
             if (intent.getSerializableExtra("TIMER") != null) {
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
-                globalTimer = timer;
-
-                String toastMessage = "New timer '" + timer.getName() + "' set.";
-                Toast.makeText(context,toastMessage,Toast.LENGTH_SHORT).show();
-
-                TextView firstTimerNameTextView = (TextView)templateView.findViewById(R.id.first_timer_name);
-                firstTimerNameTextView.setText(timer.getName());
-
-                TextView firstTimerTimeTextView = (TextView)templateView.findViewById(R.id.first_timer_time);
-                firstTimerTimeTextView.setText(timer.getDuration());
-
-
+                //we pass the adapter we use for our recycler view to each ActiveTimer so that as it counts down it forces the adapter to update
+                //we pass the plugin context to the ActiveTimer so that it knows the context to make a sound
+                timers.add(new ActiveTimer(timer, adapter, pluginContext));
+                adapter.notifyDataSetChanged();
             }
         }
     }

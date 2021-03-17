@@ -1,18 +1,18 @@
 package com.atakmap.android.plugintemplate;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Timer implements Serializable {
 
     private String name;                    // the name of the timer
-    private String duration;                // the overall duration of the timer
     private String sound;                   // the sound the timer will make once time is up
-    private ArrayList<String> notification; // the type of notification associated with the timer
+    private ArrayList<String> notifications; // list of notifications associated with the timer
     private boolean preset;                 // flag that determines if timer is a preset or not
     private int hours;                      // the amount of hours remaining in the timer
     private int minutes;                    // the amount of minutes remaining in the timer
-    private int seconds;                    // the amount of seconds remaining in the timer
+    private int seconds;  
 
     public int getSeconds() {
         return seconds;
@@ -50,14 +50,6 @@ public class Timer implements Serializable {
         this.name = name;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
     public int getDurationMillis() {
         return 1000*seconds + 1000*60*minutes + 1000*60*60*hours;
     }
@@ -74,12 +66,31 @@ public class Timer implements Serializable {
         this.sound = sound;
     }
 
-    public ArrayList<String> getNotification() {
-        return notification;
+    public ArrayList<String> getNotifications() {
+        return notifications;
     }
 
-    public void setNotification(ArrayList<String> notification) {
-        this.notification = notification;
+    public void setNotifications(ArrayList<String> notifications) {
+        this.notifications = notifications;
     }
+
+    /**
+     * Returns a nicely formatted string representing the timer duration
+     * @return a string with the duration of the timer formatted nicely
+     */
+    public String getDuration() {
+        if (hours != 0) {
+            String minutes_string = new DecimalFormat("00").format(minutes);
+            String seconds_string = new DecimalFormat("00").format(seconds);
+            return (hours +":"+ minutes_string +":"+ seconds_string);
+        }
+        if (minutes != 0) {
+            String seconds_string = new DecimalFormat("00").format(seconds);
+            return (minutes +":"+ seconds_string);
+        } else {
+            return ("" + seconds);
+        }
+    }
+
 }
 

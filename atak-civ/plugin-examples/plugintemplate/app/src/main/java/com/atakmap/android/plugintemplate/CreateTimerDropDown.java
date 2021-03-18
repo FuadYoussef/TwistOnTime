@@ -43,6 +43,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private EditText durationSeconds;       // Duration of timer (second)
     private CheckBox preset;                // Whether or not timer is marked as preset
     private Button changeSoundButton;       // Button on UI to change the sound
+    private TextView changeSoundText;       // Text on UI to represent selected sound
 
     /**
      * Constructor for the dropdown
@@ -64,6 +65,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         this.durationSeconds  = templateView.findViewById(R.id.durationSeconds);
         this.preset = templateView.findViewById(R.id.checkBox);
         this.changeSoundButton = (Button)templateView.findViewById(R.id.changeSoundButton);
+        this.changeSoundText = (TextView)templateView.findViewById(R.id.changeSoundText);
 
         changeSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +99,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 if (!durationMinStr.matches("") && !nameStr.matches("") &&
                         !durationHrStr.matches("") && !durationSecStr.matches("")) {
                     timer.setName(nameStr);
-                    timer.setDuration(durationHours.getText().toString() + ":" +
-                            durationMinutes.getText().toString() + ":" +
-                            durationSeconds.getText().toString());
                     timer.setPreset(preset.isChecked());
                     timer.setMinutes(Integer.parseInt(durationMinStr));
                     timer.setHours(Integer.parseInt(durationHrStr));
@@ -130,7 +129,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private void setFields(Timer timer) {
         this.name.setText(timer.getName());
         this.preset.setChecked(timer.isPreset());
-        this.changeSoundButton.setText(timer.getSound());
+        this.changeSoundText.setText(timer.getSound());
         this.durationSeconds.setText(String.valueOf(timer.getSeconds()));
         this.durationMinutes.setText(String.valueOf(timer.getMinutes()));
         this.durationHours.setText(String.valueOf(timer.getHours()));
@@ -164,7 +163,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                     HALF_HEIGHT, true);
 
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
-                this.changeSoundButton.setText(intent.getStringExtra("SELECTED_SOUND"));
+                this.changeSoundText.setText(intent.getStringExtra("SELECTED_SOUND"));
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
             } else if(intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS") !=null) {
                 ArrayList<String> act = (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS"));
@@ -185,7 +184,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.preset.setChecked(false);
                 String defaultSound = pluginContext.getResources().getStringArray(R.array.custom_sounds)[0];
                 this.timer.setSound(defaultSound);
-                this.changeSoundButton.setText(defaultSound);
+                this.changeSoundText.setText(defaultSound);
                 String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
                 this.timer.setNotifications(new ArrayList(Arrays.asList(defaultNotification)));
             }

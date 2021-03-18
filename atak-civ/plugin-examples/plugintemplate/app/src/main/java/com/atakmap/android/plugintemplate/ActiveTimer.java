@@ -46,7 +46,7 @@ public class ActiveTimer extends Activity implements Serializable {
     private ActiveTimerState state;
     public TimerListAdapter containingAdapter;
     public Context context;
-    private final String CHANNEL_ID = "TIMER";
+    private String CHANNEL_ID = "TIMER";
     private final MapView mapView;
     private final int notifyID;
     private TimerNotificationActionReceiver timerNotificationActionReceiver;
@@ -76,6 +76,7 @@ public class ActiveTimer extends Activity implements Serializable {
         this.notifyID = notificationID;
         createNotificationChannel();
         this.timerNotificationActionReceiver = new TimerNotificationActionReceiver();
+        this.CHANNEL_ID = "TIMER";
 
         mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("PAUSE"));
         mapView.getContext().registerReceiver(this.timerNotificationActionReceiver, new IntentFilter("RESUME"));
@@ -138,10 +139,10 @@ public class ActiveTimer extends Activity implements Serializable {
      */
     private void createNotificationChannel() {
         Context actualContext = mapView.getContext();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && NotificationManagerCompat.from(actualContext) != null) {
             CharSequence name = "Timer Notification";
             String description = "Notification for a timer";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             channel.setShowBadge(false);
@@ -274,7 +275,6 @@ public class ActiveTimer extends Activity implements Serializable {
      * the state of the timer to paused.
      */
     public void reset() {
-        Log.d("TAG", "in reset");
         remainingDurationMillis = timer.getDurationMillis();
         if (countDown != null) {
             countDown.cancel();
@@ -298,7 +298,9 @@ public class ActiveTimer extends Activity implements Serializable {
         Context actualContext = mapView.getContext();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
         notificationManager.cancel(notifyID);
-        containingAdapter.dismiss(this);
+
+        PluginTemplateDropDownReceiver.timers.remove(this);
+        containingAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -376,11 +378,5 @@ public class ActiveTimer extends Activity implements Serializable {
     }
 
     public long getRemainingDurationMillis() { return remainingDurationMillis; }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Context actualContext = mapView.getContext();
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);
-        notificationManager.cancel(notifyID);
-    }
+
 }

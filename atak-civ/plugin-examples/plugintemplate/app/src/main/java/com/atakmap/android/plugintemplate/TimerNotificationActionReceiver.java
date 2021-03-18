@@ -24,7 +24,6 @@ public class TimerNotificationActionReceiver extends BroadcastReceiver {
         }
         ActiveTimer cur = PluginTemplateDropDownReceiver.timerNotifMap.get(notifyId);
         String action = intent.getAction();
-        Log.d("TAG", action);
         if(action.equals("PAUSE")){
             Toast.makeText(context,cur.getName() + " Paused", Toast.LENGTH_SHORT).show();
             cur.pause();
@@ -41,7 +40,6 @@ public class TimerNotificationActionReceiver extends BroadcastReceiver {
             cur.reset();
         } else if (action.equals("DELETE")) {
             cur.updateNotification = false;
-            Log.d("TAG", "here");
         }
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         context.sendBroadcast(it);

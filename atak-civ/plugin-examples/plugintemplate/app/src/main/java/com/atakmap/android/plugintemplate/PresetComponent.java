@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
@@ -13,7 +14,6 @@ import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.coremap.log.Log;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class PresetComponent extends DropDownReceiver implements OnStateListener
         LinearLayoutManager manager = new LinearLayoutManager(context);
         mainScreenTimerList.setLayoutManager(manager);
 
-        Button add_new_preset = (Button)templateView.findViewById(R.id.preset_add_button);
+        ImageButton add_new_preset = (ImageButton)templateView.findViewById(R.id.preset_add_button);
         add_new_preset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

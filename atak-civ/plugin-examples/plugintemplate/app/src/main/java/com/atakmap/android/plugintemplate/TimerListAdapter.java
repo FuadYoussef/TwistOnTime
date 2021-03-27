@@ -1,18 +1,15 @@
 package com.atakmap.android.plugintemplate;
 
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.plugintemplate.plugin.R;
 
 import java.util.ArrayList;

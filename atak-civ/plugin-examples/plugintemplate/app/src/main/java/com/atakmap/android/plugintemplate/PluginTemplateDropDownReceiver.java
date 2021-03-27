@@ -144,6 +144,11 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     public void onDropDownClose() {
     }
 
+    /**
+     * accesses the presets.txt file that we write all the presets to
+     * reads the file into an arraylist of timer objects representing the presets
+     * @return the list of preset timers we have saved
+     */
     private ArrayList<Timer> readPresetsFromJSON() {
         ArrayList<Timer> presets = new ArrayList<>();
         FileInputStream fis1 = null;

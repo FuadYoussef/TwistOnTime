@@ -14,7 +14,6 @@ import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
 import java.util.ArrayList;
 

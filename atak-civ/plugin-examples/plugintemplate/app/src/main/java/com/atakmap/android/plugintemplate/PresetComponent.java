@@ -12,17 +12,9 @@ import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
-import com.atakmap.android.plugintemplate.plugin.PluginTemplateLifecycle;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.coremap.log.Log;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -107,11 +99,7 @@ public class PresetComponent extends DropDownReceiver implements OnStateListener
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
 
-            //TODO: replace this with call to read json to get list of timers
-            ArrayList<Timer> preset_timers = PluginTemplateDropDownReceiver.presets;//readPresetsFromJSON();
-
-
-
+            ArrayList<Timer> preset_timers = PluginTemplateDropDownReceiver.presets;
             adapter = new PresetTimerListAdapter(preset_timers);
             mainScreenTimerList.setAdapter(adapter);
 

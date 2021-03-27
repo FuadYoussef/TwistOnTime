@@ -1,47 +1,26 @@
 package com.atakmap.android.plugintemplate;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.atak.plugins.impl.PluginContextProvider;
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
-import com.atakmap.android.plugintemplate.plugin.PluginNativeLoader;
 import com.atakmap.android.plugintemplate.plugin.PluginTemplateLifecycle;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.Array;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
-import plugins.core.model.Plugin;
 
 // TODO: Add detailed description of class
 
@@ -70,7 +49,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         super(mapView);
         this.pluginContext = context;
         timer = new Timer();
-        //presets = readPresetsFromJSON();
 
         templateView = PluginLayoutInflater.inflate(context, R.layout.create_timer_layout, null);
 
@@ -175,7 +153,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         if (action.equals(SHOW_CREATE)) {
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
-            //presets = readPresetsFromJSON();
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
                 this.changeSoundText.setText(intent.getStringExtra("SELECTED_SOUND"));
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
@@ -221,6 +198,11 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     public void onDropDownClose() {
     }
 
+    /**
+     * takes an arraylist of timers containing all existing preset timers and writes them to a text
+     * file. This text file is called presets.txt and contains a JSON representation of the timers
+     * @param timers the arraylist of preset timers to be saved to storage
+     */
     private void writePresetsToJSON(ArrayList<Timer> timers) {
 
         String fileName2 = "presets.txt";

@@ -96,6 +96,7 @@ public class ActiveTimer implements Serializable {
                 remainingDurationMillis = l;
                  int cur = (int)l/1000;
                 notificationStr = getDurationRemainingString();
+                containingAdapter.notifyDataSetChanged();
                 if (notificationSet.contains(cur) && cur != 0) {
                     makeSound();
                     updateNotification = true;

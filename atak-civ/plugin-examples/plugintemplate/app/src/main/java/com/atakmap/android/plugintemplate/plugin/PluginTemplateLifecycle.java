@@ -17,6 +17,7 @@ import com.atakmap.coremap.log.Log;
 
 public class PluginTemplateLifecycle implements Lifecycle {
 
+    public static Activity activity;
     private final Context pluginContext;
     private final Collection<MapComponent> overlays;
     private MapView mapView;
@@ -43,6 +44,7 @@ public class PluginTemplateLifecycle implements Lifecycle {
             Log.w(TAG, "This plugin is only compatible with ATAK MapView");
             return;
         }
+        this.activity = arg0;
         this.mapView = (MapView) arg1.getView();
         PluginTemplateLifecycle.this.overlays
                 .add(new PluginTemplateMapComponent());

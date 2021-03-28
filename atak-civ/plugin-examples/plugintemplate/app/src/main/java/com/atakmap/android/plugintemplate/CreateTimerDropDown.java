@@ -13,10 +13,12 @@ import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
+import com.atakmap.android.plugintemplate.plugin.PluginTemplateLifecycle;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.android.dropdown.DropDown.OnStateListener;
+import com.google.gson.Gson;
 
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -33,7 +35,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
 
     public static final String SHOW_CREATE = "com.atakmap.android.plugintemplate.CreateTimerDropDown";
     private final View templateView;
-    private final Context pluginContext;
+    private Context pluginContext;
     private Timer timer;                    // Timer object used
     private EditText name;                  // Name of timer
     private EditText durationHours;         // Duration of timer (hour)
@@ -43,18 +45,18 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private Button changeSoundButton;       // Button on UI to change the sound
     private TextView changeSoundText;       // Text on UI to represent selected sound
     public CreateTimerDropDown(final MapView mapView,
-                                final Context context) {
+                               final Context context) {
         super(mapView);
         this.pluginContext = context;
         timer = new Timer();
 
         templateView = PluginLayoutInflater.inflate(context, R.layout.create_timer_layout, null);
 
-        this.name = templateView.findViewById(R.id.timerName);
-        this.durationHours  = templateView.findViewById(R.id.durationHours);
-        this.durationMinutes  = templateView.findViewById(R.id.durationMinutes);
-        this.durationSeconds  = templateView.findViewById(R.id.durationSeconds);
-        this.preset = templateView.findViewById(R.id.checkBox);
+        this.name = (EditText) templateView.findViewById(R.id.timerName);
+        this.durationHours  = (EditText) templateView.findViewById(R.id.durationHours);
+        this.durationMinutes  =(EditText)  templateView.findViewById(R.id.durationMinutes);
+        this.durationSeconds  = (EditText) templateView.findViewById(R.id.durationSeconds);
+        this.preset =(CheckBox) templateView.findViewById(R.id.checkBox);
         this.changeSoundButton = (Button)templateView.findViewById(R.id.changeSoundButton);
         this.changeSoundText = (TextView)templateView.findViewById(R.id.changeSoundText);
 
@@ -94,6 +96,10 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                     timer.setMinutes(Integer.parseInt(durationMinStr));
                     timer.setHours(Integer.parseInt(durationHrStr));
                     timer.setSeconds(Integer.parseInt(durationSecStr));
+                    if (preset.isChecked()) {
+                        PluginTemplateDropDownReceiver.presets.add(timer);
+                        writePresetsToJSON(PluginTemplateDropDownReceiver.presets);
+                    }
                     Intent i = new Intent();
                     i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
                     i.putExtra("TIMER", timer);
@@ -147,7 +153,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         if (action.equals(SHOW_CREATE)) {
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
-
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
                 this.changeSoundText.setText(intent.getStringExtra("SELECTED_SOUND"));
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
@@ -158,7 +163,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
                 this.timer = timer;
                 setFields(timer);
-                TextView title = templateView.findViewById(R.id.title);
+                TextView title =(TextView) templateView.findViewById(R.id.title);
                 title.setText("Edit Timer");
 
             }else {
@@ -192,4 +197,23 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     @Override
     public void onDropDownClose() {
     }
+
+    /**
+     * takes an arraylist of timers containing all existing preset timers and writes them to a text
+     * file. This text file is called presets.txt and contains a JSON representation of the timers
+     * @param timers the arraylist of preset timers to be saved to storage
+     */
+    private void writePresetsToJSON(ArrayList<Timer> timers) {
+
+        String fileName2 = "presets.txt";
+        Gson gson = new Gson();
+        String s2 = gson.toJson(timers);
+        try (FileOutputStream fos = PluginTemplateLifecycle.activity.getApplicationContext().openFileOutput(fileName2, Context.MODE_PRIVATE)) {
+            fos.write(s2.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -14,7 +14,6 @@ import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.android.dropdown.DropDown.OnStateListener;
 
 import java.util.ArrayList;
 
@@ -105,7 +104,7 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
             createAndCheckNotifications(defaultSelectedNotifications);
 
             // set up back button
-            Button b = (Button)templateView.findViewById(R.id.back_button);
+            Button b = templateView.findViewById(R.id.back_button);
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -158,7 +157,7 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
     private ArrayList<String> getAllChecked() {
         ArrayList<String> currentSelectedNotifications = new ArrayList<>();
         for (int i = 0; i < numBoxes; i++) {
-            CheckBox notificationCheckBox = (CheckBox) templateView.findViewById(i);
+            CheckBox notificationCheckBox = templateView.findViewById(i);
             if (notificationCheckBox.isChecked()) {
                 if (!notificationCheckBox.getText().toString().contains("Custom")) {
                     currentSelectedNotifications.add(notificationCheckBox.getText().toString());

@@ -2,7 +2,6 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -57,16 +56,15 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/back_text"/>
+        android:text="@string/back_button_text"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/preset_add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/preset_frame"
-        android:layout_alignEnd="@id/preset_frame"
-        android:layout_marginStart="32dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:text="Add New"/>
+        android:layout_alignEnd="@id/preset_frame"
+        android:src="@drawable/add_alarm_icon"/>
     <!--This text will be replaced with icon later-->
 </RelativeLayout>

@@ -34,18 +34,26 @@
         android:clickable="true"/>
 
     <Button
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:id="@+id/preset_timer_set_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/preset_timer_time"
-        android:text="@string/preset_set_button_text"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/add_preset_icon"
+        android:backgroundTint="@color/white"
         android:visibility="visible" />
 
     <Button
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:id="@+id/preset_timer_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/preset_timer_set_button"
-        android:text="@string/preset_delete_button_text"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/delete_preset_icon"
+        android:backgroundTint="@color/white"
         android:visibility="visible" />
 </RelativeLayout>

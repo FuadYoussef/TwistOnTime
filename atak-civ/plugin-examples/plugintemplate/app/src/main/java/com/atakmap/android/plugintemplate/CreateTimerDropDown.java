@@ -166,8 +166,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         final String action = intent.getAction();
         if (action == null)
             return;
-
         if (action.equals(SHOW_CREATE)) {
+
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
@@ -177,13 +177,21 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 ArrayList<String> act = (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS"));
                 timer.setNotifications(act);
             } else if (intent.getSerializableExtra("TIMER") != null) {
+                if(intent.getStringExtra("PRESET") != null) {
+                    this.returnPreset = true;
+                    this.preset.setChecked(true);
+                    this.preset.setEnabled(false);
+
+                } else {
+                    this.returnPreset = false;
+                    this.preset.setEnabled(true);
+                }
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
                 this.timer = timer;
                 setFields(timer);
                 TextView title =(TextView) templateView.findViewById(R.id.title);
                 title.setText("Edit Timer");
-
-            }else {
+            } else {
                 TextView title =(TextView) templateView.findViewById(R.id.title);
                 title.setText("Create Timer");
                 this.timer = new Timer();
@@ -197,13 +205,14 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.changeSoundText.setText(defaultSound);
                 String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
                 this.timer.setNotifications(new ArrayList(Arrays.asList(defaultNotification)));
+                if(intent.getStringExtra("PRESET") != null) {
+                    this.returnPreset = true;
+                    this.preset.setChecked(true);
+                } else {
+                    this.returnPreset = false;
+                }
             }
-            if(intent.getStringExtra("PRESET") != null) {
-                this.returnPreset = true;
-                this.preset.setChecked(true);
-            } else {
-                this.returnPreset = false;
-            }
+
         }
     }
 

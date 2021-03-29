@@ -98,11 +98,12 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                     timer.setHours(Integer.parseInt(durationHrStr));
                     timer.setSeconds(Integer.parseInt(durationSecStr));
                     TextView title =(TextView) templateView.findViewById(R.id.title);
+                    //Only re-add timer if you are not editing it
                     if (preset.isChecked() && !(returnPreset && title.getText().toString().contains("Edit"))) {
                         PluginTemplateDropDownReceiver.presets.add(timer);
-                        writePresetsToJSON(PluginTemplateDropDownReceiver.presets);
                     }
-                    if(returnPreset) {
+                    writePresetsToJSON(PluginTemplateDropDownReceiver.presets);
+                    if(returnPreset || preset.isChecked()) {
                         Intent i = new Intent();
                         i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
                         i.putExtra("TIMER", timer);
@@ -169,11 +170,6 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         if (action.equals(SHOW_CREATE)) {
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
-            if(intent.getStringExtra("PRESET") != null) {
-                this.returnPreset = true;
-            } else {
-                this.returnPreset = false;
-            }
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
                 this.changeSoundText.setText(intent.getStringExtra("SELECTED_SOUND"));
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
@@ -201,6 +197,12 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.changeSoundText.setText(defaultSound);
                 String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
                 this.timer.setNotifications(new ArrayList(Arrays.asList(defaultNotification)));
+            }
+            if(intent.getStringExtra("PRESET") != null) {
+                this.returnPreset = true;
+                this.preset.setChecked(true);
+            } else {
+                this.returnPreset = false;
             }
         }
     }

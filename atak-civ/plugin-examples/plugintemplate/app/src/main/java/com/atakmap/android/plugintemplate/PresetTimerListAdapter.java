@@ -173,8 +173,6 @@ public class PresetTimerListAdapter extends RecyclerView.Adapter<PresetTimerList
      * @param presetTimer the preset timer that should be edited
      */
     private void goToEditScreen(Timer presetTimer) {
-        //TODO: the intent created in this function will likely need at least one addition extra so
-        // that the create/edit timer screen know to return to the preset screen and not the home screen
         Intent i = new Intent();
         i.setAction(CreateTimerDropDown.SHOW_CREATE);
         i.putExtra("TIMER", presetTimer);

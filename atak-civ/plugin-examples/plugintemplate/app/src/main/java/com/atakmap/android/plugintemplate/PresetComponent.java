@@ -70,6 +70,7 @@ public class PresetComponent extends DropDownReceiver implements OnStateListener
                 // to have the preset checkbox default to checked when the create new timer screen is called from
                 // the preset screen
                 Intent i = new Intent();
+                i.putExtra("PRESET", "Pre");
                 i.setAction(CreateTimerDropDown.SHOW_CREATE);
                 AtakBroadcast.getInstance().sendBroadcast(i);
             }

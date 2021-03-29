@@ -103,12 +103,11 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                         PluginTemplateDropDownReceiver.presets.add(timer);
                     }
                     writePresetsToJSON(PluginTemplateDropDownReceiver.presets);
-                    if(returnPreset || preset.isChecked()) {
+                    if(preset.isChecked() && returnPreset) {
                         Intent i = new Intent();
                         i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
                         i.putExtra("TIMER", timer);
                         AtakBroadcast.getInstance().sendBroadcast(i);
-
                     } else {
                         Intent i = new Intent();
                         i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
@@ -205,12 +204,14 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.changeSoundText.setText(defaultSound);
                 String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
                 this.timer.setNotifications(new ArrayList(Arrays.asList(defaultNotification)));
+                this.preset.setEnabled(true);
                 if(intent.getStringExtra("PRESET") != null) {
-                    this.returnPreset = true;
                     this.preset.setChecked(true);
                 } else {
-                    this.returnPreset = false;
+                    this.preset.setChecked(false);
                 }
+                this.returnPreset = false;
+
             }
 
         }

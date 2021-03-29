@@ -178,6 +178,7 @@ public class PresetTimerListAdapter extends RecyclerView.Adapter<PresetTimerList
         Intent i = new Intent();
         i.setAction(CreateTimerDropDown.SHOW_CREATE);
         i.putExtra("TIMER", presetTimer);
+        i.putExtra("PRESET", "Pre");
         AtakBroadcast.getInstance().sendBroadcast(i);
     }
 }

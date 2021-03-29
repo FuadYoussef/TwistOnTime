@@ -44,6 +44,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private CheckBox preset;                // Whether or not timer is marked as preset
     private Button changeSoundButton;       // Button on UI to change the sound
     private TextView changeSoundText;       // Text on UI to represent selected sound
+    private boolean returnPreset;           // Help decide which screen to return to
     public CreateTimerDropDown(final MapView mapView,
                                final Context context) {
         super(mapView);
@@ -96,14 +97,23 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                     timer.setMinutes(Integer.parseInt(durationMinStr));
                     timer.setHours(Integer.parseInt(durationHrStr));
                     timer.setSeconds(Integer.parseInt(durationSecStr));
-                    if (preset.isChecked()) {
+                    TextView title =(TextView) templateView.findViewById(R.id.title);
+                    if (preset.isChecked() && !(returnPreset && title.getText().toString().contains("Edit"))) {
                         PluginTemplateDropDownReceiver.presets.add(timer);
                         writePresetsToJSON(PluginTemplateDropDownReceiver.presets);
                     }
-                    Intent i = new Intent();
-                    i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-                    i.putExtra("TIMER", timer);
-                    AtakBroadcast.getInstance().sendBroadcast(i);
+                    if(returnPreset) {
+                        Intent i = new Intent();
+                        i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
+                        i.putExtra("TIMER", timer);
+                        AtakBroadcast.getInstance().sendBroadcast(i);
+
+                    } else {
+                        Intent i = new Intent();
+                        i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                        i.putExtra("TIMER", timer);
+                        AtakBroadcast.getInstance().sendBroadcast(i);
+                    }
                 }
             }
         });
@@ -111,9 +121,15 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent();
-                i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-                AtakBroadcast.getInstance().sendBroadcast(i);
+                if (returnPreset) {
+                    Intent i = new Intent();
+                    i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
+                    AtakBroadcast.getInstance().sendBroadcast(i);
+                } else {
+                    Intent i = new Intent();
+                    i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                    AtakBroadcast.getInstance().sendBroadcast(i);
+                }
             }
         });
     }
@@ -153,6 +169,11 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         if (action.equals(SHOW_CREATE)) {
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
+            if(intent.getStringExtra("PRESET") != null) {
+                this.returnPreset = true;
+            } else {
+                this.returnPreset = false;
+            }
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
                 this.changeSoundText.setText(intent.getStringExtra("SELECTED_SOUND"));
                 timer.setSound(intent.getStringExtra("SELECTED_SOUND"));
@@ -167,6 +188,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 title.setText("Edit Timer");
 
             }else {
+                TextView title =(TextView) templateView.findViewById(R.id.title);
+                title.setText("Create Timer");
                 this.timer = new Timer();
                 this.name.setText("");
                 this.durationHours.setText("");

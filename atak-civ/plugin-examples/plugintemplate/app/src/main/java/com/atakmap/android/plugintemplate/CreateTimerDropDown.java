@@ -207,13 +207,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.preset.setEnabled(true);
                 if(intent.getStringExtra("PRESET") != null) {
                     this.preset.setChecked(true);
+                    this.returnPreset = true;
+                    this.preset.setEnabled(false);
                 } else {
                     this.preset.setChecked(false);
+                    this.returnPreset = false;
                 }
-                this.returnPreset = false;
-
             }
-
         }
     }
 

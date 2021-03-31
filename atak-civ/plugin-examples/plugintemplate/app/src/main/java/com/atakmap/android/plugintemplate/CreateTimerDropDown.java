@@ -44,6 +44,7 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
     private CheckBox preset;                // Whether or not timer is marked as preset
     private Button changeSoundButton;       // Button on UI to change the sound
     private TextView changeSoundText;       // Text on UI to represent selected sound
+    private boolean returnPreset;           // Help decide which screen to return to
     public CreateTimerDropDown(final MapView mapView,
                                final Context context) {
         super(mapView);
@@ -96,14 +97,23 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                     timer.setMinutes(Integer.parseInt(durationMinStr));
                     timer.setHours(Integer.parseInt(durationHrStr));
                     timer.setSeconds(Integer.parseInt(durationSecStr));
-                    if (preset.isChecked()) {
+                    TextView title =(TextView) templateView.findViewById(R.id.title);
+                    //Only re-add timer if you are not editing it
+                    if (preset.isChecked() && !(returnPreset && title.getText().toString().contains("Edit"))) {
                         PluginTemplateDropDownReceiver.presets.add(timer);
-                        writePresetsToJSON(PluginTemplateDropDownReceiver.presets);
                     }
-                    Intent i = new Intent();
-                    i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-                    i.putExtra("TIMER", timer);
-                    AtakBroadcast.getInstance().sendBroadcast(i);
+                    writePresetsToJSON(PluginTemplateDropDownReceiver.presets);
+                    if(preset.isChecked() && returnPreset) {
+                        Intent i = new Intent();
+                        i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
+                        i.putExtra("TIMER", timer);
+                        AtakBroadcast.getInstance().sendBroadcast(i);
+                    } else {
+                        Intent i = new Intent();
+                        i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                        i.putExtra("TIMER", timer);
+                        AtakBroadcast.getInstance().sendBroadcast(i);
+                    }
                 }
             }
         });
@@ -111,9 +121,15 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent();
-                i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
-                AtakBroadcast.getInstance().sendBroadcast(i);
+                if (returnPreset) {
+                    Intent i = new Intent();
+                    i.setAction(PresetComponent.SHOW_PRESETS_PAGE);
+                    AtakBroadcast.getInstance().sendBroadcast(i);
+                } else {
+                    Intent i = new Intent();
+                    i.setAction(PluginTemplateDropDownReceiver.SHOW_PLUGIN);
+                    AtakBroadcast.getInstance().sendBroadcast(i);
+                }
             }
         });
     }
@@ -149,8 +165,8 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
         final String action = intent.getAction();
         if (action == null)
             return;
-
         if (action.equals(SHOW_CREATE)) {
+
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
             if (intent.getStringExtra("SELECTED_SOUND") != null) {
@@ -160,13 +176,23 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 ArrayList<String> act = (intent.getStringArrayListExtra("SELECTED_NOTIFICATIONS"));
                 timer.setNotifications(act);
             } else if (intent.getSerializableExtra("TIMER") != null) {
+                if(intent.getStringExtra("PRESET") != null) {
+                    this.returnPreset = true;
+                    this.preset.setChecked(true);
+                    this.preset.setEnabled(false);
+
+                } else {
+                    this.returnPreset = false;
+                    this.preset.setEnabled(true);
+                }
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
                 this.timer = timer;
                 setFields(timer);
                 TextView title =(TextView) templateView.findViewById(R.id.title);
                 title.setText("Edit Timer");
-
-            }else {
+            } else {
+                TextView title =(TextView) templateView.findViewById(R.id.title);
+                title.setText("Create Timer");
                 this.timer = new Timer();
                 this.name.setText("");
                 this.durationHours.setText("");
@@ -178,6 +204,15 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 this.changeSoundText.setText(defaultSound);
                 String defaultNotification = pluginContext.getResources().getStringArray(R.array.custom_notification_settings)[0];
                 this.timer.setNotifications(new ArrayList(Arrays.asList(defaultNotification)));
+                this.preset.setEnabled(true);
+                if(intent.getStringExtra("PRESET") != null) {
+                    this.preset.setChecked(true);
+                    this.returnPreset = true;
+                    this.preset.setEnabled(false);
+                } else {
+                    this.preset.setChecked(false);
+                    this.returnPreset = false;
+                }
             }
         }
     }

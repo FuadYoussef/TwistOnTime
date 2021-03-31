@@ -64,12 +64,8 @@ public class PresetComponent extends DropDownReceiver implements OnStateListener
         add_new_preset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: the intent created in this function will likely need at least one addition extra so
-                // that the create/edit timer screen know to return to the preset screen and not the home screen
-                // as well as not creating a running timer but just creating a new preset. It also might be good
-                // to have the preset checkbox default to checked when the create new timer screen is called from
-                // the preset screen
                 Intent i = new Intent();
+                i.putExtra("PRESET", "Pre");
                 i.setAction(CreateTimerDropDown.SHOW_CREATE);
                 AtakBroadcast.getInstance().sendBroadcast(i);
             }

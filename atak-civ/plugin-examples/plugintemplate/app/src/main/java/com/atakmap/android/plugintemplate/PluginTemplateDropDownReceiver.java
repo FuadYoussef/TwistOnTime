@@ -6,15 +6,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
 import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
+import com.atakmap.android.plugintemplate.plugin.PluginTemplateLifecycle;
 import com.atakmap.android.plugintemplate.plugin.R;
 import com.atakmap.coremap.log.Log;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 //TODO: Class desc
 
@@ -35,8 +43,9 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     private final View templateView;
     private final Context pluginContext;
     private RecyclerView mainScreenTimerList;
-    public static ArrayList<ActiveTimer> timers = new ArrayList<>();
+    private static ArrayList<ActiveTimer> timers = new ArrayList<>();
     private TimerListAdapter adapter;
+    public static ArrayList<Timer> presets;
     private final MapView mapView;
     private int notificationCount = 0;
 
@@ -51,6 +60,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         // In this case, using it is not necessary - but I am putting it here to remind
         // developers to look at this Inflator
         templateView = PluginLayoutInflater.inflate(context, R.layout.main_layout, null);
+        presets = readPresetsFromJSON();
 
         //sets up the list adapter and layout manager for multiple timers
         mainScreenTimerList = templateView.findViewById(R.id.timer_recycler);
@@ -135,6 +145,34 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
 
     @Override
     public void onDropDownClose() {
+    }
+
+    /**
+     * accesses the presets.txt file that we write all the presets to
+     * reads the file into an arraylist of timer objects representing the presets
+     * @return the list of preset timers we have saved
+     */
+    private ArrayList<Timer> readPresetsFromJSON() {
+        ArrayList<Timer> presets = new ArrayList<>();
+        FileInputStream fis1 = null;
+        try {
+            fis1 = PluginTemplateLifecycle.activity.getApplicationContext().openFileInput("presets.txt");
+            InputStreamReader isr = new InputStreamReader(fis1);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            if(!sb.toString().equals("")) {
+                String json = sb.toString();
+                Gson gson = new Gson();
+                presets = gson.fromJson(json, new TypeToken<List<Timer>>(){}.getType());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return presets;
     }
 
 }

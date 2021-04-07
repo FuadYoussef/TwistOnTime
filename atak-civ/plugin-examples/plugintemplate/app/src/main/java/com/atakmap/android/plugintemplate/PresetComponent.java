@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.atak.plugins.impl.PluginLayoutInflater;
 import com.atakmap.android.dropdown.DropDown.OnStateListener;
@@ -13,7 +14,6 @@ import com.atakmap.android.dropdown.DropDownReceiver;
 import com.atakmap.android.ipc.AtakBroadcast;
 import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
-import com.atakmap.coremap.log.Log;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class PresetComponent extends DropDownReceiver implements OnStateListener
 
         templateView = PluginLayoutInflater.inflate(context, R.layout.preset_layout, null);
 
-        Button back = (Button)templateView.findViewById(R.id.back);
+        Button back = templateView.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,16 +60,12 @@ public class PresetComponent extends DropDownReceiver implements OnStateListener
         LinearLayoutManager manager = new LinearLayoutManager(context);
         mainScreenTimerList.setLayoutManager(manager);
 
-        Button add_new_preset = (Button)templateView.findViewById(R.id.preset_add_button);
+        ImageButton add_new_preset = (ImageButton)templateView.findViewById(R.id.preset_add_button);
         add_new_preset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: the intent created in this function will likely need at least one addition extra so
-                // that the create/edit timer screen know to return to the preset screen and not the home screen
-                // as well as not creating a running timer but just creating a new preset. It also might be good
-                // to have the preset checkbox default to checked when the create new timer screen is called from
-                // the preset screen
                 Intent i = new Intent();
+                i.putExtra("PRESET", "Pre");
                 i.setAction(CreateTimerDropDown.SHOW_CREATE);
                 AtakBroadcast.getInstance().sendBroadcast(i);
             }
@@ -100,40 +96,7 @@ public class PresetComponent extends DropDownReceiver implements OnStateListener
             showDropDown(templateView, HALF_WIDTH, FULL_HEIGHT, FULL_WIDTH,
                     HALF_HEIGHT, true);
 
-            //TODO: replace this with call to read json to get list of timers
-            ArrayList<Timer> preset_timers = new ArrayList<>();
-
-            Timer timer1 = new Timer();
-            timer1.setName("Timer 1");
-            timer1.setPreset(true);
-            timer1.setHours(1);
-            timer1.setMinutes(20);
-            timer1.setSeconds(30);
-            timer1.setSound("Chime");
-            timer1.setNotifications(new ArrayList<String>());
-
-            Timer timer2 = new Timer();
-            timer2.setName("Timer 2");
-            timer2.setPreset(true);
-            timer2.setHours(0);
-            timer2.setMinutes(15);
-            timer2.setSeconds(45);
-            timer2.setSound("Alarm");
-            timer2.setNotifications(new ArrayList<String>());
-
-            Timer timer3 = new Timer();
-            timer3.setName("Timer 3");
-            timer3.setPreset(true);
-            timer3.setHours(0);
-            timer3.setMinutes(0);
-            timer3.setSeconds(45);
-            timer3.setSound("Radar");
-            timer3.setNotifications(new ArrayList<String>());
-
-            preset_timers.add(timer1);
-            preset_timers.add(timer2);
-            preset_timers.add(timer3);
-
+            ArrayList<Timer> preset_timers = PluginTemplateDropDownReceiver.presets;
             adapter = new PresetTimerListAdapter(preset_timers);
             mainScreenTimerList.setAdapter(adapter);
 

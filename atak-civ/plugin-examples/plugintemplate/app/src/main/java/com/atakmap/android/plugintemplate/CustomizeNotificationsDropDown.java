@@ -16,6 +16,8 @@ import com.atakmap.android.maps.MapView;
 import com.atakmap.android.plugintemplate.plugin.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * The CustomizeNotificationsDropDown should be called when the user is trying to change the notifications
@@ -176,17 +178,27 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
         String[] notifications_array = pluginContext.getResources().getStringArray(R.array.custom_notification_settings);
         // keep track of all the strings that have already been used to create notifications (to deal with duplicates)
         ArrayList<String> usedNotificationStrings = new ArrayList<>();
+        // when no notifications are selected or only "at time of event" is selected give user default options
         // go through all of the notifications in the strings.xml file except the one whose text is "custom"
-        for (int i = 0; i < notifications_array.length - 1; i++) {
-            if (!usedNotificationStrings.contains(notifications_array[i])) {
-                CheckBox checkBox = createCheckBox(numBoxes, notifications_array[i], false);
-                usedNotificationStrings.add(notifications_array[i]);
-                if (notifications.contains(notifications_array[i])) {
-                    notifications.remove(notifications_array[i]);
-                    checkBox.setChecked(true);
+        if ((notifications.size() == 1 && notifications.get(0).equals(notifications_array[0])) || notifications.size() == 0 ) {
+            for (int i = 0; i < notifications_array.length - 1; i++) {
+                if (!usedNotificationStrings.contains(notifications_array[i])) {
+                    CheckBox checkBox = createCheckBox(numBoxes, notifications_array[i], false);
+                    usedNotificationStrings.add(notifications_array[i]);
+                    if (notifications.contains(notifications_array[i])) {
+                        notifications.remove(notifications_array[i]);
+                        checkBox.setChecked(true);
+                    }
                 }
             }
         }
+        // add checkbox for at time of even
+        if (!notifications.contains(notifications_array[0]) && !usedNotificationStrings.contains(notifications_array[0])) {
+            createCheckBox(numBoxes, notifications_array[0], false);
+        }
+        // sort notifications
+        Collections.sort(notifications, new NotificationComparator());
+        // add remaining checkboxes
         for (int i = 0; i < notifications.size(); i++) {
             if (!usedNotificationStrings.contains(notifications.get(i))) {
                 createCheckBox(numBoxes, notifications.get(i), true);
@@ -207,6 +219,42 @@ public class CustomizeNotificationsDropDown  extends DropDownReceiver implements
                 goToCreateCustomNotificationScreen();
             }
         });
+    }
+
+    /**
+     * Custom Comparator used to compare notification strings
+     */
+    class NotificationComparator implements Comparator<String>
+    {
+        /**
+         * Method to compare to notification strings to determine which represents a smaller time
+         * @param notification1 the first notification to compare
+         * @param notification2 the second notification to compare
+         * @return negative if notification1 is less that notification2, 0 if they are equal,
+         * positive number if notification1 is greater than notification2
+         */
+        @Override
+        public int compare(String notification1, String notification2) {
+            String[] notifications = {notification1, notification2};
+            int[] notification_values = new int[2];
+
+            for (int i = 0; i < notifications.length; i++) {
+                String cur_notification = notifications[i];
+                if (cur_notification.contains("At")) {
+                    notification_values[i] = 0;
+                }
+                else if (cur_notification.contains("Second")) {
+                    notification_values[i] = Integer.parseInt(cur_notification.split(" ")[0]);
+                }
+                else if (cur_notification.contains("Minute")) {
+                    notification_values[i] = Integer.parseInt(cur_notification.split(" ")[0]) * 60;
+                }
+                else {
+                    notification_values[i] = Integer.parseInt(cur_notification.split(" ")[0]) * 3600;
+                }
+            }
+            return notification_values[0] - notification_values[1];
+        }
     }
 
     /**

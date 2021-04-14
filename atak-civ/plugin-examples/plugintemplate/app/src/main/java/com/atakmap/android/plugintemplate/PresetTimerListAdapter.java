@@ -131,7 +131,6 @@ public class PresetTimerListAdapter extends RecyclerView.Adapter<PresetTimerList
             @Override
             public void onClick(View v) {
                 Timer currentTimer = preset_timers.get(viewHolder.getAdapterPosition());
-                //TODO: delete timer from JSON file as well
                 int pos = preset_timers.indexOf(currentTimer);
                 preset_timers.remove(currentTimer);
                 notifyItemRemoved(pos);

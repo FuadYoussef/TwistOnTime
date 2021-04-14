@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,6 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         // developers to look at this Inflator
         templateView = PluginLayoutInflater.inflate(context, R.layout.main_layout, null);
         presets = readPresetsFromJSON();
-
         //sets up the list adapter and layout manager for multiple timers
         mainScreenTimerList = templateView.findViewById(R.id.timer_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(context);
@@ -172,4 +172,21 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         return presets;
     }
 
+    /**
+     * takes an arraylist of timers containing all existing preset timers and writes them to a text
+     * file. This text file is called presets.txt and contains a JSON representation of the timers
+     * @param timers the arraylist of preset timers to be saved to storage
+     */
+    public static void writePresetsToJSON(ArrayList<Timer> timers) {
+
+        String fileName2 = "presets.txt";
+        Gson gson = new Gson();
+        String s2 = gson.toJson(timers);
+        try (FileOutputStream fos = PluginTemplateLifecycle.activity.getApplicationContext().openFileOutput(fileName2, Context.MODE_PRIVATE)) {
+            fos.write(s2.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

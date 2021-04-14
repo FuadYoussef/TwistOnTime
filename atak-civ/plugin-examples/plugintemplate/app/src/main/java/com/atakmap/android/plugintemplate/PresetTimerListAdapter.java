@@ -135,6 +135,8 @@ public class PresetTimerListAdapter extends RecyclerView.Adapter<PresetTimerList
                 int pos = preset_timers.indexOf(currentTimer);
                 preset_timers.remove(currentTimer);
                 notifyItemRemoved(pos);
+                PluginTemplateDropDownReceiver.presets = preset_timers;
+                PluginTemplateDropDownReceiver.writePresetsToJSON(preset_timers);
             }
 
         });

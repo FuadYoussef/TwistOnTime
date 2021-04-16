@@ -135,19 +135,13 @@ public class ActiveTimer implements Serializable {
         }
     }
     /**
-     * Creates (and updates a notification)
-     * Allows for user to pause or resume a timer using TimerNotificationActionReceiver
-     *
+     * Creates (and updates) a notification
+     * Timers are low priority to avoid other sounds from being played
+     * Timers cannot be dismissed to avoid having a receiver class which can complicate
+     * things
      */
     private void createNotification() {
         Context actualContext = mapView.getContext();
-
-//        Intent deleteNotif = new Intent("DELETE");
-//        deleteNotif.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        deleteNotif.putExtra("activeTimer", notifyID);
-//        PendingIntent deleteNotifPending =
-//                PendingIntent.getBroadcast(actualContext, 0, deleteNotif, FLAG_UPDATE_CURRENT);
-
 
         NotificationCompat.Builder builder;
         if(state == ActiveTimerState.PAUSED) {

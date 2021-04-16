@@ -39,6 +39,7 @@
             android:alpha="1"
             android:cursorVisible="true"
             android:ems="10"
+            android:maxLength="15"
             android:gravity="center"
             android:inputType="text"
             android:singleLine="true"

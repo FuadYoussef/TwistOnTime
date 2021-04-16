@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/preset_timer_name"
-        android:layout_width="50dp"
+        android:layout_width="125dp"
         android:layout_height="20dp"
         android:layout_margin="10dp"
         android:text="@string/preset_name_text"

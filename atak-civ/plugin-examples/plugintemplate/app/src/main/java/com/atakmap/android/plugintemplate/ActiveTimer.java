@@ -159,8 +159,8 @@ public class ActiveTimer implements Serializable {
                     .setPriority(NotificationCompat.PRIORITY_LOW)
                     .setColor(Color.blue(1))
                     .setOnlyAlertOnce(true)
+                    .setOngoing(true)
                     .setSound(null);
-//                    .setDeleteIntent(deleteNotifPending)
         } else if (state == ActiveTimerState.RUNNING){
             notificationStr = getDurationRemainingString();
             builder = new NotificationCompat.Builder(actualContext, CHANNEL_ID)
@@ -170,7 +170,7 @@ public class ActiveTimer implements Serializable {
                     .setPriority(NotificationCompat.PRIORITY_LOW)
                     .setColor(Color.blue(1))
                     .setOnlyAlertOnce(true)
-//                    .setDeleteIntent(deleteNotifPending)
+                    .setOngoing(true)
                     .setSound(null);
         } else {
             notificationStr = "Finished";
@@ -181,7 +181,7 @@ public class ActiveTimer implements Serializable {
                     .setPriority(NotificationCompat.PRIORITY_LOW)
                     .setColor(Color.blue(1))
                     .setOnlyAlertOnce(true)
-//                    .setDeleteIntent(deleteNotifPending)
+                    .setOngoing(true)
                     .setSound(null);
         }
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(actualContext);

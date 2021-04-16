@@ -2,13 +2,13 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginLeft="3dp"
     android:layout_marginRight="3dp"
     android:fadeScrollbars="false">
+
 
 
     <TextView
@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/set_notifications_header"
         android:textSize="@dimen/header_font_size" />
@@ -28,18 +29,23 @@
         android:layout_below="@+id/notifications_header"
         android:layout_centerInParent="true"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="128dp">
+        android:layout_marginBottom="64dp"
+        android:layout_alignParentTop="true"
+        android:background="#1EFFFFFF"
+        android:paddingBottom="5dp">
 
         <LinearLayout
             android:id="@+id/notification_options_zone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
-
+            android:layout_gravity="left"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
         </LinearLayout>
+
+
     </ScrollView>
 
     <Button

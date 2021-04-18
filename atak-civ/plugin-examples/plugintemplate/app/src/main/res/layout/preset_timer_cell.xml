@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:background="@drawable/timer_container_layout"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <TextView
         android:id="@+id/preset_timer_name"
         android:layout_width="wrap_content"
@@ -23,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/preset_timer_set_button"
+        android:layout_margin="10dp"
         android:text="@string/preset_duration_text"
         android:layout_centerVertical="true"
         android:textSize="18sp"

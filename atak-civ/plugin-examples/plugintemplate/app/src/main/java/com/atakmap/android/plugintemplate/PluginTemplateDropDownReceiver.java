@@ -44,9 +44,11 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
     private final View templateView;
     private final Context pluginContext;
     private RecyclerView mainScreenTimerList;
-    private static ArrayList<ActiveTimer> timers = new ArrayList<>();
+    public static ArrayList<ActiveTimer> timers = new ArrayList<>();
     private TimerListAdapter adapter;
     public static ArrayList<Timer> presets;
+    private final MapView mapView;
+    private int notificationCount = 0;
 
 
     /**************************** CONSTRUCTOR *****************************/
@@ -66,6 +68,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
         mainScreenTimerList.setLayoutManager(manager);
 
         adapter = new TimerListAdapter(timers);
+        this.mapView = mapView;
         mainScreenTimerList.setAdapter(adapter);
 
 
@@ -122,7 +125,7 @@ public class PluginTemplateDropDownReceiver extends DropDownReceiver implements
                 Timer timer = (Timer) intent.getSerializableExtra("TIMER");
                 //we pass the adapter we use for our recycler view to each ActiveTimer so that as it counts down it forces the adapter to update
                 //we pass the plugin context to the ActiveTimer so that it knows the context to make a sound
-                timers.add(new ActiveTimer(timer, adapter, pluginContext));
+                timers.add(new ActiveTimer(timer,  notificationCount++, adapter, pluginContext, mapView));
                 adapter.notifyDataSetChanged();
             }
         }

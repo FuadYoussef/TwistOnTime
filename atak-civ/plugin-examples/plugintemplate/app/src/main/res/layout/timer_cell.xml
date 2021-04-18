@@ -8,9 +8,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:id="@+id/timer_name"
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_margin="10dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:maxWidth="125dp"
         android:textSize="18sp"
         android:text=""/>
     <TextView
@@ -18,7 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_toRightOf="@+id/timer_name"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:text=""/>
     <ImageButton
@@ -27,6 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:id="@+id/timer_start_button"
         android:layout_toLeftOf="@+id/timer_reset_button"
         android:background="@drawable/round_play_arrow_white_24dp"
@@ -37,6 +42,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:id="@+id/timer_pause_button"
         android:layout_toLeftOf="@+id/timer_reset_button"
         android:background="@drawable/round_pause_white_24dp"
@@ -47,6 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:id="@+id/timer_reset_button"
         android:layout_toLeftOf="@+id/timer_dismiss_button"
         android:background="@drawable/round_replay_white_24dp"

@@ -90,10 +90,13 @@ public class CreateTimerDropDown extends DropDownReceiver implements OnStateList
                 String durationMinStr = durationMinutes.getText().toString();
                 String durationHrStr = durationHours.getText().toString();
                 String durationSecStr = durationSeconds.getText().toString();
-                if (!durationMinStr.matches("") && !nameStr.matches("") &&
-                        !durationHrStr.matches("") && !durationSecStr.matches("")) {
+                if (!nameStr.matches("") && !(durationMinStr.matches("") &&
+                        durationHrStr.matches("") && durationSecStr.matches(""))) {
                     timer.setName(nameStr);
                     timer.setPreset(preset.isChecked());
+                    if (durationMinStr.matches("")) durationMinStr = "0";
+                    if (durationSecStr.matches("")) durationSecStr = "0";
+                    if (durationHrStr.matches("")) durationHrStr = "0";
                     timer.setMinutes(Integer.parseInt(durationMinStr));
                     timer.setHours(Integer.parseInt(durationHrStr));
                     timer.setSeconds(Integer.parseInt(durationSecStr));

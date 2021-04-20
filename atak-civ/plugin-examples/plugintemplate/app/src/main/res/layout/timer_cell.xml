@@ -11,7 +11,7 @@
         android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
-        android:maxWidth="125dp"
+        android:maxWidth="100dp"
         android:textSize="18sp"
         android:text=""/>
     <TextView

@@ -35,7 +35,7 @@ Currently there is 1 known bug. It is listed below.
 Various components detailing the project setup is listed below. A full walkthrough detailing
 how to setup the plugin is listed below.
 
-## Project Pre-requisites:
+## Project Prerequisites
 
 - Install Android Studio
 - Download an Android Virtual Device Manager (AVD) with API level 21

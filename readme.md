@@ -31,29 +31,28 @@ Currently there is 1 known bug. It is listed below.
 - When the timer is name is comprised of large letters such as 10 W’s, the timer’s name
     may overlap with the timer duration on the home and preset screens.
 
+
 ```
 Install Guide
 ```
 Various components detailing the project setup is listed below. A full walkthrough detailing
 how to setup the plugin is listed below.
 
-- **Project Pre-requisites:**
+## Project Pre-requisites:
 
-
-```
 o Install Android Studio
 o Download an Android Virtual Device Manager (AVD) with API level 21
-```
-- **Project Dependent libraries**
+
+## Project Dependent libraries 
     o Download the ATAK.apk file from this link (http://bit.ly/atakapk) and place it
        somewhere you can remember.
     o Within Android Studio, navigate to your preferences and ensure that the Android
        SDK is set to API Level 21.
-- **Project Download instructions:**
+## Project Download instructions:
     o Clone the TwistOnTime repository from Github to your computer. You can
        navigate to your desired folder through Terminal, and type "git clone
        https://github.com/FuadYoussef/TwistOnTime.git".
-- **Project Build/Install Instructions**
+## Project Build/Install Instructions
     o Within Android Studio, open the following project: atak-civ/plugin-
        examples/plugintemplate
     o Within Android Studio, navigate to the Android Virtual Device Manager (AVD)
@@ -73,20 +72,20 @@ o Download an Android Virtual Device Manager (AVD) with API level 21
        should see an alert on the emulator's screen asking "Would you like to load this
        installed plugin into ATAK?" -- be sure to select "OK".
     o Now, your current ATAK application is running on your virtual device!
-- **Project Run instructions:**
+## Project Run instructions:
     o In the ATAK app, select the three vertical dots on the top-right of the screen, and
        scroll down to the "Twist on Time" plugin. Half of the screen will be populated
        with the new timer plugin.
     o
-- **Troubleshooting:**
+## Troubleshooting:
     o If you receive a version downgrade error when trying to install the plugin, first
        run uninstallCivDebug under the Gradle tab, and then after the process is
        completed, run installCivDebug under the Gradle tab.
 
 
-```
-Installation Walkthrough
-```
+
+## Installation Walkthrough
+
 1. Clone the TwistOnTime repository from Github to your computer. You can navigate to
     your desired folder through Terminal, and type "git clone
     https://github.com/FuadYoussef/TwistOnTime.git".

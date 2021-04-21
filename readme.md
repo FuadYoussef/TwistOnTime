@@ -40,31 +40,30 @@ how to setup the plugin is listed below.
 
 ## Project Pre-requisites:
 
-o Install Android Studio
-o Download an Android Virtual Device Manager (AVD) with API level 21
+- Install Android Studio
+- Download an Android Virtual Device Manager (AVD) with API level 21
 
 ## Project Dependent libraries 
-    o Download the ATAK.apk file from this link (http://bit.ly/atakapk) and place it
+- Download the ATAK.apk file from this link (http://bit.ly/atakapk) and place it
        somewhere you can remember.
     o Within Android Studio, navigate to your preferences and ensure that the Android
        SDK is set to API Level 21.
-## Project Download instructions:
-    o Clone the TwistOnTime repository from Github to your computer. You can
+- Clone the TwistOnTime repository from Github to your computer. You can
        navigate to your desired folder through Terminal, and type "git clone
        https://github.com/FuadYoussef/TwistOnTime.git".
 ## Project Build/Install Instructions
-    o Within Android Studio, open the following project: atak-civ/plugin-
+- Within Android Studio, open the following project: atak-civ/plugin-
        examples/plugintemplate
-    o Within Android Studio, navigate to the Android Virtual Device Manager (AVD)
+- Within Android Studio, navigate to the Android Virtual Device Manager (AVD)
        and create a new virtual device. Use the (Phone) Pixel 2 API 28 as your virtual
        device.
-    o In the AVD, select the play button to launch the Pixel 2 AVD in the emulator.
+- In the AVD, select the play button to launch the Pixel 2 AVD in the emulator.
        Now, drag the ATAK.apk file you downloaded in step 2 onto the Pixel 2 screen to
        install the ATAK application.
-    o In the emulator, open the newly downloaded ATAK application, and be sure to
+- In the emulator, open the newly downloaded ATAK application, and be sure to
        agree to all permissions. You might be asked to type in a passcode. NOTE: keep
        this passcode in a safe place!
-    o Keep your emulator running. Now we are ready to begin the installation process
+- Keep your emulator running. Now we are ready to begin the installation process
        of the Timer plugin. Go back to Android Studio and select "Gradle" on the right-
        side of your screen. Navigate to and double-click on
        plugintemplate/Tasks/install/uninstallCivDebug. Then, navigate to and double-
@@ -73,12 +72,11 @@ o Download an Android Virtual Device Manager (AVD) with API level 21
        installed plugin into ATAK?" -- be sure to select "OK".
     o Now, your current ATAK application is running on your virtual device!
 ## Project Run instructions:
-    o In the ATAK app, select the three vertical dots on the top-right of the screen, and
+- In the ATAK app, select the three vertical dots on the top-right of the screen, and
        scroll down to the "Twist on Time" plugin. Half of the screen will be populated
        with the new timer plugin.
-    o
 ## Troubleshooting:
-    o If you receive a version downgrade error when trying to install the plugin, first
+- If you receive a version downgrade error when trying to install the plugin, first
        run uninstallCivDebug under the Gradle tab, and then after the process is
        completed, run installCivDebug under the Gradle tab.
 

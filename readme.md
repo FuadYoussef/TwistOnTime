@@ -9,7 +9,7 @@ There is also a detailed design document in this repo. That document goes into m
 about the plugin and our design choices.
 
 # Release Notes
-## Features in This Release
+## Features in this Release
 
 - Users can create custom and preset timers, with preset timers being persistent and
     remaining across sessions
@@ -40,7 +40,7 @@ how to setup the plugin is listed below.
 - Install Android Studio
 - Download an Android Virtual Device Manager (AVD) with API level 21
 
-## Project Dependent libraries 
+## Project Dependent Libraries 
 - Download the ATAK.apk file from this link (http://bit.ly/atakapk) and place it
        somewhere you can remember.
     o Within Android Studio, navigate to your preferences and ensure that the Android

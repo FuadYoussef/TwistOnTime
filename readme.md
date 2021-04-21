@@ -5,7 +5,7 @@ application. This project was developed by Georgia Tech Junior Design Team 0336 
 
 The current release notes, an install guide, and an installation walkthrough are listed below.
 
-There is also a detailed design document in this repo. That document goes into more detail
+There is also a detailed design document in this repo (File name TwistOnTime_DetailedDesign_JIE0336_Spring2021). That document goes into more detail
 about the plugin and our design choices.
 
 # Release Notes

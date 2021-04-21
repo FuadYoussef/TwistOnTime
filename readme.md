@@ -7,9 +7,7 @@ The current release notes, an install guide, and an installation walkthrough are
 There is also a detailed design document in this repo. That document goes into more detail
 about the plugin and our design choices.
 
-```
-Release Notes
-```
+# Release Notes
 ## Features in This Release:
 
 - Users can create custom and preset timers, with preset timers being persistent and
@@ -32,9 +30,7 @@ Currently there is 1 known bug. It is listed below.
     may overlap with the timer duration on the home and preset screens.
 
 
-```
-Install Guide
-```
+# Install Guide
 Various components detailing the project setup is listed below. A full walkthrough detailing
 how to setup the plugin is listed below.
 

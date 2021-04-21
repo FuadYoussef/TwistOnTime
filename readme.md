@@ -21,4 +21,7 @@ within the ATAK application. Below, you will find the exact steps about how to d
 
 8) In the ATAK app, select the three vertical dots on the top-right of the screen, and scroll down to the "Twist on Time" plugin. Half of the screen will be populated with the new timer plugin. 
 
-9) All done! Great work!
+
+9) Make sure in device settings you enable storage permissions for both ATAK and the Twist on Time plugin to ensure that Presets work properly
+
+10) All done! Great work!

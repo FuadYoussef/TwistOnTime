@@ -5,13 +5,14 @@
     android:layout_height="wrap_content"
     android:background="@drawable/timer_container_layout"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <TextView
         android:id="@+id/preset_timer_name"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_margin="10dp"
+        android:layout_centerVertical="true"
         android:text="@string/preset_name_text"
+        android:layout_marginStart="10dp"
+        android:maxWidth="125dp"
         android:textSize="18sp"
         android:onClick="onClick"
         android:clickable="true"/>
@@ -20,9 +21,10 @@
         android:id="@+id/preset_timer_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/preset_timer_set_button"
         android:layout_margin="10dp"
-        android:layout_toRightOf="@+id/preset_timer_name"
         android:text="@string/preset_duration_text"
+        android:layout_centerVertical="true"
         android:textSize="18sp"
         android:onClick="onClick"
         android:clickable="true"/>
@@ -35,6 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/preset_timer_delete_button"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:background="@drawable/add_preset_icon"
         android:backgroundTint="@color/white"
         android:visibility="visible" />
@@ -47,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/delete_preset_icon"
         android:backgroundTint="@color/white"

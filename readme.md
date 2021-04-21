@@ -68,11 +68,11 @@ how to setup the plugin is listed below.
        should see an alert on the emulator's screen asking "Would you like to load this
        installed plugin into ATAK?" -- be sure to select "OK".
     o Now, your current ATAK application is running on your virtual device!
-## Project Run instructions:
+## Project Run Instructions
 - In the ATAK app, select the three vertical dots on the top-right of the screen, and
        scroll down to the "Twist on Time" plugin. Half of the screen will be populated
        with the new timer plugin.
-## Troubleshooting:
+## Troubleshooting
 - If you receive a version downgrade error when trying to install the plugin, first
        run uninstallCivDebug under the Gradle tab, and then after the process is
        completed, run installCivDebug under the Gradle tab.

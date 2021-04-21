@@ -1,6 +1,3 @@
-```
-Twist on Time
-```
 Twist on Time is a plugin that allows users to run multiple timers at the same time in the ATAK
 application. This project was developed by Georgia Tech Junior Design Team 0336 in the Spring
 2021 semester in collaboration with the 75th Ranger Regiment.
@@ -13,7 +10,7 @@ about the plugin and our design choices.
 ```
 Release Notes
 ```
-Features in This Release:
+## Features in This Release:
 
 - Users can create custom and preset timers, with preset timers being persistent and
     remaining across sessions
@@ -22,12 +19,12 @@ Features in This Release:
 - Users can give timers custom notifications
 - Users can set preset timers
 
-Bug Fixes:
+## Bug Fixes:
 
 - Recent bug fixes include being able to delete preset timers, and timer name getting
     cutoff.
 
-Known Bugs:
+## Known Bugs:
 
 Currently there is 1 known bug. It is listed below.
 

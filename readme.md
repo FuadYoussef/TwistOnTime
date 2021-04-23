@@ -8,7 +8,7 @@ The current release notes, an install guide, and an installation walkthrough are
 There is also a detailed design document in this repo (TwistOnTime_DetailedDesign_JIE0336_Spring2021). That document goes into more detail
 about the plugin and our design choices.
 
-# Release Notes
+# Release Notes v1.0
 ## Features in this Release
 
 - Users can create custom and preset timers, with preset timers being persistent and
